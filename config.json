@@ -1,0 +1,13 @@
+{
+    "librariesExternals": [
+        "whoops",
+        "php-ref",
+        "var-dumper",
+        "http-message",
+        "faker"
+    ],
+    "autoload": {
+        "System\\": "../src/Core",
+        "App\\": "../src"
+    }
+}
