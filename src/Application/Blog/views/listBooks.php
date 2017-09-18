@@ -13,7 +13,7 @@
     <h2 class="subtitle">Tous mes livres</h2>
     <hr>
     <div class="columns is-multiline">
-    <?php foreach ($posts as $post):?>
+    <?php foreach ($books as $book):?>
       <div class="column is-offset-one-quarter-mobile is-half-mobile is-one-third">
         <div class="card">
           <div class="card-image">
@@ -29,14 +29,14 @@
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-4"><?= $post['name'];?></p>
+                <p class="title is-4"><?= $book->name;?></p>
                 <p class="subtitle is-6">@Jean Forteroche</p>
               </div>
             </div>
 
             <div class="content">
-              <?= $post['extrait'];?>
-              <a href="<?= $router->generateUri('Blog#shows', ['slug' => $post['slug']]) ?>">Ouvrir</a>
+              <?= $book->excerpt;;?>
+              <a href="<?= $router->generateUri('Blog#listChapters', ['slug' => $book->slug]) ?>">Ouvrir</a>
               <br>
               <!-- <small>11:09 PM - 1 Jan 2016</small> -->
             </div>

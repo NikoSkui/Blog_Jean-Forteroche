@@ -27,7 +27,7 @@
   <div id="navMenubd-example" class="navbar-menu">
     <div class="navbar-start">
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-item" href="<?= $router->generateUri('Blog#index') ?>">
+        <a class="navbar-item" href="<?= $router->generateUri('Blog#listBooks') ?>">
           Livres
         </a>
       </div>

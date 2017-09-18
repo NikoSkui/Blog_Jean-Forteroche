@@ -35,6 +35,11 @@ class DIContainer
   */
   private $instances = [];
 
+  public function __construct ()
+  {
+    $this->instances['System\Container\DIContainer'] = $this;
+  }
+
   /**
    * Add new path for definitions.
    *
@@ -60,6 +65,8 @@ class DIContainer
         }
       }
     }
+
+    return $this;
   }
 
   /**
@@ -117,6 +124,7 @@ class DIContainer
    */
   public function get($id)
   {
+    
     if ($this->hasConfig($id)) {
       return $this->config[$id]; 
     }

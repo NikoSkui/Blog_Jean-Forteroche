@@ -35,11 +35,17 @@ class PHPRenderer implements RendererInterface
    */
   private $globals = [];
 
-  public function __construct (string $defaultPath = null)
+  public function __construct (string $defaultPath = null, $globals = null)
   {
     if (!is_null($defaultPath)) {
       $this->addPath($defaultPath);
     }
+    if (!is_null($globals)) {
+      foreach ($globals as $k => $v) {
+        $this->addGlobal($k, $v);
+      }
+    }
+
   }
 
   /**
@@ -95,6 +101,14 @@ class PHPRenderer implements RendererInterface
     $this->globals[$key] = $value;
   }
 
+  public function hasView (string $view)
+  {
+    $namespace = $this->getNamespace($view);
+    if (isset($this->paths[$namespace])) {
+      return true;
+    }
+  }
+
   private function loadTemplate($path, $params)
   {
     ob_start();
@@ -120,5 +134,6 @@ class PHPRenderer implements RendererInterface
     $namespace = $this->getNamespace($view);
     return str_replace('@'.$namespace, $this->paths[$namespace], $view);
   }
+
 
 }

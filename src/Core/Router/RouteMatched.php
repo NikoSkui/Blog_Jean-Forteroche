@@ -27,7 +27,7 @@ class RouteMatched
    * @param route       $route the route object who matched
    * @param array       $params The route matched params
    */
-  public function __construct(route $route, array $params)
+  public function __construct(route $route, array $params = [])
   {
     $this->route = $route;
     $this->params = $params;

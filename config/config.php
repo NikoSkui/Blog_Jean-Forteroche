@@ -1,22 +1,23 @@
 <?php
 
+use System\Renderer\RendererInterface;
+
 return [
+
+  // VIEWS BASE FOR DEFAULT TEMPLATE
+  'views.path' => dirname(__DIR__) . '/src/Application/Templates',
+  
+  // DATABASE
   'database.host' => 'localhost',
   'database.username' => 'root',
   'database.password' => 'root',
   'database.name' => 'Blog_Jean-Forteroche',
-  System\Renderer\RendererInterface::class => function() {
-    return new System\Renderer\PHPRenderer(dirname(__DIR__) . '/src/Templates');
+
+  // OBJECT WHITH params
+  RendererInterface::class => function() {
+    return call_user_func_array($this->get('System\Renderer\PHPRendererFactory'),[$this]);
   },
-  \PDO::class => function(System\Container\DIContainer $c) {
-    return new \PDO(
-      'mysql:host='.$c->get('database.host').';dbname='.$c->get('database.name'),
-      $c->get('database.username'),
-      $c->get('database.password'),
-      [
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-      ]
-    );
+  \PDO::class => function() {
+    return call_user_func_array($this->get('System\Database\DatabaseFactory'),[$this]);
   }
 ];

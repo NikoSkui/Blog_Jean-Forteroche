@@ -2,6 +2,7 @@
 
 namespace App\Base;
 
+use \App\Models\BookModel;
 use System\Module;
 use System\Router;
 use System\Database\Database;
@@ -11,14 +12,14 @@ use System\Renderer\RendererInterface;
 class BaseModule extends Module
 {
 
-  private $db;
+  private $bookModel;
 
-  public function __construct (Router $router, RendererInterface $renderer, \PDO $database)
+  public function __construct (Router $router, RendererInterface $renderer, BookModel $bookModel)
   {
-    parent::__construct($router, $renderer);
+    // parent::__construct($router, $renderer);
     
     $this->renderer = $renderer;
-    $this->db = $database;
+    $this->bookModel = $bookModel;
 
     $renderer->addPath(__DIR__ . '/views','base');
     $router->get('/', [$this, 'index'], 'Base#home');
@@ -31,16 +32,13 @@ class BaseModule extends Module
 
   public function index (Request $request)
   {
-    $posts = $this->db
-                  ->query('SELECT * FROM books')
-                  ->fetchAll();
-    $test = ['trer', 'dsfg','df'];
-    $slug = 'mon slug';
+    // r($request);
+    // r($request->getServerParam('HTTP_HOST'));
+    // r($request->getServerParam('REQUEST_URI'));
+    $post = $this->bookModel->findLast();
 
-    print_r(compact('posts'));
-    $newDatas = compact($datas);
 
-    return $this->renderer->render('@base/index',compact('posts','test','slug'));
+    return $this->renderer->render('@base/index',compact('post'));
   }
 
 }

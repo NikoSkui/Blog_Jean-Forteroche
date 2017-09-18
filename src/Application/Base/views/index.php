@@ -6,9 +6,6 @@
     </div>
   </div>
 </section>
-<?= r($posts)?>
-<?= r($test)?>
-<?= r($slug)?>
 
 <section class="section">
   <div class="container">
@@ -31,17 +28,14 @@
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-4">Mon dernier livre</p>
+                <p class="title is-4"><?= $post->name ?></p>
                 <p class="subtitle is-6">@Jean Forteroche</p>
               </div>
             </div>
 
             <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus nec iaculis mauris.
-              <a href="<?= $router->generateUri('Blog#shows', ['slug' => 'mon-dernier-livre']) ?>">Ouvrir</a>
-              <br>
-              <!-- <small>11:09 PM - 1 Jan 2016</small> -->
+              <?= $post->excerpt ?>
+              <?= $post->url(['name'=>'toto']) ?>
             </div>
           </div>
         </div>
@@ -51,3 +45,4 @@
   </div>
 
 </section>
+<?= $post->created_at->format('l j F Y') ?>

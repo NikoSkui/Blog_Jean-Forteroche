@@ -22,10 +22,7 @@ foreach ($autoload_src as $src_vendor) {
     }
 }
 // Adding Custom Require Files automatically
-// TODO
-$includeFiles_custom = array(
-    // 0 => "src"
-);
+$includeFiles_custom = json_decode($config,true)['files'];
 
 // Fusion des tableaux
 $includeFiles = array_merge($includeFiles_librariesExternals,$includeFiles_custom);

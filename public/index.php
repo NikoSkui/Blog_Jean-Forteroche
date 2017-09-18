@@ -12,16 +12,16 @@ ref::config('validHtml', true);
 /**
  * Etape 2.1: Test whoops
  */
-// $whoops = new \Whoops\Run;
-// $handler = new \Whoops\Handler\PrettyPageHandler;
-// // Add a custom table to the layout:
+$whoops = new \Whoops\Run;
+$handler = new \Whoops\Handler\PrettyPageHandler;
+// Add a custom table to the layout:
 
-// $handler->addDataTable('Errors Chargment Autoload',Autoloader::getAutoloadErrors());
+$handler->addDataTable('Errors Chargment Autoload',Autoloader::getAutoloadErrors());
 
 
 
-// $whoops->pushHandler($handler);
-// $whoops->register();
+$whoops->pushHandler($handler);
+$whoops->register();
 
  
 /**
@@ -37,6 +37,7 @@ ref::config('validHtml', true);
  */
 $app = new \System\App([
   \App\Base\BaseModule::class,
+  \App\Comment\CommentModule::class,
   \App\Blog\BlogModule::class
 ]);
 
