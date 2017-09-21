@@ -19,7 +19,21 @@ class CommentModel
   }
 
   /**
-   * Find all Comments with the slug of a book
+  * Create a new comment
+  */
+  public function create($datas)
+  {
+    $fields = join(', ', array_map(function($fields){
+      return "$fields = :$fields";
+    }, array_keys($datas)));
+
+    $query = "INSERT INTO comments SET $fields";
+    $statement = $this->pdo->prepare($query);
+    $statement->execute($datas);
+  }
+
+  /**
+   * Read all Comments with the slug of a book
    * @return array
    */
   public function findAll($id)
@@ -37,7 +51,11 @@ class CommentModel
 		$statement->execute($params);
     return $statement->fetchAll(PDO::FETCH_GROUP);
   }
-
+  
+  /**
+   * Read the parent comment of the current comment in a specific chapter
+   * @return array
+   */
   public function hasParentCommentInChapter($chapters_id,$parent_id)
   {
     $params[":parent_id"] = $parent_id;
@@ -50,18 +68,6 @@ class CommentModel
     $statement= $this->pdo->prepare($query);
 		$statement->execute($params);
     return $statement->fetch();
-  }
-
-  public function create($datas)
-  {
-    $fields = join(', ', array_map(function($fields){
-      return "$fields = :$fields";
-    }, array_keys($datas)));
-
-    $query = "INSERT INTO comments SET $fields";
-    // die();
-    $statement = $this->pdo->prepare($query);
-    $statement->execute($datas);
   }
 
 }

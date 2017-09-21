@@ -5,18 +5,21 @@ namespace App\Comment\controllers;
 use App\Models\CommentModel;
 use App\Helpers\RouterAwareHelper;
 use System\Http\Request;
+use System\Router;
 
 class CommentController
 {
+
+  private $router;
 
   private $commentModel;
 
   use RouterAwareHelper;
 
-  public function __construct(CommentModel $commentModel)
+  public function __construct(Router $router, CommentModel $commentModel)
   {
 
-    $this->renderer = $renderer;
+    $this->router = $router;
 
     $this->bookModel = $bookModel;
     $this->chapterModel = $chapterModel;
@@ -25,11 +28,11 @@ class CommentController
    
   public function __invoke (Request $request)
   {
-
+    
     $id = $request->getAttribute('id');
-    $slug = $request->getAttribute('slug');
+    $slugChapter = $request->getAttribute('slugChapter');
 
-    if ($id && $slug) {
+    if ($id && $slugChapter) {
       return $this->postComment($request);
     } 
   }
@@ -39,7 +42,6 @@ class CommentController
 
   public function postComment ($request)
   {
-    r($request->getParsedBody());die();
     /**
     * Step 1: Recovery only of the desired keys.
     *         Example of injection with keys that you do not want:
@@ -83,9 +85,9 @@ class CommentController
     * Step 5: Redirection to the original page.
     */
     return $this->redirect('Blog#oneChapter',[
-      'slugBook' => $request->getAttribute('slugBook'),
-      'id' => $request->getAttribute('id'),
-      'slug' => $request->getAttribute('slug')
+      'slugBook'    => $request->getAttribute('slugBook'),
+      'id'          => $request->getAttribute('id'),
+      'slugChapter' => $request->getAttribute('slugChapter')
     ]);
 
   }

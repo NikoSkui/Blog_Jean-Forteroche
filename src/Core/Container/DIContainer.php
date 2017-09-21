@@ -138,6 +138,9 @@ class DIContainer
         $reflected_class = new \ReflectionClass($id);
         if ($reflected_class->isInstantiable()) {
           $constructor = $reflected_class->getConstructor();
+          if(!$constructor){
+            return $reflected_class->newInstanceWithoutConstructor();
+          }
           $params = $constructor->getParameters(); 
           $constructor_params = [];
           foreach ($params as $param) {

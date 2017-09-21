@@ -15,11 +15,11 @@ class PHPRenderer implements RendererInterface
   private $templateCharged = false;
 
   /**
-   * Template utilisé pour rendre la vue
+   * Layout utilisé pour rendre la vue
    *
    * @var array
    */
-  private $template = 'layout';
+  private $layoutNamespace;
 
   /**
    * Ensemble des chemins ajouté au renderer
@@ -77,10 +77,14 @@ class PHPRenderer implements RendererInterface
   {
     if ($this->hasNamespace($view)) {
       $path = $this->replaceNamespace($view) . '.php';
+      
       if (!$this->templateCharged) {
         $this->templateCharged = true;
         $params['content'] = $this->loadTemplate($path, $params);
-        $path = $this->paths[self::DEFAULT_NAMESPACE] . '/' .$this->template .'.php'; 
+        $path = $this->paths[$this->layoutNamespace].'/template/layout.php';
+        if (!file_exists($path)) {
+          $path = $this->paths[self::DEFAULT_NAMESPACE] . '/layout.php'; 
+        }
       }
     } else {
       $path = $this->paths[self::DEFAULT_NAMESPACE] . '/' . $view . '.php'; 
@@ -107,6 +111,11 @@ class PHPRenderer implements RendererInterface
     if (isset($this->paths[$namespace])) {
       return true;
     }
+  }
+
+  public function setLayoutNamespace(string $namespace)
+  {
+    $this->layoutNamespace = $namespace;
   }
 
   private function loadTemplate($path, $params)

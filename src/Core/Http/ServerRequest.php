@@ -14,6 +14,11 @@ class ServerRequest extends Request
   /**
   * @var array
   */
+  private $attributesPassed = [];
+
+  /**
+  * @var array
+  */
   private $queryParams = [];
   
   /**
@@ -32,7 +37,7 @@ class ServerRequest extends Request
    * @param string                               $version      Protocol version
    * @param array                                $serverParams Typically the $_SERVER superglobal
    */
-  public function __construct(string $method, Uri $uri, string $version = null, array $serverParams = [])
+  public function __construct($method = 'GET', Uri $uri, string $version = null, array $serverParams = [])
   {
     $this->serverParams = $serverParams;
     parent::__construct($method, $uri, $version);
@@ -330,6 +335,20 @@ class ServerRequest extends Request
   public function withoutAttribute($name)
   {
     //TODO Implement method() from interface PSR-7
+  }
+
+  /**
+   * Return an instance with the specified derived request attribute.
+   *
+   * @param string $name The attribute name.
+   * @param mixed $value The value of the attribute.
+   * @return static
+   */
+  public function withAttributePassed($name, $value)
+  {
+      $new = clone $this;
+      $new->attributesPassed[$name] = $value;
+      return $new;
   }
   
 }

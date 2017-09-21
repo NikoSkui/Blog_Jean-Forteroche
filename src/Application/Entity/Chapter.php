@@ -14,7 +14,7 @@ class Chapter extends Entity
   public $created_at;
   public $modified_at;
   public $chapters_order;
-  public $book_id;
+  public $books_id;
 
   public function __construct()
   {

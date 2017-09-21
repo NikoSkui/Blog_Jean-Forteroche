@@ -35,7 +35,8 @@ class Route
    */
   private $paramsRestrictions = [
     'id' =>'[0-9]+',
-    'slug'=>'([a-z\-0-9]+)'
+    'slugBook'=>'[a-z\-0-9]+',
+    'slugChapter'=>'[a-z\-0-9]+',
   ];
 
   /**
@@ -120,7 +121,7 @@ class Route
     $path = $this->getPattern();
     foreach ($params as $k => $v) {
       $path = str_replace('{'.$k.'}',$v, $path);
-    }
+    } 
 
     return $path;
   }

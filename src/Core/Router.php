@@ -5,6 +5,7 @@ namespace System;
 use System\Router\Route;
 use System\Router\RouteMatched;
 use System\Http\Request;
+use System\Http\ServerRequest;
 
 class Router
 {
@@ -15,9 +16,14 @@ class Router
    */
   private $routes = [];
 
-  public function __construct()
-  {
+  /**
+   * @var DIContainer
+   */
+  private $container;
 
+  public function __construct(\System\Container\DIContainer $container)
+  {
+    $this->container = $container;
   }
 
   /**
@@ -46,6 +52,51 @@ class Router
     $route = new Route(['POST'], $path, $callable, $name);
     $this->addRoute($route);
     return $route;
+  }
+
+  /**
+   * create new route with method PUT.
+   *
+   * @param string $path
+   * @param callable|string $callable
+   * @param null|string $name
+   */
+  public function put(string $path, $callable, string $name = null)
+  {
+    $route = new Route(['PUT'], $path, $callable, $name);
+    $this->addRoute($route);
+    return $route;
+  }
+
+  /**
+   * create new route with method DELETE.
+   *
+   * @param string $path
+   * @param callable|string $callable
+   * @param null|string $name
+   */
+  public function delete(string $path, $callable, string $name = null)
+  {
+    $route = new Route(['DELETE'], $path, $callable, $name);
+    $this->addRoute($route);
+    return $route;
+  }
+
+  /**
+   * create routes with syteme CRUD REST.
+   *
+   * @param string $path
+   * @param callable|string $callable
+   * @param null|string $name
+   */
+  public function crud(string $prefixPath, $callable, string $prefixName)
+  {
+      $this->get($prefixPath.'/new',     $callable, "$prefixName#Create");
+      $this->post($prefixPath.'/new',    $callable, "$prefixName#Create");
+      $this->get($prefixPath,            $callable, "$prefixName#Read");
+      $this->get($prefixPath.'/{id}',    $callable, "$prefixName#Update");
+      $this->put($prefixPath.'/{id}',    $callable, "$prefixName#Update");
+      $this->delete($prefixPath.'/{id}', $callable, "$prefixName#Delete");
   }
 
   /**
@@ -99,8 +150,8 @@ class Router
    */
   public function generateUri (string $name, array $params = [])
   {
-    foreach ($this->routes as $method => $arrayRoutes) {
 
+    foreach ($this->routes as $method => $arrayRoutes) {
       foreach ($arrayRoutes as $nameRoute => $route) {
         $routes[$nameRoute] = $route;
       }
@@ -112,10 +163,11 @@ class Router
           $name
       ));
     }
+
     $route = $routes[$name];
+    
     $basePath = $this->getbasePath();
 
-    
     return $basePath.$route->getPath($params);
   }
 
@@ -135,8 +187,11 @@ class Router
     */
   public function addRoute(Route $route)
   {
+    if(is_null($route->getName())) {
+      $this->routes[$route->getMethod()[0]][] = $route;
+    } else {
       $this->routes[$route->getMethod()[0]][$route->getName()] = $route;
+    }
   }
-
   
 }

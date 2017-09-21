@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="navbar-brand">
-    <a class="navbar-item" href="<?= $router->generateUri('Base#home') ?>">
+    <a class="navbar-item" href="<?= $router->generateUri('FrontBase#index') ?>">
       <!-- <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28"> -->
       Jean Forteroche
     </a>
@@ -27,18 +27,27 @@
   <div id="navMenubd-example" class="navbar-menu">
     <div class="navbar-start">
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-item" href="<?= $router->generateUri('Blog#listBooks') ?>">
-          Livres
+        <a class="navbar-item" href="<?= $router->generateUri('FrontBooks#List',['slugBook'=>'mon-super-livre']) ?>">
+          Bibliothèque
         </a>
       </div>
     </div>
 
     <div class="navbar-end">
-      <a class="navbar-item is-hidden-desktop-only" href="#" target="_blank">
+      <a class="navbar-item is-hidden-desktop-only" href="https://github.com/NikoSkui/Blog_Jean-Forteroche" target="_blank">
         <span class="icon" style="color: #333;">
           <i class="fa fa-github"></i>
         </span>
-      </a>  
+      </a> 
+      <?php if ($this->hasView('@admin/')): ?> 
+      <div class="navbar-item">      
+        <p class="control">
+          <a class="button is-primary" href="<?= $router->generateUri('AdminChapters#Read') ?>">
+            <span>Connexion</span>
+          </a>
+        </p>
+      </div>
+      <?php endif ?>
     </div>
   </div>
 </nav>

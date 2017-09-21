@@ -16,7 +16,7 @@ trait RouterAwareHelper
    */
   public function redirect(string $path, array $params = [])
   {
-    $redirectUri = $this->router->generateUri('Blog#oneChapter',$params);
+    $redirectUri = $this->router->generateUri($path,$params);
     return (new Response())
       ->withStatus(301)
       ->withHeader('Location', $redirectUri);

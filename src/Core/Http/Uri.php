@@ -10,6 +10,11 @@ class Uri
   private $path = '';
   private $query = '';
 
+  public function __construct()
+  {
+    
+  }
+
     /**
      * @return string The URI scheme.
      */

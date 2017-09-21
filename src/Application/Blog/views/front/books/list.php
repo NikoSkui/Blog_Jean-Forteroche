@@ -6,7 +6,6 @@
     </div>
   </div>
 </section>
-
 <section class="section">
   <div class="container">
     <h1 class="title">Du même auteur</h1>
@@ -35,8 +34,7 @@
             </div>
 
             <div class="content">
-              <?= $book->excerpt;;?>
-              <a href="<?= $router->generateUri('Blog#listChapters', ['slug' => $book->slug]) ?>">Ouvrir</a>
+              <a href="<?= $router->generateUri($prefixNameBooks . '#One', ['slugBook' => $book->slug]) ?>">Ouvrir</a>
               <br>
               <!-- <small>11:09 PM - 1 Jan 2016</small> -->
             </div>

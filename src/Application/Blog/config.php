@@ -1,5 +1,5 @@
 <?php
 
 return [
-   'prefix.blog' => '/livres',
+   'prefix.blog' => '/bibliotheque',
 ]; 

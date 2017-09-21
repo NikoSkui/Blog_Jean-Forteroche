@@ -15,46 +15,76 @@ class App
   private $modules = [];
 
   /**
+  * List of modules.
+  * @var array
+  */
+  private $middlewares = [];
+
+  /**
   * Container.
-  * @var Container
+  * @var DIContainer
   */
   private $container;
+
+  /**
+  * Config by default.
+  * @var Container
+  */
+  private $defaultConfig;
+
+  /**
+  * Index for middlewares.
+  * @var int
+  */
+  private $index = 0;
+
 
 
   /**
   * App constructor.
   * @param array $modules List of modules charged
   */
-  public function __construct(array $modules = [])
+  public function __construct($config)
   {
-    $builder = new DIContainer(); 
-    $builder->addDefinition(dirname(dirname(__DIR__)) . '/config/config.php');
-    foreach ($modules as $module) {
-        if ($module::DEFINITIONS) {
-            $builder->addDefinition($module::DEFINITIONS);
-        }
+    $this->defaultConfig = $config;
+  }
+
+  public function addModule(string $module)
+  {
+    $this->modules[] = $module;
+    return $this;
+  }
+
+  public function pipe(string $middleware)
+  {
+    $this->middlewares[] = $middleware;
+    return $this;
+  }
+
+  public function process(\System\Http\ServerRequest $request)
+  {
+    $middleware = $this->getMiddleware();
+    if (is_null($middleware)){
+      return $request;
     }
-    $this->container = $builder->build();
-    foreach ($modules as $module) {
-      $this->modules[] = $this->container->get($module);
-    }
+    return call_user_func_array($middleware,[$request,[$this,'process']]);
+
   }
 
   public function run($request)
-  {
-
-    /**
-    * Step 1: Check if end of url is a slash "/"
-    *         If yes redirect without slash "/", with status 301 
-    *         If not continue
-    */
-    $baseUri = $request->getServerParam('REQUEST_URI');
-    $uri = $request->getUri()->getPath();
-    if(!empty($uri) && strlen($uri) > 1 && $uri[-1] === '/') {
-        return (new Response())
-            ->withStatus(301)
-            ->withHeader('location', substr($baseUri, 0, -1));
+  { 
+    foreach ($this->modules as $module) {
+      $this->getContainer()->get($module);
     }
+    
+    $process = $this->process($request);
+    if($process instanceof Response) {
+      return $process;
+    } else {
+      $request = $process;
+    }
+
+
 
     /**
     * Step 2: Checks with router if the request path is the same as one of stored routes.
@@ -68,9 +98,9 @@ class App
     * Step 3: Processes the result of step 2.
     */
 
-    // Case result is null, redirect Erreur with status 301 
+    // Case result is null, redirect Erreur with status 404 
     if (is_null($route)) {
-        return new Response(404, [], '<h1>Erreur 404<h1>');
+        return new Response(404, [], '<h1>Erreur 404 : Route not Found<h1>');
     }
 
     // Adding routeMatched object parameters to the request
@@ -125,6 +155,33 @@ class App
       while (!$stream->eof()) {
           echo $stream->read(1024 * 8);
       }
+  }
+
+  // initialised the container with singleton pattern
+  private function getContainer ()
+  {
+    if ($this->container === null) {
+      $builder = new DIContainer(); 
+      $builder->addDefinition($this->defaultConfig);
+      foreach ($this->modules as $module) {
+          if ($module::DEFINITIONS) {
+              $builder->addDefinition($module::DEFINITIONS);
+          }
+      }
+      $this->container = $builder->build();
+    }
+    return $this->container;
+  }
+
+  private function getMiddleware ()
+  {
+    if(array_key_exists($this->index,$this->middlewares)) {
+      $middleware = $this->container->get($this->middlewares[$this->index]);
+      $this->index ++;
+    } else {
+      $middleware = null;
+    }
+    return $middleware;
   }
 
 }

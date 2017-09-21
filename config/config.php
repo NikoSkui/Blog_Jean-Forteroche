@@ -5,7 +5,7 @@ use System\Renderer\RendererInterface;
 return [
 
   // VIEWS BASE FOR DEFAULT TEMPLATE
-  'views.path' => dirname(__DIR__) . '/src/Application/Templates',
+  'views.path' => dirname(__DIR__) . '/src/Application/Template',
   
   // DATABASE
   'database.host' => 'localhost',

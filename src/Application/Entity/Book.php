@@ -26,11 +26,11 @@ class Book extends Entity
   {
     $name = 'ouvrir';
     foreach ($params as $param) {
-      if(is_array($param) && array_key_exists('name',$param)) {
-        $name = $param['name'];
+      if(is_array($param) && array_key_exists('slug',$param)) {
+        $slug = $param['slug'];
       }
     }
-    $uri = $this->router->generateUri('Blog#listChapters', ['slug' => $this->slug,'id' => $this->id]);
+    $uri = $this->router->generateUri('FrontChapters#List', ['slugBook' => $this->slug]);
     $html = "<a href=$uri>$name</a>";
     echo $html;
   }

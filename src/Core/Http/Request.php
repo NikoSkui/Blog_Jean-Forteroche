@@ -19,7 +19,7 @@ class Request
    */
   private $uri;
 
-  public function __construct(string $method, Uri $uri, string $version = null) 
+  public function __construct($method = 'GET', Uri $uri, string $version = null) 
   {
     $this->method = strtoupper($method);
     $this->uri = $uri;
@@ -34,6 +34,20 @@ class Request
   public function getMethod()
   {
     return $this->method;
+  }
+
+  /**
+    * Return an instance with the provided HTTP method.
+    *
+    * @param string $method Case-sensitive method.
+    * @return static
+    * @throws \InvalidArgumentException for invalid HTTP methods.
+    */
+  public function withMethod($method)
+  {
+    $new = clone $this;
+    $new->method = $method;
+    return $new;
   }
 
 

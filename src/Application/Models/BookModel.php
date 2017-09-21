@@ -2,52 +2,51 @@
 
 namespace App\Models;
 
-use \PDO;
 use App\Entity\Book;
-use System\Router;
+use System\Model\Model;
 
-class BookModel
+class BookModel extends Model
 {
 
-  private $router;
-  private $pdo;
-  
-  public function __construct(PDO $pdo, Router $router)
+  protected $entity = Book::class;
+
+  protected $model = 'books';
+
+  public function findOneFront(int $id)
   {
-    $this->pdo = $pdo;
-    $this->router = $router;
-  }
-  /**
-   * Find all Chapters with the slug of a book
-   * @return array
-   */
-  public function findAll()
-  {
-    $query = 'SELECT *
-              FROM books
-              ORDER BY created_at ASC';
-              
-    $statement = $this->pdo->prepare($query);
-    $statement->setFetchMode(\PDO::FETCH_CLASS, Book::class,[$this->router]);
-		$statement->execute();
-    return $statement->fetchAll();
+    $query = "SELECT b.name
+              FROM $this->model as b
+              LEFT JOIN chapters as c ON b.id = c.books_id
+              WHERE b.id = ?
+              ORDER BY c.chapters_order ASC";
+
+    $statement= $this->pdo->prepare($query);
+    if($this->entity){
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+    }
+    $statement->execute([$id]);
+    return $statement->fetchAll(\PDO::FETCH_GROUP);
   }
 
-  /**
-   * Find the last book
-   * @return array
-   */
-  public function findLast()
+  public function findForHomePage()
   {
-    $query = 'SELECT *
-              FROM books
-              ORDER BY created_at ASC
-              LIMIT 1';
+    $query = "SELECT *
+              FROM $this->model as b
+              WHERE b.id = ?";
 
-    $statement = $this->pdo->prepare($query);
-    $statement->setFetchMode(\PDO::FETCH_CLASS, Book::class,[$this->router]);
-    $statement->execute();
+    $statement= $this->pdo->prepare($query);
+    if($this->entity){
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+    }
+    $statement->execute([1]);
     return $statement->fetch();
   }
-}
   
+}
+// SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2);
+
+// "SELECT b.*
+// FROM $this->model as b
+// LEFT JOIN chapters as c ON b.id = c.books_id
+// WHERE b.id = ?
+// ORDER BY c.chapters_order ASC";

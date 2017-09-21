@@ -2,73 +2,71 @@
 
 namespace App\Models;
 
-use \PDO;
 use App\Entity\Chapter;
-use System\Router;
+use System\Model\Model;
 
-class ChapterModel
+class ChapterModel extends Model
 {
 
-  private $router;
-  private $pdo;
-  
-  public function __construct(PDO $pdo, Router $router)
-  {
-    $this->pdo = $pdo;
-    $this->router = $router;
-  }
+  protected $entity = Chapter::class;
 
+  protected $model = 'chapters';
+
+  protected $fetchModeAll = \PDO::FETCH_GROUP;
+
+
+  public function findAllWithBook(int $id)
+  {
+    $query = "SELECT b.name, c.chapters_order, c.slug as slugChapter, c.chapters_order, b.slug as slugBook
+              FROM chapters as c
+              LEFT JOIN books as b ON c.books_id = b.id
+              WHERE b.id = ?
+              ORDER BY c.chapters_order ASC";
+    $statement= $this->pdo->prepare($query);
+    $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+		$statement->execute([$id]);
+    return $statement->fetchAll($this->fetchModeAll);
+  }
   /**
-   * Find all Chapters with the slug of a book
+   * Read one element with the column of element
    * @return array
    */
-  public function findAll($slug)
+  public function findOneWithBook(string $slugChapter, int $idBook)
   {
-    $params[":slug"] = $slug;
-    $query = 'SELECT books.name as book_name, chapters.id, chapters.slug, chapters.chapters_order, books.slug as book_slug
-              FROM chapters
-              LEFT JOIN books
-              On chapters.books_id = books.id
-              WHERE books.slug = :slug
-              ORDER BY chapters.chapters_order ASC';
+
+    $datas['id'] = $idBook;
+    $datas['slug'] = $slugChapter;
+
+    $query = "SELECT c.*
+              FROM chapters as c
+              LEFT JOIN books as b ON c.books_id = b.id
+              WHERE b.id = :id AND c.slug = :slug
+              ORDER BY c.chapters_order ASC";
 
     $statement= $this->pdo->prepare($query);
-    $statement->setFetchMode(PDO::FETCH_CLASS, Chapter::class,[$this->router]);
-		$statement->execute($params);
-    return $statement->fetchAll(PDO::FETCH_GROUP);
-  }
+    if($this->entity){
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+    }
 
-  /**
-   * Find one Chapter with the id of chapter
-   * @return array
-   */
-  public function findOne($id)
-  {
-    $params[":id"] = $id;
-    $query = 'SELECT chapters.*,books.name as book_name,books.slug as book_slug
-              FROM chapters
-              LEFT JOIN books
-              On chapters.books_id = books.id
-              WHERE chapters.id = :id
-              ORDER BY chapters.chapters_order ASC';
+		$statement->execute($datas);
 
-    $statement= $this->pdo->prepare($query);
-    $statement->setFetchMode(\PDO::FETCH_CLASS, Chapter::class,[$this->router]);
-		$statement->execute($params);
     return $statement->fetch();
   }
 
-  public function create($data)
+  protected function queryFindAll()
   {
-    foreach($data as $k=>$v){
-      $fields[] = "$k=:$k";
-      $params[":$k"] = $v;	
-    }
-    $sql = 'INSERT INTO chapters SET '.implode(',', $fields);
-    $statement = $this->pdo->prepare($sql);
-    $statement->execute($params);
+    return "SELECT b.name as book_name, c.id, c.name, c.slug, c.chapters_order
+            FROM chapters as c
+            LEFT JOIN books as b ON c.books_id = b.id
+            ORDER BY c.chapters_order DESC";
   }
 
-
+  protected function buildField (array $datas, $join = ', ')
+  {
+    return join($join, array_map(function($fields){
+      return "$fields = :$fields";
+    }, array_keys($datas)));
+  }
+  
 }
   

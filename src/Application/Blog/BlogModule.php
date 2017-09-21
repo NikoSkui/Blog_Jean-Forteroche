@@ -2,9 +2,13 @@
 
 namespace App\Blog;
 
-use App\Blog\controllers\BlogController;
-use App\Blog\controllers\AdminBlogController;
+use App\Blog\controllers\FrontBookController;
+use App\Blog\controllers\FrontChapterController;
+use App\Blog\controllers\CrudBookController;
+use App\Blog\controllers\CrudChapterController;
+
 use App\Comment\controllers\CommentController;
+
 use System\Module;
 use System\Router;
 use System\Container\DIContainer;
@@ -19,25 +23,28 @@ class BlogModule extends Module
   {
      $router = $container->get(Router::class);  
      $prefix_blog = $container->get('prefix.blog');  
-    // parent::__construct($router, $renderer);
 
     $container->get(RendererInterface::class)->addPath(__DIR__ . '/views','blog');
 
     // Routes for Blog Module
-    $router->get($prefix_blog, BlogController::class, 'Blog#listBooks');
-    $router->get($prefix_blog.'/{slug}', BlogController::class, 'Blog#listChapters');
-    $router->get($prefix_blog.'/{slugBook}/Chapitre-{id}/{slug}', BlogController::class, 'Blog#oneChapter');
+    $router->get($prefix_blog, FrontBookController::class, 'FrontBooks#List');
+    $router->get($prefix_blog . '/{slugBook}', FrontBookController::class, 'FrontBooks#One');
+    $router->get($prefix_blog . '/{slugBook}/chapitres', FrontChapterController::class, 'FrontChapters#List');
+    $router->get($prefix_blog . '/{slugBook}/chapitre-{chapters_order}/{slugChapter}', FrontChapterController::class, 'FrontChapters#One');
     
     // Routes for Comments Module 
     if ($container->has(\App\Comment\CommentModule::class)) {
-      $router->post('/{slugBook}/Chapitre-{id}/{slug}', CommentController::class, 'Blog#oneChapterPost');
+      $router->post($prefix_blog.'/{slugBook}/chapitre-{id}/{slugChapter}', CommentController::class);
     }
 
     // Routes for Admin Module 
-    // if ($container->has(\App\Admin\AdminModule::class)) {
+    if ($container->has(\App\Admin\AdminModule::class)) {
       $prefix_admin = '/admin';
-      $router->get($prefix_admin.$prefix_blog, AdminBlogController::class, 'AdminBlog#listChapters');
-    // }  
+
+      $router->crud($prefix_admin.'/chapitres',CrudChapterController::class, 'AdminChapters');
+      $router->crud($prefix_admin.'/livres',CrudBookController::class, 'AdminBooks');      
+
+    }  
     
   }
   
