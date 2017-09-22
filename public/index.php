@@ -4,7 +4,7 @@
 /**
  * Etape 1: Require L'application utilise un autoloader Maison
  */
-require dirname(__DIR__).'/src/Core/autoload.php';
+require dirname(__DIR__).'/src/Core/Autoload.php';
 
 //  pour aficher les propriété de l'objet même privé
 ref::config('showPrivateMembers', true);
