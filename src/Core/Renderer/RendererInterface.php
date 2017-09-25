@@ -11,7 +11,7 @@ interface RendererInterface
    * @param string $path
    * @param null|string $namespace
    */
-  public function addPath (string $path, string $namespace = null);
+  public function addPath ($path, $namespace = null);
 
   /**
    * Permet de rendre une vue
@@ -23,7 +23,7 @@ interface RendererInterface
    * @param array $params
    * @return string
    */
-  public function render (string $view, array $params = []);
+  public function render ($view, $params = []);
 
   /**
    * Permet de rajouter des variables globales à toute les vue
@@ -31,6 +31,6 @@ interface RendererInterface
    * @param string $key
    * @param mixed $value
    */
-  public function addGlobal(string $key, $value);
+  public function addGlobal($key, $value);
 
 }

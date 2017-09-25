@@ -35,7 +35,7 @@ class PHPRenderer implements RendererInterface
    */
   private $globals = [];
 
-  public function __construct (string $defaultPath = null, $globals = null)
+  public function __construct ($defaultPath = null, $globals = null)
   {
     if (!is_null($defaultPath)) {
       $this->addPath($defaultPath);
@@ -54,7 +54,7 @@ class PHPRenderer implements RendererInterface
    * @param string $path
    * @param null|string $namespace
    */
-  public function addPath (string $path, string $namespace = null)
+  public function addPath ($path, $namespace = null)
   {
     if (is_null($namespace)) {
       $this->paths[self::DEFAULT_NAMESPACE] = $path;
@@ -73,7 +73,7 @@ class PHPRenderer implements RendererInterface
    * @param array $params
    * @return string
    */
-  public function render (string $view, array $params = [])
+  public function render ($view, $params = [])
   {
     if ($this->hasNamespace($view)) {
       $path = $this->replaceNamespace($view) . '.php';
@@ -81,9 +81,10 @@ class PHPRenderer implements RendererInterface
       if (!$this->templateCharged) {
         $this->templateCharged = true;
         $params['content'] = $this->loadTemplate($path, $params);
-        $path = $this->paths[$this->layoutNamespace].'/template/layout.php';
-        if (!file_exists($path)) {
-          $path = $this->paths[self::DEFAULT_NAMESPACE] . '/layout.php'; 
+        if ($this->getLayoutNamespace() === self::DEFAULT_NAMESPACE) {
+          $path = $this->paths[$this->getLayoutNamespace()].'/layout.php';
+        } else {
+          $path = $this->paths[$this->getLayoutNamespace()].'/template/layout.php';
         }
       }
     } else {
@@ -100,20 +101,27 @@ class PHPRenderer implements RendererInterface
    * @param string $key
    * @param mixed $value
    */
-  public function addGlobal(string $key, $value)
+  public function addGlobal($key, $value)
   {
     $this->globals[$key] = $value;
   }
 
-  public function hasView (string $view)
+  public function hasView ($view)
   {
     $namespace = $this->getNamespace($view);
     if (isset($this->paths[$namespace])) {
       return true;
     }
   }
+  public function getLayoutNamespace ()
+  {
+    if ($this->layoutNamespace) {
+     return $this->layoutNamespace ;
+    }
+    return self::DEFAULT_NAMESPACE;
+  }
 
-  public function setLayoutNamespace(string $namespace)
+  public function setLayoutNamespace($namespace)
   {
     $this->layoutNamespace = $namespace;
   }
@@ -128,17 +136,17 @@ class PHPRenderer implements RendererInterface
     return ob_get_clean();
   }
 
-  private function hasNamespace (string $view)
+  private function hasNamespace($view)
   {
     return $view[0] === '@';
   }
 
-  private function getNamespace (string $view)
+  private function getNamespace($view)
   {
      return substr($view, 1, strpos($view, '/') -1);
   }
 
-  private function replaceNamespace (string $view)
+  private function replaceNamespace ($view)
   {
     $namespace = $this->getNamespace($view);
     return str_replace('@'.$namespace, $this->paths[$namespace], $view);

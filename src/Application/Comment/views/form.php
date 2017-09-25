@@ -1,5 +1,5 @@
     <!--Form -->
-    <form class="media" action="" method="post" id="form-comment">
+    <form class="media" action="<?= $router->generateUri('FrontComment#Create', ['slugBook' => $commentsFormAction['slugBook'], 'chapters_order' => $commentsFormAction['chapters_order'],  'slugChapter' => $commentsFormAction['slugChapter'], 'id' => $commentsFormAction['chapter_id']]) ?>" method="post" id="form-comment">
       <input type="hidden" name="parent_id" value="0" id="parent_id">
       <figure class="media-left">
         <p class="image is-64x64">

@@ -40,7 +40,7 @@ class Autoloader
                 } else {
                     $path = trim($path," ");
                 }
-                if($path[-1] !== '/') {
+                if(substr($path,-1) !== '/') {
                     $path .= '/';
                 }
                 $namespaces[$namespace] = $path;

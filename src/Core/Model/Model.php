@@ -58,7 +58,7 @@ class Model
    * Read one element with the id of element
    * @return array
    */
-  public function findOne(int $id)
+  public function findOne($id)
   {
     $statement= $this->pdo->prepare("SELECT * FROM $this->model WHERE id = ?");
     if($this->entity){
@@ -72,7 +72,7 @@ class Model
    * Read one element with the column of element
    * @return array
    */
-  public function findBy(string $field ,string $value)
+  public function findBy($field, $value)
   {
     $statement= $this->pdo->prepare("SELECT * FROM $this->model WHERE $field = ?");
     if($this->entity){
@@ -87,7 +87,7 @@ class Model
   * Update a new element
   * @return bool
   */
-  public function update(int $id, array $datas)
+  public function update($id, $datas)
   {
     $fields = $this->buildField($datas);
     $datas['id'] = $id;
@@ -100,7 +100,7 @@ class Model
   * Delete one element with id of element
   * @return bool
   */
-  public function delete(int $id)
+  public function delete($id)
   { 
     $statement = $this->pdo->prepare("DELETE FROM $this->model WHERE id = ?");
     return $statement->execute([$id]);

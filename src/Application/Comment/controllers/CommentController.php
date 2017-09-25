@@ -3,7 +3,7 @@
 namespace App\Comment\controllers;
 
 use App\Models\CommentModel;
-use App\Helpers\RouterAwareHelper;
+use App\Libraries\RouterAware;
 use System\Http\Request;
 use System\Router;
 
@@ -14,25 +14,20 @@ class CommentController
 
   private $commentModel;
 
-  use RouterAwareHelper;
+  use RouterAware;
 
   public function __construct(Router $router, CommentModel $commentModel)
   {
 
     $this->router = $router;
 
-    $this->bookModel = $bookModel;
-    $this->chapterModel = $chapterModel;
     $this->commentModel = $commentModel;
   }
    
   public function __invoke (Request $request)
   {
-    
-    $id = $request->getAttribute('id');
-    $slugChapter = $request->getAttribute('slugChapter');
 
-    if ($id && $slugChapter) {
+    if ($request->getAttribute('id')) {
       return $this->postComment($request);
     } 
   }
@@ -84,10 +79,10 @@ class CommentController
     /**
     * Step 5: Redirection to the original page.
     */
-    return $this->redirect('Blog#oneChapter',[
-      'slugBook'    => $request->getAttribute('slugBook'),
-      'id'          => $request->getAttribute('id'),
-      'slugChapter' => $request->getAttribute('slugChapter')
+    return $this->redirect('FrontChapters#One',[
+      'slugBook'       => $request->getAttribute('slugBook'),
+      'chapters_order' => $request->getAttribute('chapters_order'),
+      'slugChapter'    => $request->getAttribute('slugChapter')
     ]);
 
   }

@@ -13,6 +13,7 @@ class PHPRendererFactory
   {
     $viewPath = $container->get('views.path');
     $globals = [
+      'urlHelper'   => $container->get('App\Helpers\UrlHelper'),
       'router' => $container->get('System\Router')
     ];
     return new PHPRenderer($viewPath,$globals);

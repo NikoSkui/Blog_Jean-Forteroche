@@ -226,7 +226,7 @@ trait MessageTrait
     * @return static
     * @throws \InvalidArgumentException When the body is not valid.
     */
-  public function withBody( $body)
+  public function withBody($body)
   {
     
   }

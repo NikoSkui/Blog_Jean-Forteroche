@@ -6,6 +6,7 @@ use App\Blog\controllers\FrontBookController;
 use App\Blog\controllers\FrontChapterController;
 use App\Blog\controllers\CrudBookController;
 use App\Blog\controllers\CrudChapterController;
+use App\Comment\controllers\RdCommentController;
 
 use App\Comment\controllers\CommentController;
 
@@ -34,15 +35,16 @@ class BlogModule extends Module
     
     // Routes for Comments Module 
     if ($container->has(\App\Comment\CommentModule::class)) {
-      $router->post($prefix_blog.'/{slugBook}/chapitre-{id}/{slugChapter}', CommentController::class);
+      $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}', CommentController::class, 'FrontComment#Create');
     }
 
     // Routes for Admin Module 
     if ($container->has(\App\Admin\AdminModule::class)) {
       $prefix_admin = '/admin';
 
-      $router->crud($prefix_admin.'/chapitres',CrudChapterController::class, 'AdminChapters');
       $router->crud($prefix_admin.'/livres',CrudBookController::class, 'AdminBooks');      
+      $router->crud($prefix_admin.'/chapitres',CrudChapterController::class, 'AdminChapters');
+      $router->crud($prefix_admin.'/comments',RdCommentController::class, 'AdminComments');
 
     }  
     

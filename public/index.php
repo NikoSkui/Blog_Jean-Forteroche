@@ -1,5 +1,10 @@
 <?php
-
+header('Content-Type: text/html; charset=UTF-8');
+// Variable pour le dev a ranger plus tard
+header("Cache-Control: max-age=0"); // don't cache ourself
+ 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 /**
  * Etape 1: Require L'application utilise un autoloader Maison

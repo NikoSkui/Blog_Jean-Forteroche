@@ -37,7 +37,7 @@ class ServerRequest extends Request
    * @param string                               $version      Protocol version
    * @param array                                $serverParams Typically the $_SERVER superglobal
    */
-  public function __construct($method = 'GET', Uri $uri, string $version = null, array $serverParams = [])
+  public function __construct($method = 'GET', Uri $uri, $version = null, array $serverParams = [])
   {
     $this->serverParams = $serverParams;
     parent::__construct($method, $uri, $version);

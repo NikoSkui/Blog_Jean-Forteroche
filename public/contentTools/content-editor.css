@@ -1,0 +1,7 @@
+.ct-widget.ct-ignition
+{
+  left: 16px;
+  position: fixed;
+  bottom: 80px;
+  top: auto !important;
+}

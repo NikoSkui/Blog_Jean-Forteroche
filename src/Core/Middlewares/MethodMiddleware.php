@@ -13,7 +13,7 @@ class MethodMiddleware
     *              If yes redirect change method request for value 
     *              If not continue
     */
-  public function __invoke(ServerRequest $request, callable $next)
+  public function __invoke(ServerRequest $request, $next)
   {
     $parsedBody = $request->getParsedBody();
     if(

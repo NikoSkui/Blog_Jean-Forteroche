@@ -19,7 +19,7 @@ class Request
    */
   private $uri;
 
-  public function __construct($method = 'GET', Uri $uri, string $version = null) 
+  public function __construct($method = 'GET', Uri $uri, $version = null) 
   {
     $this->method = strtoupper($method);
     $this->uri = $uri;

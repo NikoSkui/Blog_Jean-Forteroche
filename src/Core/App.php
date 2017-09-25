@@ -49,13 +49,13 @@ class App
     $this->defaultConfig = $config;
   }
 
-  public function addModule(string $module)
+  public function addModule($module)
   {
     $this->modules[] = $module;
     return $this;
   }
 
-  public function pipe(string $middleware)
+  public function pipe($middleware)
   {
     $this->middlewares[] = $middleware;
     return $this;

@@ -15,7 +15,7 @@ class ChapterModel extends Model
   protected $fetchModeAll = \PDO::FETCH_GROUP;
 
 
-  public function findAllWithBook(int $id)
+  public function findAllWithBook($id)
   {
     $query = "SELECT b.name, c.chapters_order, c.slug as slugChapter, c.chapters_order, b.slug as slugBook
               FROM chapters as c
@@ -31,7 +31,7 @@ class ChapterModel extends Model
    * Read one element with the column of element
    * @return array
    */
-  public function findOneWithBook(string $slugChapter, int $idBook)
+  public function findOneWithBook($slugChapter, $idBook)
   {
 
     $datas['id'] = $idBook;

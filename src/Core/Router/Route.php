@@ -47,7 +47,7 @@ class Route
    * @param callable|string          $callable The route callable
    * @param null|string       $name The route name
    */
-  public function __construct(array $method, string $pattern, $callable, string $name=null)
+  public function __construct(array $method, $pattern, $callable, $name=null)
   {
     $this->method  = is_string($method) ? [$method] : $method;
     $this->pattern = $pattern;
@@ -116,7 +116,7 @@ class Route
   /**
    * @return string
    */
-  public function getPath(array $params)
+  public function getPath(array $params = [])
   {
     $path = $this->getPattern();
     foreach ($params as $k => $v) {

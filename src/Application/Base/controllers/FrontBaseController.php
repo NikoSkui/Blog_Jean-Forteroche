@@ -3,7 +3,7 @@
 namespace App\Base\controllers;
 
 use App\Models\BookModel;
-use App\Helpers\RouterAwareHelper;
+use App\Libraries\RouterAware;
 
 use System\Router;
 use System\Http\Request;
@@ -38,7 +38,7 @@ class FrontBaseController
    */
   private $model;
 
-  use RouterAwareHelper;
+  use RouterAware;
 
   public function __construct(RendererInterface $renderer,Router $router, BookModel $model) 
   {

@@ -19,6 +19,13 @@ class Chapter extends Entity
   public function __construct()
   {
     parent::__construct();
+
+    if($this->name) {
+      $this->name = htmlentities($this->name);
+    }
+    if($this->content) {
+     $this->content;
+    }
   }
 
 }

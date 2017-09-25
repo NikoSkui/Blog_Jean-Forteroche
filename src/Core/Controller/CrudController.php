@@ -2,7 +2,7 @@
 
 namespace System\Controller;
 
-use App\Helpers\RouterAwareHelper;
+use App\Libraries\RouterAware;
 
 use System\Router;
 Use System\Http\Request;
@@ -36,7 +36,7 @@ class CrudController
    */
   protected $prefixName;
 
-  use RouterAwareHelper;
+  use RouterAware;
 
   public function __construct(
     RendererInterface $renderer, 
@@ -56,6 +56,7 @@ class CrudController
   */ 
   public function __invoke (Request $request)
   {
+
     if($request->getMethod()==="DELETE") {
       return $this->delete($request);  
     }
@@ -74,6 +75,8 @@ class CrudController
   */
   public function create (Request $request)
   {
+    $headerDatas = $this->getHeaderDatas('create');
+    
     $element = $this->getNewEntity();
 
     if ($request->getMethod() === 'POST') {
@@ -81,6 +84,7 @@ class CrudController
       * Step 1: Recovery only of the desired keys.
       */
       $datas = $this->getParams($request);
+
       /**
       * Step 2: Creating chapter.
       */
@@ -92,7 +96,7 @@ class CrudController
       return $this->redirect($this->prefixName . '#Read');
     }
 
-    return $this->renderer->render($this->viewPath . '/create', compact('element'));
+    return $this->renderer->render($this->viewPath . '/create', compact('headerDatas', 'element'));
   }
 
   /**
@@ -100,18 +104,24 @@ class CrudController
   */
   public function read (Request $request)
   {
+    $headerDatas = $this->getHeaderDatas('read');
+
     $elements =  $this->model->findAll();
 
-    return $this->renderer->render($this->viewPath . '/read', compact('elements'));
+    return $this->renderer->render($this->viewPath . '/read', compact('headerDatas', 'elements'));
   }
   /**
   * UPDATE one Element
   */
   public function update (Request $request)
   {
+    
     $element =  $this->model->findOne($request->getAttribute('id'));
 
+    $headerDatas = $this->getHeaderDatas('update', $element);
+
     if ($request->getMethod() === 'PUT') {
+      
       /**
       * Step 1: Recovery only of the desired keys.
       */
@@ -128,7 +138,7 @@ class CrudController
       return $this->redirect($this->prefixName . '#Read');
     }
 
-    return $this->renderer->render($this->viewPath . '/update', compact('element'));
+    return $this->renderer->render($this->viewPath . '/update', compact('headerDatas', 'element'));
   }
 
   /**
@@ -164,5 +174,26 @@ class CrudController
   protected function getNewEntity ()
   {
     return [];
+  }
+
+  protected function getHeaderDatas ($action, $element = null)
+  {
+    $header = new \StdClass();
+    $header->adminNavbar = [
+    'Book' => [
+      'name' => 'Livres',
+      'prefixName' => 'AdminBooks'
+    ],
+    'Chapters' => [
+      'name' => 'Chapitres',
+      'prefixName' => 'AdminChapters'
+    ],
+    'Comments' => [
+      'name' => 'Commentaires',
+      'prefixName' => 'AdminComments'
+    ]
+
+    ];
+    return $header;
   }
 }

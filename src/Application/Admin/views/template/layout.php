@@ -1,12 +1,12 @@
-<?php 
-
+<?php
 $params = [
-  'title' => isset($slug) ? $slug . ' | Administration' : 'Administration'
+  'title' => isset($slug) ? $slug . ' | Jean Foreteroche à livre ouvert' : 'Admin'
 ];
 ?>
 
-<?= $renderer->render('header', $params) ?>
+<?= $renderer->render('header', compact('headerDatas','params')) ?>
+<?= $renderer->render('@admin/header', compact('headerDatas')) ?>
 
 <?= $content ?>
 
-<?= $renderer->render('footer') ?>
+<?= $renderer->render('footer',compact('headerDatas')) ?>

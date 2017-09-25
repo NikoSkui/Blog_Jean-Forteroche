@@ -33,7 +33,7 @@ class Router
    * @param callable|string $callable
    * @param null|string $name
    */
-  public function get(string $path, $callable, string $name = null)
+  public function get($path, $callable, $name = null)
   {
     $route = new Route(['GET'], $path, $callable, $name);
     $this->addRoute($route);
@@ -47,7 +47,7 @@ class Router
    * @param callable|string $callable
    * @param null|string $name
    */
-  public function post(string $path, $callable, string $name = null)
+  public function post($path, $callable, $name = null)
   {
     $route = new Route(['POST'], $path, $callable, $name);
     $this->addRoute($route);
@@ -61,7 +61,7 @@ class Router
    * @param callable|string $callable
    * @param null|string $name
    */
-  public function put(string $path, $callable, string $name = null)
+  public function put($path, $callable, $name = null)
   {
     $route = new Route(['PUT'], $path, $callable, $name);
     $this->addRoute($route);
@@ -75,7 +75,7 @@ class Router
    * @param callable|string $callable
    * @param null|string $name
    */
-  public function delete(string $path, $callable, string $name = null)
+  public function delete($path, $callable, $name = null)
   {
     $route = new Route(['DELETE'], $path, $callable, $name);
     $this->addRoute($route);
@@ -89,7 +89,7 @@ class Router
    * @param callable|string $callable
    * @param null|string $name
    */
-  public function crud(string $prefixPath, $callable, string $prefixName)
+  public function crud($prefixPath, $callable, $prefixName)
   {
       $this->get($prefixPath.'/new',     $callable, "$prefixName#Create");
       $this->post($prefixPath.'/new',    $callable, "$prefixName#Create");
@@ -148,7 +148,7 @@ class Router
    * @param  array $params 
    * @return string|null
    */
-  public function generateUri (string $name, array $params = [])
+  public function generateUri ($name, array $params = [])
   {
 
     foreach ($this->routes as $method => $arrayRoutes) {

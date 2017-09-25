@@ -47,10 +47,26 @@ class CrudChapterController extends CrudController
     /**
     * Step 2: Definition of some value
     */
+    if(isset($datas['name']) && !empty($datas['name'])){
+      $datas['name'] = strip_tags($datas['name']);
+    }
+    if(isset($datas['created_at']) && !empty($datas['created_at'])){
+      $datas['created_at'] = strip_tags($datas['created_at']);
+    }
+    if(isset($datas['books_id']) && !empty($datas['books_id'])){
+      $datas['books_id'] = strip_tags($datas['books_id']);
+    }
+    if(isset($datas['chapters_order']) && !empty($datas['chapters_order'])){
+      $datas['chapters_order'] = strip_tags($datas['chapters_order']);
+    }
+    if(isset($datas['content']) && !empty($datas['content'])){
+      $datas['content'] = substr($datas['content'],3,-4);
+    }
     return array_merge($datas,[
-      'modified_at' => date('Y-m-d H:i:s')
+      'modified_at' => date('Y-m-d H:i:s') 
     ]);
   }
+  
   protected function getNewEntity ()
   {
     $chapter = new Chapter();
@@ -59,5 +75,35 @@ class CrudChapterController extends CrudController
     $chapter->chapters_order = 9;
   
     return $chapter;
+  }
+
+  protected function getHeaderDatas ($action, $element = null)
+  {
+    $header = parent::getHeaderDatas($action,$element);
+
+    $header->linkName = 'Chapitres'; 
+    $header->prefixName = $this->prefixName;
+
+    switch ($action) {
+      case 'create':
+        $header->subtitle = 'Ajout d\'un nouveau chapitre';
+        $header->typePage = 'create';
+        break;
+      case 'read':
+        $header->subtitle = 'Gestion des chapitres du livres';
+        $header->btnTxt = 'Ajouter un nouveau chapitre';
+        $header->typePage = 'read';
+        break;
+      case 'update':
+        $header->name = $element->name;
+        $header->subtitle = 'Modification du chapitre ' . $element->chapters_order ;
+        $header->typePage = 'update';
+        break;
+      
+      default:
+        $header->subtitle = 'Maitrisez la gestion de vos chapitres';
+        break;
+    }
+    return $header;
   }
 }

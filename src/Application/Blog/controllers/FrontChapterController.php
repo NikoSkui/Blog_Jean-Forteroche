@@ -4,7 +4,8 @@ namespace App\Blog\controllers;
 
 use App\Models\ChapterModel;
 use App\Models\BookModel;
-use App\Helpers\RouterAwareHelper;
+use App\Models\CommentModel;
+use App\Libraries\RouterAware;
 
 use System\Router;
 use System\Http\Request;
@@ -44,15 +45,26 @@ class FrontChapterController
    */
   private $bookModel;
 
-  use RouterAwareHelper;
+  /**
+   * @var CommentModel
+   */
+  private $commentModel;
 
-  public function __construct(RendererInterface $renderer,Router $router, ChapterModel $model, BookModel $bookModel) 
+  use RouterAware;
+
+  public function __construct(
+    RendererInterface $renderer,
+    Router $router,
+    ChapterModel $model,
+    BookModel $bookModel,
+    CommentModel $commentModel) 
   {
     // Idratation 
     $this->renderer = $renderer;
     $this->router = $router;
     $this->model = $model;
     $this->bookModel = $bookModel;
+    $this->commentModel = $commentModel;
     $this->renderer->addGlobal('prefixNameBooks', $this->prefixNameBooks);
     $this->renderer->addGlobal('prefixNameChapters', $this->prefixNameChapters);
   }
@@ -97,8 +109,15 @@ class FrontChapterController
     if($chapter->chapters_order !== $request->getAttribute('chapters_order')) {
       return $this->redirect($this->prefixNameChapters . '#One', ['slugBook' => $book->slug, 'chapters_order' => $chapter->chapters_order, 'slugChapter' => $chapter->slug,  ]);
     }
+    $comments = $this->commentModel->findAllWithChapter($chapter->id);
+    $commentsFormAction = [
+      'slugBook' => $book->slug,
+      'chapters_order' => $chapter->chapters_order,
+      'slugChapter' => $chapter->slug,
+      'chapter_id' => $chapter->id
+    ];
 
-    return $this->renderer->render($this->viewPath . '/one', compact('chapter'));
+    return $this->renderer->render($this->viewPath . '/one', compact('chapter','comments','commentsFormAction'));
   }
   
 }

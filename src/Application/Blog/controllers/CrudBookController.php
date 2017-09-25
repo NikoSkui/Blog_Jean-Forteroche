@@ -61,4 +61,33 @@ class CrudBookController extends CrudController
     return $book;
   }
 
+  protected function getHeaderDatas ($action, $element = null)
+  {
+    $header = parent::getHeaderDatas($action,$element);
+
+    $header->linkName = 'Livres'; 
+    $header->prefixName = $this->prefixName;
+
+    switch ($action) {
+      case 'create':
+        $header->subtitle = 'Ajout d\'un nouveau livre';
+        $header->typePage = 'create';
+        break;
+      case 'read':
+        $header->subtitle = 'Gestion des livres';
+        $header->typePage = 'read';
+        // $header->btnTxt = 'Ajouter un nouveau livre';
+        break;
+      case 'update':
+        $header->subtitle = 'Modification du livre  : ' . $element->name;
+        $header->typePage = 'update';
+        break;
+      
+      default:
+        $header->subtitle = 'Maitrisez la gestion de vos livres';
+        break;
+    }
+    return $header;
+  }
+
 }

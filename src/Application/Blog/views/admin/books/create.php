@@ -1,19 +1,3 @@
-<section class="hero is-danger is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-vcentered">
-        <div class="column">
-          <p class="title">
-            Administration
-          </p>
-          <p class="subtitle">
-            Ajouter un nouveau <strong>livre</strong>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 <section class="section">
   <div class="container">
     <form action="" method="post" >
