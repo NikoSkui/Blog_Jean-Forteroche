@@ -28,23 +28,23 @@ class BlogModule extends Module
     $container->get(RendererInterface::class)->addPath(__DIR__ . '/views','blog');
 
     // Routes for Blog Module
-    $router->get($prefix_blog, FrontBookController::class, 'FrontBooks#List');
-    $router->get($prefix_blog . '/{slugBook}', FrontBookController::class, 'FrontBooks#One');
-    $router->get($prefix_blog . '/{slugBook}/chapitres', FrontChapterController::class, 'FrontChapters#List');
-    $router->get($prefix_blog . '/{slugBook}/chapitre-{chapters_order}/{slugChapter}', FrontChapterController::class, 'FrontChapters#One');
+    $router->get($prefix_blog, FrontBookController::class, 'Front#Books#List');
+    $router->get($prefix_blog . '/{slugBook}', FrontBookController::class, 'Front#Books#One');
+    $router->get($prefix_blog . '/{slugBook}/chapitres', FrontChapterController::class, 'Front#Chapters#List');
+    $router->get($prefix_blog . '/{slugBook}/chapitre-{chapters_order}/{slugChapter}', FrontChapterController::class, 'Front#Chapters#One');
     
     // Routes for Comments Module 
     if ($container->has(\App\Comment\CommentModule::class)) {
-      $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}', CommentController::class, 'FrontComment#Create');
+      $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}', CommentController::class, 'Front#Comment#Create');
     }
 
     // Routes for Admin Module 
     if ($container->has(\App\Admin\AdminModule::class)) {
       $prefix_admin = '/admin';
 
-      $router->crud($prefix_admin.'/livres',CrudBookController::class, 'AdminBooks');      
-      $router->crud($prefix_admin.'/chapitres',CrudChapterController::class, 'AdminChapters');
-      $router->crud($prefix_admin.'/comments',RdCommentController::class, 'AdminComments');
+      $router->crud($prefix_admin.'/livres',CrudBookController::class, 'Admin#Books');      
+      $router->crud($prefix_admin.'/chapitres',CrudChapterController::class, 'Admin#Chapters');
+      $router->crud($prefix_admin.'/commentaires',RdCommentController::class, 'Admin#Comments');
 
     }  
     

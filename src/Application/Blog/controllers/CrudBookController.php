@@ -21,7 +21,7 @@ class CrudBookController extends CrudController
   /**
    * @var string
    */
-  protected $prefixName = "AdminBooks";
+  protected $prefixName = "Admin#Books";
 
 
 
@@ -33,26 +33,34 @@ class CrudBookController extends CrudController
   }
 
 
-
+  /**
+  * Filter to recover only of the desired keys.
+  */
   protected function getParams (Request $request)
   {
-    /**
-    * Filter to recover only of the desired keys.
-    *         Example of injection with keys that you do not want:
-    *         $datas['test'] = 'Toto';
-    *         $datas["<script>alert('faille')</script>"] = "<script>alert('faille')</script>";
-    */
+    // Step 1: Filter
     $datas =  array_filter($request->getParsedBody(), function ($key) {
-        return in_array($key, ['name', 'slug', 'content', 'created_at']);
+        return in_array($key, ['name', 'excerpt', 'created_at']);
       }, ARRAY_FILTER_USE_KEY);
-    /**
-    * Step 2: Definition of some value
-    */
-    return array_merge($datas,[
-      'modified_at' => date('Y-m-d H:i:s')
-    ]);
+
+    // Step 2: Definition of some value 
+    if(isset($datas['name']) && !empty($datas['name'])){
+      $datas['name'] = strip_tags($datas['name']);
+      $datas['slug'] = $this->makeSlug(strip_tags($datas['name']));
+    }
+
+    if(isset($datas['excerpt']) && !empty($datas['excerpt'])){
+      $datas['excerpt'] = trim(substr($datas['excerpt'],3,-4));
+    }
+    $datas['modified_at'] = date('Y-m-d H:i:s');
+
+    return $datas;
+
   }
 
+  /**
+  * Create entity when you insert new item in bdd and add some inital values
+  */
   protected function getNewEntity ()
   {
     $book = new Book($this->router);
@@ -61,6 +69,9 @@ class CrudBookController extends CrudController
     return $book;
   }
 
+  /**
+  * Create entity Header when you insert new item in bdd and add some inital values
+  */
   protected function getHeaderDatas ($action, $element = null)
   {
     $header = parent::getHeaderDatas($action,$element);
@@ -79,6 +90,7 @@ class CrudBookController extends CrudController
         // $header->btnTxt = 'Ajouter un nouveau livre';
         break;
       case 'update':
+        $header->name = $element->name;
         $header->subtitle = 'Modification du livre  : ' . $element->name;
         $header->typePage = 'update';
         break;

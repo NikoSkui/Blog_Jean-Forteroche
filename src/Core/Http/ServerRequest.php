@@ -4,7 +4,7 @@ namespace System\Http;
 
 use \Psr\Http\Message\UriInterface;
 
-class ServerRequest extends Request
+class ServerRequest extends Request implements \Psr\Http\Message\ServerRequestInterface 
 {
   /**
   * @var array
@@ -97,25 +97,6 @@ class ServerRequest extends Request
 
     return $uri;
   }
-
-
-
-  // public function withGetParams(array $query)
-  // {
-  //     $new = clone $this;
-  //     $new->queryParams = $query;
-  //     return $new;
-  // }
-
-
-  // public function withCookieParams(array $cookies)
-  // {
-  //     $new = clone $this;
-  //     $new->cookieParams = $cookies;
-  //     return $new;
-  // }
-
-
 
   /**
    * Retrieve server parameters.

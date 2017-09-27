@@ -51,6 +51,14 @@ class RouteMatched
   }
 
   /**
+   * @return string
+   */
+  public function getPattern()
+  {
+    return $this->route->getPattern();
+  }
+
+  /**
    * @return array
    */
   public function getParams()

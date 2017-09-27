@@ -28,14 +28,14 @@ class CommentController
   {
 
     if ($request->getAttribute('id')) {
-      return $this->postComment($request);
+      return $this->create($request);
     } 
   }
 
   
 
 
-  public function postComment ($request)
+  public function create ($request)
   {
     /**
     * Step 1: Recovery only of the desired keys.
@@ -79,7 +79,7 @@ class CommentController
     /**
     * Step 5: Redirection to the original page.
     */
-    return $this->redirect('FrontChapters#One',[
+    return $this->redirect('Front#Chapters#One',[
       'slugBook'       => $request->getAttribute('slugBook'),
       'chapters_order' => $request->getAttribute('chapters_order'),
       'slugChapter'    => $request->getAttribute('slugChapter')

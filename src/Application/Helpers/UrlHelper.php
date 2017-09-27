@@ -13,6 +13,6 @@ class UrlHelper
 
   public function baseUrl()
   {
-    return $this->container->get('config.basePath');
+    return $this->container->get('config.baseUrl');
   }
 }

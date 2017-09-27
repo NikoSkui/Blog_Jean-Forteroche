@@ -5,7 +5,7 @@ namespace System\Http;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\UriInterface;
 
-class Request
+class Request implements \Psr\Http\Message\RequestInterface
 {
   use MessageTrait;
 
@@ -25,6 +25,28 @@ class Request
     $this->uri = $uri;
     $this->protocole = $version;
   }
+      /**
+     * Retrieves the message's request target.
+     *
+     * @return string
+     */
+    public function getRequestTarget()
+    {
+      //TODO Implement method() from interface PSR-7
+    }
+
+    /**
+     * Return an instance with the specific request-target.
+     *
+     * @link http://tools.ietf.org/html/rfc7230#section-5.3 (for the various
+     *     request-target forms allowed in request messages)
+     * @param mixed $requestTarget
+     * @return static
+     */
+    public function withRequestTarget($requestTarget)
+    {
+      //TODO Implement method() from interface PSR-7
+    }
 
   /**
    * Retrieves the HTTP method of the request.
@@ -60,6 +82,11 @@ class Request
   public function getUri()
   {
     return $this->uri;
+  }
+
+  public function withUri(UriInterface $uri, $preserveHost = false)
+  {
+    //TODO Implement method() from interface PSR-7
   }
 
 }

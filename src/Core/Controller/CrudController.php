@@ -3,6 +3,7 @@
 namespace System\Controller;
 
 use App\Libraries\RouterAware;
+use App\Libraries\Typography;
 
 use System\Router;
 Use System\Http\Request;
@@ -37,6 +38,7 @@ class CrudController
   protected $prefixName;
 
   use RouterAware;
+  use Typography;
 
   public function __construct(
     RendererInterface $renderer, 
@@ -157,15 +159,16 @@ class CrudController
     return $this->redirect($this->prefixName . '#Read');
 
   }
-
+  
+  /**
+  * Filter to recover only of the desired keys.
+  *         Example of injection with keys that you do not want:
+  *         $datas['test'] = 'Toto';
+  *         $datas["<script>alert('faille')</script>"] = "<script>alert('faille')</script>";
+  */
   protected function getParams (Request $request)
   {
-    /**
-    * Filter to recover only of the desired keys.
-    *         Example of injection with keys that you do not want:
-    *         $datas['test'] = 'Toto';
-    *         $datas["<script>alert('faille')</script>"] = "<script>alert('faille')</script>";
-    */
+    // Step 1: Filter
     return array_filter($request->getParsedBody(), function ($key) {
         return in_array($key, []);
       }, ARRAY_FILTER_USE_KEY);
@@ -182,15 +185,15 @@ class CrudController
     $header->adminNavbar = [
     'Book' => [
       'name' => 'Livres',
-      'prefixName' => 'AdminBooks'
+      'prefixName' => 'Admin#Books'
     ],
     'Chapters' => [
       'name' => 'Chapitres',
-      'prefixName' => 'AdminChapters'
+      'prefixName' => 'Admin#Chapters'
     ],
     'Comments' => [
       'name' => 'Commentaires',
-      'prefixName' => 'AdminComments'
+      'prefixName' => 'Admin#Comments'
     ]
 
     ];

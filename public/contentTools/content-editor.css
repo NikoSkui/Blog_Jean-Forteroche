@@ -5,3 +5,30 @@
   bottom: 80px;
   top: auto !important;
 }
+.ct-widget .ct-ignition__button--return{
+  display: block !important;
+  bottom: 10px !important;
+  color: white;
+}
+.ct-widget .ct-ignition__button--return:before{
+
+}
+
+.ct-widget .ct-ignition__button--edit{
+  background-color: #3273dc;
+}
+.ct-widget .ct-ignition__button--edit:hover{
+  background-color: #276cda;
+}
+.ct-widget .ct-ignition__button--confirm{
+  background-color: #23d160;
+}
+.ct-widget .ct-ignition__button--confirm:hover{
+  background-color: #22c65b; 
+}
+.ct-widget .ct-ignition__button--cancel{
+  background-color: #ff3860;
+}
+.ct-widget .ct-ignition__button--cancel:hover{
+  background-color: #ff2b56;
+}

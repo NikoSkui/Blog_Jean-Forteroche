@@ -21,7 +21,7 @@ class CrudChapterController extends CrudController
   /**
    * @var string
    */
-  protected $prefixName = "AdminChapters";
+  protected $prefixName = "Admin#Chapters";
 
 
   public function __construct(Router $router, RendererInterface $renderer, ChapterModel $model)
@@ -32,23 +32,20 @@ class CrudChapterController extends CrudController
   }
 
 
-
+  /**
+  * Filter to recover only of the desired keys.
+  */
   protected function getParams (Request $request)
   {
-    /**
-    * Filter to recover only of the desired keys.
-    *         Example of injection with keys that you do not want:
-    *         $datas['test'] = 'Toto';
-    *         $datas["<script>alert('faille')</script>"] = "<script>alert('faille')</script>";
-    */
+    // Step 1: Filter
     $datas =  array_filter($request->getParsedBody(), function ($key) {
-        return in_array($key, ['name', 'slug', 'content', 'created_at', 'books_id', 'chapters_order']);
+        return in_array($key, ['name', 'content', 'created_at', 'books_id', 'chapters_order']);
       }, ARRAY_FILTER_USE_KEY);
-    /**
-    * Step 2: Definition of some value
-    */
+
+    // Step 2: Definition of some value 
     if(isset($datas['name']) && !empty($datas['name'])){
       $datas['name'] = strip_tags($datas['name']);
+      $datas['slug'] = $this->makeSlug(strip_tags($datas['name']));
     }
     if(isset($datas['created_at']) && !empty($datas['created_at'])){
       $datas['created_at'] = strip_tags($datas['created_at']);
@@ -66,7 +63,10 @@ class CrudChapterController extends CrudController
       'modified_at' => date('Y-m-d H:i:s') 
     ]);
   }
-  
+
+  /**
+  * Create entity when you insert new item in bdd and add some inital values
+  */
   protected function getNewEntity ()
   {
     $chapter = new Chapter();

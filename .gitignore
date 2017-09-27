@@ -1,2 +1,4 @@
 # ignore config files  vscode
 /.vscode
+# ignore config files  perso
+config.php

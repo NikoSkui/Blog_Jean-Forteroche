@@ -30,8 +30,8 @@ class FrontBookController
   /**
    * @var string
    */
-  protected $prefixNameBooks = "FrontBooks";
-  protected $prefixNameChapters = "FrontChapters";
+  protected $prefixNameBooks = "Front#Books";
+  protected $prefixNameChapters = "Front#Chapters";
 
   /**
    * @var BookModel

@@ -13,6 +13,7 @@
       <link rel="stylesheet" href="<?= $urlHelper->baseUrl() ?>/contentTools/content-editor.css">
     <?php endif ?>
     
+    <link rel="stylesheet" href="<?= $urlHelper->baseUrl() ?>/css/app.css">
   </head>
   <body>
   <?= $renderer->render('navbar') ?>

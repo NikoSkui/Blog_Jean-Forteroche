@@ -1,0 +1,13 @@
+{
+    "librariesExternals": [
+        "digitalnature/php-ref",
+        "filp/whoops",
+        "psr/http-message",
+        "psr/log"
+    ],
+    "autoload": {
+        "System\\": "../src/Core",
+        "App\\": "../src/Application"
+    },
+    "files": ["../src/Application/Helpers/Debugger.php"]
+}

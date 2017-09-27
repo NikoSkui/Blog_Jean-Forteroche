@@ -11,6 +11,8 @@ jQuery(document).ready(function($){
     $("#parent_id").val($parent_id)
     $comment.after($form);
 
+
   }) 
 
+  $( ".ct-widget" ).addClass("ct-widget--active");
 })

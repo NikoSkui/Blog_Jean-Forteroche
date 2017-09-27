@@ -1,17 +1,9 @@
 <section class="section">
   <div class="container">
-    <form action="" method="post" >
-      <input type="hidden" name="_method" value="PUT">
-
-      <?php include('form.php')?>
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" type="submit">Modifier</button>
-        </div>
-        <div class="control">
-          <a class="button is-light" href="<?= $router->generateUri($prefixName.'#Read')?>">Annuler</a>
+      <div class="columns is-centered" >
+        <div class="column is-three-quarters" data-editable data-name="excerpt">
+          <p><?= $element->excerpt?><p>
         </div>
       </div>
-    </form>
   </div>
 </section>

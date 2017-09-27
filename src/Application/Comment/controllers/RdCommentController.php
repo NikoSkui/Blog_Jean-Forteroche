@@ -21,7 +21,7 @@ class RdCommentController extends CrudController
   /**
    * @var string
    */
-  protected $prefixName = "AdminComments";
+  protected $prefixName = "Admin#Comments";
 
 
 
@@ -78,7 +78,8 @@ class RdCommentController extends CrudController
         // $header->btnTxt = 'Ajouter un nouveau livre';
         break;
       case 'update':
-        $header->subtitle = 'Modification du livre  : ' . $element->name;
+        $header->email = $element->email;
+        $header->subtitle = 'Aperçu du commentaire de ' . $element->pseudo;
         $header->typePage = 'update';
         break;
       

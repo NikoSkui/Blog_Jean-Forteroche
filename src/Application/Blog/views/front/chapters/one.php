@@ -17,17 +17,6 @@
   </div>
 </section>
 
-<?php if ($this->hasView('@comment/comments')): ?>
-<section class="section">
-  <div class="container">
-    <h2 class="title">Commentaires</h2>   
-
-    <?php foreach ($comments[0] as $comment):?>
-      <?= $renderer->render('@comment/comments',compact('comment','comments')) ?>
-    <?php endforeach?>
-
-    <?= $renderer->render('@comment/form', compact('commentsFormAction')) ?>
-
-  </div>
-</section>
+<?php if ($this->hasView('@comment/')): ?>
+<?= $renderer->render('@comment/front/chapters/read',compact('comments','commentsFormAction')) ?>
 <?php endif ?>

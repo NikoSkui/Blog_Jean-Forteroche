@@ -30,8 +30,9 @@ class FrontBaseController
   /**
    * @var string
    */
-  protected $prefixNameBooks = "FrontBooks";
-  protected $prefixNameChapters = "FrontChapters";
+  protected $prefixNameBooks = "Front#Books";
+  protected $prefixNameChapters = "Front#Chapters";
+
 
   /**
    * @var BookModel
@@ -61,5 +62,4 @@ class FrontBaseController
     return $this->renderer->render($this->viewPath . '/index', compact('book'));
   }
     
-
 }

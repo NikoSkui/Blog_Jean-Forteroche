@@ -1,33 +1,42 @@
 <section class="section">
-  <div class="container">
-    <table class="table is-striped is-fullwidth ">
-      <thead>
-        <tr>
-          <th><abbr title="Livre">Livre</abbr></th>
-          <th><abbr title="Titre">Titre</abbr></th>
-          <th><abbr title="Action">Action</abbr></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($elements as $num => $book):?> 
-           
-        <tr>
-          <th><?= $num + 1 ?></th>
-          <td><?= $book->name ?></td>
-          <td>
-            <div class="tags">
-              <a class="tag is-primary" href="<?= $router->generateUri($prefixName.'#Update', ['id' => $book->id]) ?>">Editer</a>
-              <form action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $book->id]) ?>" method="post" onsubmit="return confirm('êtes vous sûr de vouloir supprimer ce chapitre ?')">
-                <input type="hidden" name="_method" value ="DELETE">
-                <button class="tag delete " style="border-radius:3px;min-height: 24px;"type="submit"></button>
-              </form>
-            </div>
-          </td>
-        </tr>
-          
-        </tr>
-        <?php endforeach?>
-      </tbody>
-    </table>
-  </div>
+    <div class="section">
+      <article class="media ">
+        <div class="media-content">
+          <div class="content">
+            <p><strong>Mes livres</strong></p>
+          </div>
+          <?php foreach ($elements as $book):?>              
+            <article class="media  container">
+              <!-- <div class="box"> -->
+              <figure class="media-left">
+                <p class="image is-24x24">
+                  <img src="http://bulma.io/images/placeholders/96x96.png">
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong><?= $book->name ?> : </strong>
+                    <?= $book->excerpt ?>
+                  </p>
+                </div>
+              </div>
+              <div class="media-right">
+                <span class="icon">
+                  <a class="is-info" href="<?= $router->generateUri($prefixName.'#Update', ['id' => $book->id]) ?>">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                </span>
+              </div>
+              <div class="media-right">
+                <form action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $book->id]) ?>" method="post" onsubmit="return confirm('êtes vous sûr de vouloir supprimer ce chapitre ?')">
+                  <input type="hidden" name="_method" value ="DELETE">
+                  <button class="delete " type="submit"></button>
+                </form>
+              </div>
+            </article>
+          <?php endforeach?>
+        </div>
+      </article>
+    </div>
  </section>

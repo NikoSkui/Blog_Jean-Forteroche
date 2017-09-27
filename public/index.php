@@ -1,54 +1,28 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
-// Variable pour le dev a ranger plus tard
-header("Cache-Control: max-age=0"); // don't cache ourself
- 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
 
 /**
  * Etape 1: Require L'application utilise un autoloader Maison
  */
 require dirname(__DIR__).'/src/Core/Autoload.php';
 
-//  pour aficher les propriété de l'objet même privé
-ref::config('showPrivateMembers', true);
-ref::config('validHtml', true);
-
-/**
- * Etape 2.1: Test whoops
- */
-// $whoops = new \Whoops\Run;
-// $handler = new \Whoops\Handler\PrettyPageHandler;
-// // Add a custom table to the layout:
-
-// $handler->addDataTable('Errors Chargment Autoload',Autoloader::getAutoloadErrors());
-
-
-
-// $whoops->pushHandler($handler);
-// $whoops->register();
-
- 
-/**
- * Etape 2.1: FIN Test whoops
- */
-
-
-
-
-
 /**
  * Step 2: Create instance of application with modules
  */
 $app = (new \System\App(dirname(__DIR__) . '/config/config.php'))
         ->addModule(\App\Base\BaseModule::class)
+        ->addModule(\App\User\UserModule::class)
         ->addModule(\App\Comment\CommentModule::class)
         ->addModule(\App\Admin\AdminModule::class)
-        ->addModule(\App\Blog\BlogModule::class)
+        ->addModule(\App\Blog\BlogModule::class)     
+        ->pipe(\System\Middlewares\WhoopsMiddleware::class)
         ->pipe(\System\Middlewares\TrailingSlashMiddleware::class)
-        ->pipe(\System\Middlewares\MethodMiddleware::class);
-        
+        ->pipe(\System\Middlewares\MethodMiddleware::class)
+        ->pipe(\System\Middlewares\RouterMiddleware::class)
+        ->pipe(\System\Middlewares\LoginMiddleware::class)
+        ->pipe(\System\Middlewares\DispatcherMiddleware::class)
+        ->pipe(\System\Middlewares\NotFoundMiddleware::class);
+
  /**
  * Step 3: Run application
  */

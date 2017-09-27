@@ -2,6 +2,8 @@
 
 namespace System\Http;
 
+use \Psr\Http\Message\StreamInterface;
+
 
 /**
  * Trait Implementing functionnality common between request and response
@@ -226,7 +228,7 @@ trait MessageTrait
     * @return static
     * @throws \InvalidArgumentException When the body is not valid.
     */
-  public function withBody($body)
+  public function withBody(StreamInterface $body)
   {
     
   }

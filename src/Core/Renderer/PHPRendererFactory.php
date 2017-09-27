@@ -14,7 +14,8 @@ class PHPRendererFactory
     $viewPath = $container->get('views.path');
     $globals = [
       'urlHelper'   => $container->get('App\Helpers\UrlHelper'),
-      'router' => $container->get('System\Router')
+      'router' => $container->get('System\Router'),
+      'session' => $container->get('System\Session\PHPSession'),
     ];
     return new PHPRenderer($viewPath,$globals);
   }

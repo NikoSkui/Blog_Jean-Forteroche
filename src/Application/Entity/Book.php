@@ -20,6 +20,13 @@ class Book extends Entity
     
     $this->router = $router;
 
+    if($this->name) {
+      $this->name = htmlentities($this->name);
+    }
+    if($this->excerpt) {
+     $this->excerpt;
+    }
+
   }
 
   protected function getUrl($params = [])
@@ -30,7 +37,7 @@ class Book extends Entity
         $slug = $param['slug'];
       }
     }
-    $uri = $this->router->generateUri('FrontChapters#List', ['slugBook' => $this->slug]);
+    $uri = $this->router->generateUri('Front#Chapters#List', ['slugBook' => $this->slug]);
     $html = "<a href=$uri>$name</a>";
     echo $html;
   }

@@ -17,7 +17,7 @@ class BaseModule extends Module
   {    
     $container->get(RendererInterface::class)->addPath(__DIR__ . '/views','home');
 
-    $container->get(Router::class)->get('/', FrontBaseController::class, 'FrontBase#index');
+    $container->get(Router::class)->get('/', FrontBaseController::class, 'Front#Base#Index');
   }
 
 }

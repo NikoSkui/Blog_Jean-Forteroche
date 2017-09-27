@@ -19,7 +19,7 @@ class TrailingSlashMiddleware
     if(!empty($uri) && strlen($uri) > 1 && substr($uri,-1) === '/') {
         return (new Response())
             ->withStatus(301)
-            ->withHeader('location', substr($baseUri, 0, -1));
+            ->withHeader('Location', substr($baseUri, 0, -1));
     }
 
     return $next($request);

@@ -8,6 +8,7 @@ $baseDir = '../librariesExternals/';
 foreach ($autoload_src as $src_vendor) {
 
     $librariesDir = $baseDir . $src_vendor . '/';
+    $basePath = dirname(dirname(dirname(__DIR__))) . substr($librariesDir,2);  
 
     $composer = file_get_contents( $librariesDir . 'composer.json');
     $composer_autoload = json_decode($composer)->autoload;
@@ -15,7 +16,7 @@ foreach ($autoload_src as $src_vendor) {
     foreach ($composer_autoload as $type => $paths) {
         if ($type === 'psr-4') {
             foreach ($paths as $namespace => $path) {
-                $path = $librariesDir . $path;
+                $path = $basePath . $path;
                 $map_librariesExternals[$namespace] = $path;
             }
         }

@@ -4,6 +4,7 @@
 
 class Autoloader
 {
+    private static $namespaces = [];
     private static $autoloadErrors = [];
     static function getLoader()
     {        
@@ -43,13 +44,11 @@ class Autoloader
                 if(substr($path,-1) !== '/') {
                     $path .= '/';
                 }
-                $namespaces[$namespace] = $path;
+                self::$namespaces[$namespace] = $path;
             }
-            
-            $class = strtr($class,$namespaces);
-            $class = str_replace('\\','/',$class);
+            $class = strtr($class,self::$namespaces);
+            $class = str_replace('\\','/',$class);            
 
-            
             if (file_exists($class . '.php')) {
                 require $class . '.php';
             } else {
