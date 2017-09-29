@@ -1,5 +1,5 @@
 # Blog de Jean Forteroche
-## OCR Parcour Chef de Projet Multimedia - DEV - Nicolas SCUILLER:
+## OCR Parcours Chef de Projet Multimedia - DEV - Nicolas SCUILLER:
 ### Projet N°3 - Créez un blog pour un écrivain
 
 ## Enoncé
