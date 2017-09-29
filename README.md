@@ -1,5 +1,5 @@
 # Blog de Jean Forteroche
-## OpenClassRooms Parcours Chef de Projet Multimedia - DÉVELOPPEMENT - Nicolas SCUILLER:
+## OCR Parcours Chef de Projet Multimedia - DÉVELOPPEMENT - Nicolas SCUILLER:
 ### Projet N°3 - Créez un blog pour un écrivain
 
 ## Enoncé
