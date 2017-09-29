@@ -1,4 +1,4 @@
-<article class="media">
+<article class="media" id="media-<?= $comment->id ?>">
   <figure class="media-left">
     <p class="image is-64x64">
       <img src="http://bulma.io/images/placeholders/128x128.png">
@@ -11,8 +11,8 @@
         <br>
         <?= $comment->content ?>
         <br>
-        <small>
-          <a>Signaler</a> · 
+        <small id="action">
+          <a class="report" data-id="<?= $comment->id ?>">Signaler</a> · 
           <?php if ($comment->depth < 2): ?> 
           <a class="reply" data-id="<?= $comment->id ?>">Répondre</a>
           <?php endif ?>
@@ -22,7 +22,7 @@
     </div>
     <?php if (isset($comments[$comment->id])): ?>          
       <?php foreach ($comments[$comment->id] as $comment):?>
-        <?= $renderer->render('@comment/front/chapters/comments',compact('comment','comments')) ?>
+        <?= $renderer->render('@comment/front/comments/comments',compact('comment','comments')) ?>
       <?php endforeach?>
     <?php endif ?>
   </div>

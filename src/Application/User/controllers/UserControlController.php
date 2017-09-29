@@ -101,7 +101,7 @@ class UserControlController
   public function logout ()
   {
     $this->session->delete('user');
-    return $this->redirect('Front#Base#Index');   
+    return $this->redirect('Front#Base#Index'); //doit retourner 200 CODE   
   }
 
 

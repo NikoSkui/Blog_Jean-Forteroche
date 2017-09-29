@@ -25,7 +25,7 @@ class CrudController
    * Models need
    * @var mixed
    */
-  private $model;
+  protected $model;
 
   /**
    * @var string
@@ -109,8 +109,9 @@ class CrudController
     $headerDatas = $this->getHeaderDatas('read');
 
     $elements =  $this->model->findAll();
+    $additionnals =  $this->getAdditionnals();
 
-    return $this->renderer->render($this->viewPath . '/read', compact('headerDatas', 'elements'));
+    return $this->renderer->render($this->viewPath . '/read', compact('headerDatas', 'elements','additionnals'));
   }
   /**
   * UPDATE one Element
@@ -175,6 +176,10 @@ class CrudController
   }
 
   protected function getNewEntity ()
+  {
+    return [];
+  }
+  protected function getAdditionnals ()
   {
     return [];
   }

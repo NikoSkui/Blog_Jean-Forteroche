@@ -13,14 +13,14 @@
     </div>
     <?php if (isset($elements[$comment->id])): ?>         
       <?php foreach ($elements[$comment->id] as $comment):?>
-        <?= $renderer->render('@comment/admin/chapters/comments',compact('comment','elements')) ?>
+        <?= $renderer->render('@comment/admin/comments/comment',compact('comment','elements')) ?>
       <?php endforeach?>
     <?php endif ?>
   </div>
   <div class="media-right">
     <span class="icon">
       <a class="is-info" href="<?= $router->generateUri($prefixName.'#Update', ['id' => $comment->id]) ?>">
-        <i class="fa fa-edit"></i>
+        <i class="fa fa-eye"></i>
       </a>
     </span>
   </div>

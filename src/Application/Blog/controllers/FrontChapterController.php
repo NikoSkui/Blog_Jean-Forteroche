@@ -107,7 +107,10 @@ class FrontChapterController
       return new Response(404, [], '<h1>Erreur 404 : chapter not Found<h1>');
     }
     if($chapter->chapters_order !== $request->getAttribute('chapters_order')) {
-      return $this->redirect($this->prefixNameChapters . '#One', ['slugBook' => $book->slug, 'chapters_order' => $chapter->chapters_order, 'slugChapter' => $chapter->slug,  ]);
+      return $this->redirect($this->prefixNameChapters . '#One', [
+        'slugBook' => $book->slug,
+        'chapters_order' => $chapter->chapters_order,
+        'slugChapter' => $chapter->slug]);
     }
     $comments = $this->commentModel->findAllWithChapter($chapter->id);
     $commentsFormAction = [

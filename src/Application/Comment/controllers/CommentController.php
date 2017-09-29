@@ -26,10 +26,7 @@ class CommentController
    
   public function __invoke (Request $request)
   {
-
-    if ($request->getAttribute('id')) {
-      return $this->create($request);
-    } 
+    return $this->create($request);
   }
 
   
@@ -86,5 +83,7 @@ class CommentController
     ]);
 
   }
+
+  
 
 }

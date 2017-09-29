@@ -25,7 +25,7 @@ class Entity
   }
 
   /**
-   * Method magique __get
+   * Method magique __call
    */
   public function __CALL($key,$params)
   {

@@ -3,7 +3,7 @@
       <article class="media ">
         <div class="media-content">
           <div class="content">
-            <p><strong>Mes livres</strong></p>
+            <h2>Mes livres</h2>
           </div>
           <?php foreach ($elements as $book):?>              
             <article class="media  container">

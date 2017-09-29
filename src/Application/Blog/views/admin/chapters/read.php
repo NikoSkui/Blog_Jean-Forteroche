@@ -4,7 +4,7 @@
       <article class="media ">
         <div class="media-content">
           <div class="content">
-            <p><strong><?= $book ?></strong></p>
+            <h2><?= $book ?></h2>
           </div>
           <?php foreach ($chapters as $chapter):?>              
             <article class="media  container">

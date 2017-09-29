@@ -1,7 +1,16 @@
 <nav class="navbar">
   <div class="navbar-brand">
+    <?php if ($this->hasView('@admin/')): ?> 
+      <?php if ($session->get('user')): ?> 
+        <a class="navbar-item is-hidden-desktop-only is-warning" href="<?= $router->generateUri('Admin#Chapters#Read') ?>" >
+          <span class="icon" style="color: #333;">
+            <i class="fa fa-tachometer"></i>
+          </span>
+        </a> 
+      <?php endif ?>
+    <?php endif ?>
     <a class="navbar-item" href="<?= $router->generateUri('Front#Base#Index') ?>">
-       <img src=" <?= $urlHelper->baseUrl() ?>/favicon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="28" height="28">  
+       <img src="<?= $urlHelper->baseUrl() ?>/favicon/favicon-96x96.png" alt="Bulma: a modern CSS framework based on Flexbox" width="28" height="28">  
        <span class="sitename"> Jean Forteroche</span>
     </a>
 
@@ -27,11 +36,6 @@
       </a> 
       <?php if ($this->hasView('@admin/')): ?> 
         <?php if ($session->get('user')): ?> 
-          <a class="navbar-item is-hidden-desktop-only is-warning" href="<?= $router->generateUri('Admin#Chapters#Read') ?>" >
-            <span class="icon" style="color: #333;">
-              <i class="fa fa-tachometer"></i>
-            </span>
-          </a> 
           <div class="navbar-item">      
             <p class="control">
               <a class="button is-danger" href="<?= $router->generateUri('User#Control#Logout') ?>">

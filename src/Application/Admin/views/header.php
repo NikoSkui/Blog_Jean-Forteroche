@@ -7,9 +7,9 @@
             Administration
           </p>
           <?php if(isset($headerDatas->subtitle)): ?>
-          <p class="subtitle has-text-white">
+          <h1 class="subtitle has-text-white">
             <?= $headerDatas->subtitle ?>
-          </p>
+          </h1>
           <?php endif ?>       
         </div>
         <?php if(isset($headerDatas->btnTxt)): ?>

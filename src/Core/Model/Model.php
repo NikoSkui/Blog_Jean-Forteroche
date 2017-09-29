@@ -9,6 +9,8 @@ class Model
 {
   protected $entity;
 
+  protected $additionnalEntity;
+
   protected $model;
 
   protected $fetchModeAll;
@@ -44,7 +46,9 @@ class Model
   {
     $query = $this->queryFindAll();
     $statement= $this->pdo->prepare($query);
-    $statement->setFetchMode(PDO::FETCH_CLASS, $this->entity,[$this->router]);
+    if($this->entity){
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+    }
 		$statement->execute();
     return $statement->fetchAll($this->fetchModeAll);
   }
@@ -52,6 +56,41 @@ class Model
   protected function queryFindAll()
   {
     return "SELECT * FROM $this->model";
+  }
+
+  /**
+   * Read additionnals elements 
+   * @return array
+   */
+  public function findAdditionnals()
+  {
+    $query = $this->queryFindAdditionnal();
+    $statement= $this->pdo->prepare($query);
+    if($this->additionnalEntity){
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->additionnalEntity,[$this->router]);
+    }
+		$statement->execute();
+    return $statement->fetchAll($this->fetchModeAll);
+  }
+
+  protected function queryFindAdditionnal()
+  {
+    return "SELECT * FROM $this->model";
+  }
+
+  /**
+   * Read all elements with the column of element
+   * @return array
+   */
+  public function findAllBy($field, $value)
+  {
+    $statement= $this->pdo->prepare("SELECT id FROM $this->model WHERE $field = ?");
+    if($this->entity){
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+    }
+		$statement->execute([$value]);
+
+    return $statement->fetchAll(PDO::FETCH_COLUMN);
   }
 
   /**

@@ -18,5 +18,5 @@
 </section>
 
 <?php if ($this->hasView('@comment/')): ?>
-<?= $renderer->render('@comment/front/chapters/read',compact('comments','commentsFormAction')) ?>
+<?= $renderer->render('@comment/front/comments/read',compact('comments','commentsFormAction')) ?>
 <?php endif ?>
