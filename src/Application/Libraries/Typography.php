@@ -57,7 +57,7 @@ trait Typography
                   'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A',
                   'a', 'I', 'i','O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o');
     
-    return str_replace($pattern, $replacement, $str);
+    return str_replace($pattern, $replacement, $string);
   }
   
 }

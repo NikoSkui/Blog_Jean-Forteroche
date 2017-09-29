@@ -27,7 +27,7 @@
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-4"><?= $book->name;?></p>
+                <p class="title is-4"><?= $book->id;?></p>
                 <p class="subtitle is-6">@Jean Forteroche</p>
               </div>
             </div>

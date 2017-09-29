@@ -64,11 +64,12 @@ class CrudReportController extends CrudController
   */
   public function delete (Request $request)
   { 
+    $comment = $request->getAttribute('id');
 
-    // Step 1: Delete all reports child
-    $reportChilds = $this->model->findAllBy('comments_id',$request->getAttribute('id'));
-    foreach ($reportChilds as $id) {
-      $this->model->delete($id);
+    // Step 2 : Find all reports of comment and delete them
+    $commentReports = $this->model->findAllBy('comments_id',$comment);
+    foreach ($commentReports as $report) {
+      $this->model->delete($report);
     }
 
     // Step 2: Redirection to the original page.

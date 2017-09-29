@@ -40,27 +40,36 @@ class RdCommentController extends CrudController
   }
 
   /**
-  * DELETE one element
+  * DELETE one comment
   */
   public function delete (Request $request)
   { 
-    // Step 1: Delete all comments child
-    $commentChilds = $this->model->findAllBy('parent_id',$request->getAttribute('id'));
-    foreach ($commentChilds as $id) {
-      $this->model->delete($id);
+    $comment = $request->getAttribute('id');
+
+    // Step 1 : Find all children of the comment and delete them
+    $commentChilds = $this->model->findAllBy('parent_id',$comment);
+    foreach ($commentChilds as $commentChild) {
+      // Step 1.2 : Find all reports of comments child and delete them
+      $commentChildReports = $this->reportModel->findAllBy('comments_id',$commentChild);
+      foreach ($commentChildReports as $commentChildReport) {
+        $this->reportModel->delete($commentChildReport);
+      }
+      $this->commentModel->delete($commentChild);
     }
-    // Step 2: Delete all reports child
-    $reportChilds = $this->reportModel->findAllBy('comments_id',$request->getAttribute('id'));
-    foreach ($reportChilds as $id) {
-      $this->reportModel->delete($id);
+    // Step 2 : Find all reports of comment and delete them
+    $commentReports = $this->reportModel->findAllBy('comments_id',$comment);
+    foreach ($commentReports as $report) {
+      $this->reportModel->delete($report);
     }
 
-    // Step 3: Delete element.
-    $this->model->delete($request->getAttribute('id'));
+    // Step 3 : Delete comment.
+    $this->model->delete($comment);
 
-    // Step 4: Redirection to the original page.
+    // Step 4 : Redirection to the original page.
     return $this->redirect($this->prefixName . '#Read');
+
   }
+
   
   /**
   * Filter to recover only of the desired keys.

@@ -75,7 +75,7 @@ class FrontBookController
   public function oneBook (Request $request)
   {
     $book = $this->model->findBy('slug',$request->getAttribute('slugBook'));
-    if($element === false) {
+    if($book === false) {
       return new Response(404, [], '<h1>Erreur 404 : book not Found<h1>');
     }
 

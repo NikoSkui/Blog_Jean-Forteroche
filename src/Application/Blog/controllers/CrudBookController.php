@@ -4,6 +4,9 @@ namespace App\Blog\controllers;
 
 
 use App\Models\BookModel;
+use App\Models\ChapterModel;
+use App\Models\CommentModel;
+use App\Models\ReportModel;
 use App\Entity\Book;
 
 use System\Router;
@@ -23,13 +26,61 @@ class CrudBookController extends CrudController
    */
   protected $prefixName = "Admin#Books";
 
+  /**
+   * Model need for cascade deleted
+   * @var string
+   */
+  private $chapterModel;
+  private $commentModel;
+  private $reportModel;
 
 
-  public function __construct(Router $router, RendererInterface $renderer, BookModel $model)
-  {
+
+  public function __construct(
+    Router $router,
+    RendererInterface $renderer,
+    BookModel $model,
+    ChapterModel $chapterModel,
+    CommentModel $commentModel,
+    ReportModel $reportModel
+  ) {
     // Idratation 
     parent::__construct($renderer, $router, $model);
+    $this->chapterModel = $chapterModel;
+    $this->commentModel = $commentModel;
+    $this->reportModel = $reportModel;
     $renderer->setLayoutNamespace('admin');
+  }
+
+  /**
+  * DELETE one chapter
+  */
+  public function delete (Request $request)
+  { 
+    $book = $request->getAttribute('id');
+
+    // Step 1: Find all chapters of book and delete them
+    $bookChapters = $this->chapterModel->findAllBy('books_id',$book);
+    foreach ($bookChapters as $chapter) {
+      // Step 2: Find all comments of chapter and delete them
+      $chapterComments = $this->commentModel->findAllBy('chapters_id',$chapter);
+      foreach ($chapterComments as $comment) {
+        // Step 3: Find all reports of comment and delete them
+        $commentReports = $this->reportModel->findAllBy('comments_id',$comment);
+        foreach ($commentReports as $report) {
+          $this->reportModel->delete($report);
+        }
+        $this->commentModel->delete($comment);
+      }
+      $this->chapterModel->delete($chapter);
+    }
+
+    // Step 4: Delete book.
+    $this->model->delete($book);
+
+    // Step 5: Redirection to the original page.
+    return $this->redirect($this->prefixName . '#Read');
+
   }
 
 

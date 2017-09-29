@@ -37,10 +37,10 @@ class WhoopsMiddleware
         \ref::config('validHtml', true);
 
         // Active whoops
-        // $whoops = $this->container->get(\Whoops\Run::class);
-        // $handler = $this->container->get(\Whoops\Handler\PrettyPageHandler::class);
-        // $whoops->pushHandler($handler);
-        // $whoops->register();
+        $whoops = $this->container->get(\Whoops\Run::class);
+        $handler = $this->container->get(\Whoops\Handler\PrettyPageHandler::class);
+        $whoops->pushHandler($handler);
+        $whoops->register();
       }
       
       return $next($request);

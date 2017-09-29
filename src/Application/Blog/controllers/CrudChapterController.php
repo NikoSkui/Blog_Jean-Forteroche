@@ -4,6 +4,8 @@ namespace App\Blog\controllers;
 
 
 use App\Models\ChapterModel;
+use App\Models\CommentModel;
+use App\Models\ReportModel;
 use App\Entity\Chapter;
 
 use System\Router;
@@ -23,14 +25,53 @@ class CrudChapterController extends CrudController
    */
   protected $prefixName = "Admin#Chapters";
 
+  /**
+   * Model need for cascade deleted
+   * @var string
+   */
+  private $commentModel;
+  private $reportModel;
 
-  public function __construct(Router $router, RendererInterface $renderer, ChapterModel $model)
-  {
+
+  public function __construct(
+    Router $router,
+    RendererInterface $renderer,
+    ChapterModel $model,
+    CommentModel $commentModel,
+    ReportModel $reportModel
+  ) {
     // Idratation 
     parent::__construct($renderer, $router, $model);
+    $this->commentModel = $commentModel;
+    $this->reportModel = $reportModel;
     $renderer->setLayoutNamespace('admin');
   }
 
+  /**
+  * DELETE one chapter
+  */
+  public function delete (Request $request)
+  { 
+    $chapter = $request->getAttribute('id');
+
+    // Step 1: Find all comments of chapter and delete them
+    $chapterComments = $this->commentModel->findAllBy('chapters_id',$chapter);
+    foreach ($chapterComments as $comment) {
+      // Step 2: Find all reports of comment and delete them
+      $commentReports = $this->reportModel->findAllBy('comments_id',$comment);
+      foreach ($commentReports as $report) {
+        $this->reportModel->delete($report);
+      }
+      $this->commentModel->delete($comment);
+    }
+
+    // Step 3: Delete chapter.
+    $this->model->delete($chapter);
+
+    // Step 4: Redirection to the original page.
+    return $this->redirect($this->prefixName . '#Read');
+
+  }
 
   /**
   * Filter to recover only of the desired keys.
