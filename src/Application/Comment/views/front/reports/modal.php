@@ -7,10 +7,10 @@
       method="post" 
       id="form-modal">
   <input type="hidden" name="comments_id" value="0" id="comments_id">
-  <div id="modal" class="modal "><!-- is-active -->
+  <div id="modal" class="modal animated"><!-- is-active -->
       <div class="modal-background"></div>
 
-      <div class="modal-card">
+      <div class="modal-card animated">
         <header class="modal-card-head">
           <p class="modal-card-title is-size-6">Aidez-nous à comprendre ce qui se passe avec ce commentaire</p>
           <!-- <button class="delete" aria-label="close"></button> -->

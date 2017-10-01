@@ -9,7 +9,7 @@
   <input type="hidden" name="parent_id" value="0" id="parent_id">
   <figure class="media-left">
     <p class="image is-64x64">
-      <img src="http://bulma.io/images/placeholders/128x128.png">
+      <img src="<?= $urlHelper->baseUrl() ?>/img/avatar.png">
     </p>
   </figure>
   <div class="media-content">

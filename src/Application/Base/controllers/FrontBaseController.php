@@ -2,7 +2,9 @@
 
 namespace App\Base\controllers;
 
-use App\Models\BookModel;
+use App\Base\entities\Header;
+
+use App\Blog\models\BookModel;
 use App\Libraries\RouterAware;
 
 use System\Router;
@@ -53,13 +55,21 @@ class FrontBaseController
    
   public function __invoke (Request $request)
   {
-
-    $book = $this->model->findForHomePage();
-    if($book === false) {
-      return new Response(404, [], '<h1>Erreur 404 : book not Found<h1>');
+    if($this->renderer->hasView('@blog/')) {
+      $book = $this->model->findForHomePage();
     }
+    $header = $this->getHeaderEntity();    
+    return $this->renderer->render($this->viewPath . '/index', compact('header', 'book'));    
 
-    return $this->renderer->render($this->viewPath . '/index', compact('book'));
+  }
+
+  /**
+  * Create entity Header 
+  */
+  private function getHeaderEntity ()
+  {
+    $header = new Header();
+    return $header;
   }
     
 }

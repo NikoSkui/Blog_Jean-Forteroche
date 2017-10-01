@@ -2,9 +2,13 @@
 
 namespace App\Blog\controllers;
 
-use App\Models\ChapterModel;
-use App\Models\BookModel;
-use App\Models\CommentModel;
+use App\Base\entities\Header;
+
+use App\Blog\models\BookModel;
+use App\Blog\models\ChapterModel;
+
+use App\Comment\models\CommentModel;
+
 use App\Libraries\RouterAware;
 
 use System\Router;
@@ -86,11 +90,12 @@ class FrontChapterController
     if($book === false) {
       return new Response(404, [], '<h1>Erreur 404 : book not Found for chapters<h1>');
     }
+    $header = $this->getHeaderEntity('readList',$book);
     $elements =  $this->model->findAllWithBook($book->id); 
     $bookName = key($elements);
     $chapters = array_shift($elements);
 
-    return $this->renderer->render($this->viewPath . '/list', compact('bookName','chapters'));
+    return $this->renderer->render($this->viewPath . '/list', compact('header','chapters'));
   }
 
   /**
@@ -106,6 +111,7 @@ class FrontChapterController
     if($chapter === false) {
       return new Response(404, [], '<h1>Erreur 404 : chapter not Found<h1>');
     }
+    $header = $this->getHeaderEntity('readOne',$chapter);
     if($chapter->chapters_order !== $request->getAttribute('chapters_order')) {
       return $this->redirect($this->prefixNameChapters . '#One', [
         'slugBook' => $book->slug,
@@ -120,7 +126,30 @@ class FrontChapterController
       'chapter_id' => $chapter->id
     ];
 
-    return $this->renderer->render($this->viewPath . '/one', compact('chapter','comments','commentsFormAction'));
+    return $this->renderer->render($this->viewPath . '/one', compact('header','chapter','comments','commentsFormAction'));
+  }
+
+  /**
+  * Create entity Header 
+  */
+  private function getHeaderEntity ($action, $element = null)
+  {
+    $header = new Header();
+    switch ($action) {
+      case 'readList':
+        $header->title = $element->name; 
+        $header->subtitle = 'Sommaire';
+        $header->typePage = 'readList';
+        break;
+      case 'readOne':
+        $header->title = 'Chapitre ' . $element->chapters_order; 
+        $header->subtitle = $element->name;
+        $header->typePage = 'readOne';
+        break;
+      default:
+        break;
+    }
+    return $header;
   }
   
 }

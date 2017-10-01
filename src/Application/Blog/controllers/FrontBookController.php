@@ -2,7 +2,10 @@
 
 namespace App\Blog\controllers;
 
-use App\Models\BookModel;
+use App\Base\entities\Header;
+
+use App\Blog\models\BookModel;
+
 use App\Libraries\RouterAware;
 
 use System\Router;
@@ -65,8 +68,9 @@ class FrontBookController
   public function listBooks (Request $request)
   {
     $books =  $this->model->findAll();  
+    $header = $this->getHeaderEntity('readList');
 
-    return $this->renderer->render($this->viewPath . '/list', compact('books'));
+    return $this->renderer->render($this->viewPath . '/list', compact('header', 'books'));
   }
 
   /**
@@ -78,8 +82,33 @@ class FrontBookController
     if($book === false) {
       return new Response(404, [], '<h1>Erreur 404 : book not Found<h1>');
     }
+    $header = $this->getHeaderEntity('readOne',$book);
 
-    return $this->renderer->render($this->viewPath . '/one', compact('book'));
+    return $this->renderer->render($this->viewPath . '/one', compact('header', 'book'));
+  }
+
+  /**
+  * Create entity Header 
+  */
+  private function getHeaderEntity ($action, $element = null)
+  {
+    $header = new Header();
+
+    switch ($action) {
+      case 'readList':
+        $header->title = 'Entrez dans la bibliothèque'; 
+        $header->subtitle = 'Découvrez tous nos livres';
+        $header->typePage = 'readList';
+        break;
+      case 'readOne':
+        $header->title = $element->name; 
+        $header->subtitle = 'en détail';
+        $header->typePage = 'readOne';
+        break;
+      default:
+        break;
+    }
+    return $header;
   }
   
 

@@ -45,7 +45,6 @@ class WhoopsMiddleware
       
       return $next($request);
 
-
   }
   
 }

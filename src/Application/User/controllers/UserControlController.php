@@ -3,7 +3,8 @@
 namespace App\User\controllers;
 
 
-use App\Entity\User;
+use App\Base\entities\Header;
+use App\User\entities\User;
 use App\Libraries\RouterAware;
 
 use System\Container\DIContainer;
@@ -91,8 +92,9 @@ class UserControlController
       }
 
     }
+    $header = $this->getHeaderEntity('login');
     $username = '';
-    return $this->renderer->render($this->viewPath . '/login', compact('username'));
+    return $this->renderer->render($this->viewPath . '/login', compact('header', 'username'));
   }
 
   /**
@@ -128,6 +130,18 @@ class UserControlController
     $user->password = htmlentities($datas['password']);
     $user->role = 'admin';
     return $user;
+  }
+
+  /**
+  * Create entity Header 
+  */
+  private function getHeaderEntity ($action, $element = null)
+  {
+    $header = new Header();
+    $header->title = 'Connexion'; 
+    $header->typePage = 'login';
+
+    return $header;
   }
 
   /**

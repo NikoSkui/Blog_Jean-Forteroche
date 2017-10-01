@@ -6,9 +6,7 @@
       <?= $renderer->render('@comment/front/comments/comments',compact('comment','comments')) ?>
     <?php endforeach?>
     <?php endif?>
-
     <?= $renderer->render('@comment/admin/comments/create', compact('commentsFormAction')) ?>
-    <?= $renderer->render('@comment/front/comments/modal', compact('commentsFormAction')) ?>
-
+    <?= $renderer->render('@comment/front/reports/modal', compact('commentsFormAction')) ?>
   </div>
 </section>

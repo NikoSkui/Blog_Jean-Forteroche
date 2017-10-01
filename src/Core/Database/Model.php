@@ -1,9 +1,9 @@
 <?php
 
-namespace System\Model;
+namespace System\Database;
 
 use \PDO;
-use System\Router;
+use System\Container\DIContainer;
 
 class Model
 {
@@ -15,16 +15,16 @@ class Model
 
   protected $fetchModeAll;
 
-  protected $router;
+  protected $container;
   
   protected $pdo;
   
-  public function __construct(PDO $pdo, Router $router)
+  public function __construct(PDO $pdo, DIContainer $container)
   {
     
     $this->pdo = $pdo;
 
-    $this->router = $router;
+    $this->container = $container;
   }
 
   /**
@@ -47,7 +47,7 @@ class Model
     $query = $this->queryFindAll();
     $statement= $this->pdo->prepare($query);
     if($this->entity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
 		$statement->execute();
     return $statement->fetchAll($this->fetchModeAll);
@@ -67,7 +67,7 @@ class Model
     $query = $this->queryFindAdditionnal();
     $statement= $this->pdo->prepare($query);
     if($this->additionnalEntity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->additionnalEntity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->additionnalEntity,[$this->container]);
     }
 		$statement->execute();
     return $statement->fetchAll($this->fetchModeAll);
@@ -86,7 +86,7 @@ class Model
   {
     $statement= $this->pdo->prepare("SELECT id FROM $this->model WHERE $field = ?");
     if($this->entity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
 		$statement->execute([$value]);
 
@@ -101,7 +101,7 @@ class Model
   {
     $statement= $this->pdo->prepare("SELECT * FROM $this->model WHERE id = ?");
     if($this->entity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
 		$statement->execute([$id]);
     return $statement->fetch();
@@ -115,7 +115,7 @@ class Model
   {
     $statement= $this->pdo->prepare("SELECT * FROM $this->model WHERE $field = ?");
     if($this->entity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
 		$statement->execute([$value]);
 

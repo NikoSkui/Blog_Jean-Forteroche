@@ -12,11 +12,17 @@
         </div>
       </div>
     </footer>
+    <!--JS "JQUERY"  --> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!--JS "ANIJS" ANIMATION JS  --> 
+    <script src="<?= $urlHelper->baseUrl() ?>/libraries/anijs/anijs-min.js"></script>
+    <script src="<?= $urlHelper->baseUrl() ?>/libraries/anijs/helpers/dom/anijs-helper-dom-min.js"></script>
     <?php if(isset($headerDatas->typePage) && in_array($headerDatas->typePage,['update','create'])): ?>
-      <script src="<?= $urlHelper->baseUrl() ?>/contentTools/content-tools.min.js"></script>
-      <script src="<?= $urlHelper->baseUrl() ?>/contentTools/editor.js"></script>
+      <!--JS "CONTENTTOOLS" EDITOR WYSWYG  --> 
+      <script src="<?= $urlHelper->baseUrl() ?>/libraries/contentTools/content-tools.min.js"></script>
+      <script src="<?= $urlHelper->baseUrl() ?>/libraries/contentTools/editor.js"></script>
     <?php endif ?>
+    <!--JS CUSTOM  --> 
     <script src="<?= $urlHelper->baseUrl() ?>/js/app.js"></script>
   </body>
 </html>

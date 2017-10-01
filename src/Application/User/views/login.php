@@ -1,7 +1,7 @@
-<section class="hero is-fullheight" style="background:url(../bgheader.jpg);background-size:cover;height:100%;">
+<section class="hero is-fullheight" style="background:url(<?= $urlHelper->baseUrl() ?>/img/bgheader.jpg);background-size:cover;height:100%;">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title has-text-centered has-text-white">Connexion</h1>
+      <h1 class="title has-text-centered has-text-white"><?= $header->title ?></h1>
       <div class="columns is-centered">
           <form method="post" class="column is-offset-one-quarter-mobile is-half-mobile is-one-third">
             <div class="field">

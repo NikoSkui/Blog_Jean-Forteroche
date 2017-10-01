@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Blog\models;
 
-use App\Entity\Book;
-use System\Model\Model;
+use App\Blog\entities\Book;
+use System\Database\Model;
 
 class BookModel extends Model
 {
@@ -22,7 +22,7 @@ class BookModel extends Model
 
     $statement= $this->pdo->prepare($query);
     if($this->entity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
     $statement->execute([$id]);
     return $statement->fetchAll(\PDO::FETCH_GROUP);
@@ -32,21 +32,14 @@ class BookModel extends Model
   {
     $query = "SELECT *
               FROM $this->model as b
-              WHERE b.id = ?";
+              WHERE b.on_home = 1";
 
     $statement= $this->pdo->prepare($query);
     if($this->entity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
-    $statement->execute([1]);
+    $statement->execute();
     return $statement->fetch();
   }
   
 }
-// SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2);
-
-// "SELECT b.*
-// FROM $this->model as b
-// LEFT JOIN chapters as c ON b.id = c.books_id
-// WHERE b.id = ?
-// ORDER BY c.chapters_order ASC";

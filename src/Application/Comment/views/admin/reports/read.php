@@ -7,14 +7,13 @@
                 <h2 class="has-text-danger" >Les commentaires signalés</h2>
             </div>
             <?php foreach ($additionnals as $comment):?>
-            <div class="notification is-warning">
+            <div class="animated zoomIn notification is-warning">
 
               <span class="icon" style="position: absolute;right: 3.3em;top: .43em">
                 <a class="is-info" href="<?= $router->generateUri($prefixName.'#Update', ['id' => $comment['id']]) ?>">
                   <i class="fa fa-eye"></i>
                 </a>
               </span>
-
 
               <form style="position: absolute;right: 1.8em;top: 0em" 
                     action="<?= $router->generateUri('Admin#Reports#Delete', ['id' => $comment['id']]) ?>" 
@@ -27,8 +26,7 @@
                   </a>
                 </button>
               </form>
-
-
+              
               <form style="position: absolute;right: .5em;top: .5em" 
                     action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $comment['id']]) ?>" 
                     onsubmit="return confirm('êtes vous sûr de vouloir supprimer ce commentaire ?')"

@@ -4,15 +4,17 @@ namespace App\Admin;
 
 use System\Module;
 use System\Renderer\RendererInterface;
+use System\Container\DIContainer;
 
 class AdminModule extends Module
 {
 
-  public function __construct (RendererInterface $renderer)
-  {    
-    $this->renderer = $renderer;
+  const DEFINITIONS = __DIR__ . '/config.php';
 
-    $renderer->addPath(__DIR__ . '/views','admin');
+  public function __construct (DIContainer $container)
+  {    
+
+    $container->get(RendererInterface::class)->addPath(__DIR__ . '/views','admin');
 
   }
 

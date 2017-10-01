@@ -36,14 +36,12 @@ class BlogModule extends Module
     
     // Routes for Comments Module 
     if ($container->has(\App\Comment\CommentModule::class)) {
-      $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}/signalements/new', CrudReportController::class, 'Front#Report#Create');
-      $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}', CommentController::class, 'Front#Comment#Create');
     }
 
     // Routes for Admin Module 
     if ($container->has(\App\Admin\AdminModule::class)) {
-      $prefix_admin = '/admin';
-
+      $prefix_admin = $container->get('prefix.admin');  
+      
       $router->crud($prefix_admin.'/livres',CrudBookController::class, 'Admin#Books');      
       $router->crud($prefix_admin.'/chapitres',CrudChapterController::class, 'Admin#Chapters');
       $router->crud($prefix_admin.'/commentaires',RdCommentController::class, 'Admin#Comments');

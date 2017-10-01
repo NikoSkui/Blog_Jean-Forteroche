@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Entity;
-
+namespace App\Blog\entities;
 
 use System\Http\ServerRequest;
 
-class Chapter extends Entity
+class Chapter
 {
   public $id;
   public $name;
@@ -18,14 +17,10 @@ class Chapter extends Entity
 
   public function __construct()
   {
-    parent::__construct();
 
-    if($this->name) {
-      $this->name = htmlentities($this->name);
-    }
-    if($this->content) {
-     $this->content;
-    }
+    $this->name = htmlentities($this->name);
+    $this->created_at = new \Datetime($this->created_at);
+    $this->modified_at = new \Datetime($this->modified_at);
   }
 
 }

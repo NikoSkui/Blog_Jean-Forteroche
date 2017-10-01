@@ -1,8 +1,6 @@
 <article class="media" id="media-<?= $comment->id ?>">
   <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="http://bulma.io/images/placeholders/128x128.png">
-    </p>
+    <?= $comment->gravatar ?>
   </figure>
   <div class="media-content">
     <div class="content" id="comment-<?= $comment->id ?>">
@@ -12,9 +10,9 @@
         <?= $comment->content ?>
         <br>
         <small id="action">
-          <a class="report" data-id="<?= $comment->id ?>">Signaler</a> · 
+          <a class="report" data-id="<?= $comment->id ?>">Signaler</a> 
           <?php if ($comment->depth < 2): ?> 
-          <a class="reply" data-id="<?= $comment->id ?>">Répondre</a>
+          · <a class="reply" data-id="<?= $comment->id ?>">Répondre</a>
           <?php endif ?>
           <!--  · 3 hrs -->
         </small>

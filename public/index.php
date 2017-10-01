@@ -14,17 +14,20 @@ $app = (new \System\App(dirname(__DIR__) . '/config/config.php'))
         ->addModule(\App\User\UserModule::class)
         ->addModule(\App\Comment\CommentModule::class)
         ->addModule(\App\Admin\AdminModule::class)
-        ->addModule(\App\Blog\BlogModule::class)     
-        ->pipe(\System\Middlewares\WhoopsMiddleware::class)
-        ->pipe(\System\Middlewares\TrailingSlashMiddleware::class)
-        ->pipe(\System\Middlewares\MethodMiddleware::class)
-        ->pipe(\System\Middlewares\RouterMiddleware::class)
-        ->pipe(\System\Middlewares\LoginMiddleware::class)
-        ->pipe(\System\Middlewares\DispatcherMiddleware::class)
-        ->pipe(\System\Middlewares\NotFoundMiddleware::class);
+        ->addModule(\App\Blog\BlogModule::class); 
+/**
+ * Step 3: Pipe Middlewares
+ */
+$app->pipe(\System\Middlewares\WhoopsMiddleware::class)
+    ->pipe(\System\Middlewares\TrailingSlashMiddleware::class)
+    ->pipe(\System\Middlewares\MethodMiddleware::class)
+    ->pipe(\System\Middlewares\RouterMiddleware::class)
+    ->pipe(\System\Middlewares\LoginMiddleware::class)
+    ->pipe(\System\Middlewares\DispatcherMiddleware::class)
+    ->pipe(\System\Middlewares\NotFoundMiddleware::class);
 
  /**
- * Step 3: Run application
+ * Step 4: Run application
  */
 $response = $app->run(\System\Http\ServerRequest::fromGlobals());
 

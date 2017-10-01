@@ -3,10 +3,11 @@
 namespace App\Blog\controllers;
 
 
-use App\Models\ChapterModel;
-use App\Models\CommentModel;
-use App\Models\ReportModel;
-use App\Entity\Chapter;
+use App\Blog\models\ChapterModel;
+use App\Blog\entities\Chapter;
+
+use App\Comment\models\CommentModel;
+use App\Comment\models\ReportModel;
 
 use System\Router;
 use System\Http\Request;
@@ -97,9 +98,9 @@ class CrudChapterController extends CrudController
     if(isset($datas['chapters_order']) && !empty($datas['chapters_order'])){
       $datas['chapters_order'] = strip_tags($datas['chapters_order']);
     }
-    if(isset($datas['content']) && !empty($datas['content'])){
-      $datas['content'] = substr($datas['content'],3,-4);
-    }
+    // if(isset($datas['content']) && !empty($datas['content'])){
+    //   $datas['content'] = substr($datas['content'],3,-4);
+    // }
     return array_merge($datas,[
       'modified_at' => date('Y-m-d H:i:s') 
     ]);

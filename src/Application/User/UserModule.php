@@ -14,13 +14,14 @@ class UserModule extends Module
 {
 
   public function __construct (DIContainer $container)
-  {    
+  { 
+    $router = $container->get(Router::class);   
     $container->get(RendererInterface::class)->addPath(__DIR__ . '/views','users');
 
-    $container->get(Router::class)->get('/users/login', UserControlController::class, 'User#Control#Login');
-    $container->get(Router::class)->post('/users/login', UserControlController::class, 'User#Control#Login');
+    $router->get('/users/login', UserControlController::class, 'User#Control#Login');
+    $router->post('/users/login', UserControlController::class, 'User#Control#Login');
 
-    $container->get(Router::class)->get('/users/logout', UserControlController::class, 'User#Control#Logout');
+    $router->get('/users/logout', UserControlController::class, 'User#Control#Logout');
   }
 
 }

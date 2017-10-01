@@ -3,9 +3,8 @@
 namespace App\Comment\controllers;
 
 
-use App\Models\CommentModel;
-use App\Models\ReportModel;
-use App\Entity\Comment;
+use App\Comment\models\CommentModel;
+use App\Comment\models\ReportModel;
 
 use System\Router;
 use System\Http\Request;
@@ -94,8 +93,8 @@ class RdCommentController extends CrudController
     foreach ($datas as $id => $reports) {
       $comments[$id] = [
           'id' => $id,
-          'pseudo' => $reports[0]->pseudo,
-          'content' => $reports[0]->content,
+          'pseudo' => htmlentities($reports[0]->pseudo),
+          'content' => htmlentities($reports[0]->content),
           'chapter_name' => $reports[0]->chapter_name,
           'book_name' => $reports[0]->book_name
       ];
@@ -115,14 +114,6 @@ class RdCommentController extends CrudController
     return $comments;
 
 
-  }
-
-  protected function getNewEntity ()
-  {
-    $book = new Book($this->router);
-    $book->created_at = date('Y-m-d H:i:s');
-      
-    return $book;
   }
 
   protected function getHeaderDatas ($action, $element = null)

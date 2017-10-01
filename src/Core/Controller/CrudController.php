@@ -188,20 +188,22 @@ class CrudController
   {
     $header = new \StdClass();
     $header->adminNavbar = [
-    'Book' => [
-      'name' => 'Livres',
-      'prefixName' => 'Admin#Books'
-    ],
-    'Chapters' => [
-      'name' => 'Chapitres',
-      'prefixName' => 'Admin#Chapters'
-    ],
-    'Comments' => [
-      'name' => 'Commentaires',
-      'prefixName' => 'Admin#Comments'
-    ]
-
+      'Book' => [
+        'name' => 'Livres',
+        'prefixName' => 'Admin#Books'
+      ],
+      'Chapters' => [
+        'name' => 'Chapitres',
+        'prefixName' => 'Admin#Chapters'
+      ]
     ];
+
+    if ($this->renderer->hasView('@comment/')) {
+      $header->adminNavbar['Comments'] = [
+        'name' => 'Commentaires',
+        'prefixName' => 'Admin#Comments'
+      ];
+    }
     return $header;
   }
 }

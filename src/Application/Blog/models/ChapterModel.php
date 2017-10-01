@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Blog\models;
 
-use App\Entity\Chapter;
-use System\Model\Model;
+use App\Blog\entities\Chapter;
+use System\Database\Model;
 
 class ChapterModel extends Model
 {
@@ -23,7 +23,7 @@ class ChapterModel extends Model
               WHERE b.id = ?
               ORDER BY c.chapters_order ASC";
     $statement= $this->pdo->prepare($query);
-    $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+    $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
 		$statement->execute([$id]);
     return $statement->fetchAll($this->fetchModeAll);
   }
@@ -45,7 +45,7 @@ class ChapterModel extends Model
 
     $statement= $this->pdo->prepare($query);
     if($this->entity){
-      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->router]);
+      $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
 
 		$statement->execute($datas);

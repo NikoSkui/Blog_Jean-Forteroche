@@ -24,6 +24,7 @@ jQuery(document).ready(function($){
     e.preventDefault()
     var $content = $('#comment-content-modal')
     var $modal = $('#modal')
+    var $modalCard = $('.modal-card')
     var $form = $('#form-modal')
     var $this = $(this)
     var $comments_id = $this.data('id')
@@ -33,14 +34,24 @@ jQuery(document).ready(function($){
     $form.find("#comments_id").val($comments_id)
     $content.append($comment);
     $modal.addClass('is-active')
-  }) 
-
-  // Affiche la fenetre modal quand l'utilisateur clique sur signaler
-  $('.modal-close').click(function(e){
-    e.preventDefault()
-    var $modal = $('#modal')
-    $modal.removeClass('is-active')
+    $modal.removeClass('fadeOut')
+    $modalCard.addClass('fadeInDown')
   })
+  // Delete la fenetre modal quand l'utilisateur clique en dehors de la card
+  $('#modal').click(function(e) { 
+    var $content = $('#comment-content-modal').children()
+    var $modal = $(this)
+    var $modalCard = $('.modal-card')
+    if(!$(e.target).closest($modalCard).length){
+      $modal.addClass('fadeOut').delay(800).queue(function(){
+        $modal.removeClass('is-active')
+        $content.remove()
+        $(this).dequeue();
+      })
+    }
+  }); 
+
+
 
   /**
    * BUTTON RETURN

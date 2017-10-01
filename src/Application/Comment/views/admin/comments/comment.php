@@ -1,4 +1,3 @@
-
 <article class="media container" style="width:auto">
   <figure class="media-left">
     <p class="image is-24x24">
@@ -8,7 +7,7 @@
   <div class="media-content">
     <div class="content" id="comment-<?= $comment->id ?>">
       <p>
-        <strong><?= $comment->pseudo ?> : </strong><?= $comment->email ?>
+        <strong> <?= $comment->pseudo ?> : </strong><?= $comment->email ?>
       </p>
     </div>
     <?php if (isset($elements[$comment->id])): ?>         
@@ -30,13 +29,4 @@
       <button class="delete " type="submit"></button>
     </form>
   </div>
-</article>
-
-
-
-
-
-
-
-          
-       
+</article>    

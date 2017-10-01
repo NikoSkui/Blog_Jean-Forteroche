@@ -3,11 +3,12 @@
 namespace App\Blog\controllers;
 
 
-use App\Models\BookModel;
-use App\Models\ChapterModel;
-use App\Models\CommentModel;
-use App\Models\ReportModel;
-use App\Entity\Book;
+use App\Blog\models\BookModel;
+use App\Blog\models\ChapterModel;
+use App\Blog\entities\Book;
+
+use App\Comment\models\CommentModel;
+use App\Comment\models\ReportModel;
 
 use System\Router;
 use System\Http\Request;

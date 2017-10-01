@@ -2,7 +2,7 @@
 
 namespace App\Comment\controllers;
 
-use App\Models\CommentModel;
+use App\Comment\models\CommentModel;
 use App\Libraries\RouterAware;
 use System\Http\Request;
 use System\Router;

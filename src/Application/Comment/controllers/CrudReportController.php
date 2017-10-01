@@ -2,7 +2,7 @@
 
 namespace App\Comment\controllers;
 
-use App\Models\ReportModel;
+use App\Comment\models\ReportModel;
 use App\Libraries\RouterAware;
 
 use System\Router;

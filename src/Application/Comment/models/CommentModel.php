@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Comment\models;
 
 use \PDO;
-use App\Entity\Comment;
-use System\Router;
-use System\Model\Model;
+use App\Comment\entities\Comment;
+use System\Container\DIContainer;
+use System\Database\Model;
 
 class CommentModel extends Model
 {
 
-  protected $router;
+  protected $container;
   protected $pdo;
 
   protected $entity = Comment::class;
@@ -19,10 +19,10 @@ class CommentModel extends Model
 
   protected $fetchModeAll = \PDO::FETCH_GROUP;
   
-  public function __construct(PDO $pdo, Router $router)
+  public function __construct(PDO $pdo, DIContainer $container)
   {
     $this->pdo = $pdo;
-    $this->router = $router;
+    $this->container = $container;
   }
 
   /**
@@ -54,7 +54,7 @@ class CommentModel extends Model
               ORDER BY comments.created_at ASC';
 
     $statement= $this->pdo->prepare($query);
-    $statement->setFetchMode(PDO::FETCH_CLASS, Comment::class,[$this->router]);
+    $statement->setFetchMode(PDO::FETCH_CLASS, Comment::class,[$this->container]);
 		$statement->execute($params);
     return $statement->fetchAll(PDO::FETCH_GROUP);
   }

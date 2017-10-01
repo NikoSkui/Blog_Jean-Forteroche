@@ -4,8 +4,9 @@ $params = [
 ];
 ?>
 
-<?= $renderer->render('header', compact('headerDatas','params')) ?>
-<?= $renderer->render('@admin/header', compact('headerDatas')) ?>
+<?= $renderer->render('head', compact('params','headerDatas')) ?>
+
+<?= $renderer->render('@admin/template/header', compact('headerDatas')) ?>
 
 <?= $content ?>
 

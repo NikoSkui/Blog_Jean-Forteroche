@@ -1,4 +1,4 @@
-<section class="hero is-medium" style="background:url(<?= $urlHelper->baseUrl() ?>/bgheader.jpg);background-size:cover;height:100%;">
+<section class="hero is-medium" style="background:url(<?= $urlHelper->baseUrl() ?>/img/bgheader.jpg);background-size:cover;height:100%;">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-vcentered">
@@ -48,7 +48,7 @@
   </div>
 </section>
   <?php if($headerDatas->typePage === 'read'): ?>
-  <?= $renderer->render('@admin/navbar', ['adminNavbar'=>$headerDatas->adminNavbar]) ?>
+  <?= $renderer->render('@admin/template/navbar', ['adminNavbar'=>$headerDatas->adminNavbar]) ?>
   <?php endif ?>
 
   <?php if(in_array($headerDatas->typePage,['create','update'])): ?>
