@@ -11,9 +11,9 @@ require dirname(__DIR__).'/src/Core/Autoload.php';
  */
 $app = (new \System\App(dirname(__DIR__) . '/config/config.php'))
         ->addModule(\App\Base\BaseModule::class)
+        ->addModule(\App\Admin\AdminModule::class)
         ->addModule(\App\User\UserModule::class)
         ->addModule(\App\Comment\CommentModule::class)
-        ->addModule(\App\Admin\AdminModule::class)
         ->addModule(\App\Blog\BlogModule::class); 
 /**
  * Step 3: Pipe Middlewares

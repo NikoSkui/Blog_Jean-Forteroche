@@ -11,7 +11,7 @@ use System\Http\Request;
 use System\Renderer\RendererInterface;
 use System\Controller\CrudController;
 
-class RdCommentController extends CrudController
+class CrudCommentController extends CrudController
 {
   /**
    * @var string
@@ -36,6 +36,38 @@ class RdCommentController extends CrudController
     parent::__construct($renderer, $router, $model);
     $this->reportModel = $reportModel;
     $renderer->setLayoutNamespace('admin');
+  }
+
+  public function create (Request $request)
+  {
+    // Step 1: Recovery only of the desired keys.
+    $datas = $this->getParams($request);
+
+    // Step 3: Checks if the comment is a reply.
+    if ($datas['parent_id'] !== 0) {
+      $commentParent = $this->model->hasParentCommentInChapter($datas['chapters_id'],$datas['parent_id']);   
+      // If reply, checks if parent exist in chapter
+      if ($commentParent === false) {
+        throw new \Exception("The parent comment does not exist");
+      }
+      // If exist, checks if depth < 2
+      if ($commentParent->depth >= 2) {
+        throw new \Exception("You can not reply to the comment");
+      }
+      // If true, update $datas['depth']
+      $datas['depth'] = $commentParent->depth + 1;
+    }
+
+    // Step 4: Creating the new comment.
+    $this->model->create($datas);
+
+    // Step 5: Redirection to the original page.
+    return $this->redirect('Front#Chapters#One',[
+      'slugBook'       => $request->getAttribute('slugBook'),
+      'chapters_order' => $request->getAttribute('chapters_order'),
+      'slugChapter'    => $request->getAttribute('slugChapter')
+    ]);
+
   }
 
   /**
@@ -77,13 +109,16 @@ class RdCommentController extends CrudController
   {
     // Step 1: Filter
     $datas =  array_filter($request->getParsedBody(), function ($key) {
-        return in_array($key, ['name', 'slug', 'content', 'created_at']);
+        return in_array($key, ['pseudo', 'content', 'email', 'parent_id']);
       }, ARRAY_FILTER_USE_KEY);
 
     // Step 2: Definition of some value
     return array_merge($datas,[
-      'modified_at' => date('Y-m-d H:i:s')
+      'chapters_id' => $request->getAttribute('id'),
+      'parent_id' => isset($datas['parent_id']) && !empty($datas['parent_id']) ? $datas['parent_id'] : 0,
+      'depth' => 0
     ]);
+
   }
 
   protected function getAdditionnals ()

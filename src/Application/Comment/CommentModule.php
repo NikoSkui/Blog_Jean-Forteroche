@@ -2,6 +2,9 @@
 
 namespace App\Comment;
 
+use App\comment\controllers\CrudReportController;
+use App\Comment\controllers\CrudCommentController;
+
 use System\Router;
 use System\Module;
 use System\Container\DIContainer;
@@ -20,9 +23,16 @@ class CommentModule extends Module
 
     // Routes for Comments Module 
     $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}/signalements/new', CrudReportController::class, 'Front#Report#Create');
-    $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}', CommentController::class, 'Front#Comment#Create');
+    $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}/comments/new', CrudCommentController::class, 'Front#Comment#Create');
     
+    // Routes for Admin Module 
+    if ($container->has(\App\Admin\AdminModule::class)) {
+      $prefix_admin = $container->get('prefix.admin');  
 
+      $router->crud($prefix_admin.'/commentaires',CrudCommentController::class, 'Admin#Comments');
+      $router->delete($prefix_admin.'/signalements/{id}',CrudReportController::class, 'Admin#Reports#Delete');
+
+    }
 
   }
   
