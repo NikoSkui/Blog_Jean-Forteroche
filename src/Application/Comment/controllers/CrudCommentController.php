@@ -102,7 +102,6 @@ class CrudCommentController extends CrudController
 
   }
 
-  
   /**
   * Filter to recover only of the desired keys.
   */

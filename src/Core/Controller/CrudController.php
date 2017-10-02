@@ -193,3 +193,17 @@ class CrudController
     return $header;
   }
 }
+
+  // A mettre dans la fonction où créer du faux contenus
+  // A besoin de la biliotheque faker pour fonctionner
+  // $faker = \Faker\Factory::create('fr_FR');
+  //   $data = [
+  //     'pseudo' => $faker->firstName,
+  //     'email' => $faker->freeEmail,
+  //     'content' =>$faker->realText($faker->numberBetween(90,255)),
+  //     'created_at' => $faker->dateTimeThisYear($max = 'now', $timezone = date_default_timezone_get())->format('Y-m-d H:i:s'),
+  //     'chapters_id' =>  0,
+  //     'parent_id' => $faker->numberBetween($min = 161, $max = 180),
+  //   ];
+
+  // $this->model->create($data);
