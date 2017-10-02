@@ -7,7 +7,7 @@
       </div>
   </div>
 </section>
-<a class="return admin animated " href="<?= $router->generateUri($prefixName.'#Read')?>" >
+<a class="return admin animated fadeIn" href="<?= $router->generateUri($prefixName.'#Read')?>" >
   <?= $renderer->render('@component/btn_return')?>
 </a>
 

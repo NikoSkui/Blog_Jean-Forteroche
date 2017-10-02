@@ -17,7 +17,7 @@
     <!--JS "ANIJS" ANIMATION JS  --> 
     <script src="<?= $urlHelper->baseUrl() ?>/libraries/anijs/anijs-min.js"></script>
     <script src="<?= $urlHelper->baseUrl() ?>/libraries/anijs/helpers/dom/anijs-helper-dom-min.js"></script>
-    <?php if(isset($headerDatas->typePage) && in_array($headerDatas->typePage,['update','create'])): ?>
+    <?php if(isset($header->typePage) && in_array($header->typePage,['update','create'])): ?>
       <!--JS "CONTENTTOOLS" EDITOR WYSWYG  --> 
       <script src="<?= $urlHelper->baseUrl() ?>/libraries/contentTools/content-tools.min.js"></script>
       <script src="<?= $urlHelper->baseUrl() ?>/libraries/contentTools/editor.js"></script>

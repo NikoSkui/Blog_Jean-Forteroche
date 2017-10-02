@@ -124,6 +124,7 @@ class CrudCommentController extends CrudController
 
   protected function getAdditionnals ()
   {
+    $comments = [];
     $datas =  $this->reportModel->findAll();
     foreach ($datas as $id => $reports) {
       $comments[$id] = $this->getNewEntity();
@@ -132,13 +133,7 @@ class CrudCommentController extends CrudController
       $comments[$id]->content = htmlentities($reports[0]->content);
       $comments[$id]->chapter_name = $reports[0]->chapter_name;
       $comments[$id]->book_name = $reports[0]->book_name;
-      // $comments[$id] = [
-      //     'id' => $id,
-      //     'pseudo' => htmlentities($reports[0]->pseudo),
-      //     'content' => htmlentities($reports[0]->content),
-      //     'chapter_name' => $reports[0]->chapter_name,
-      //     'book_name' => $reports[0]->book_name
-      // ];
+
       // organized datas by report_lvl
       foreach ($reports as $i => $report) {
         $comments[$id]->reports[$report->report_lvl][] = $report;

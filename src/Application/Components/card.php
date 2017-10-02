@@ -4,9 +4,9 @@
       <img src="<?= $urlHelper->baseUrl() ?>/img/<?= $book->slug ?>.jpg" alt="Image">
     </figure>
   </div>
+  <?= $book->url(['slug'=> $book->slug]) ?>
   <div class="card-content">
     <div class="media">
-
       <div class="media-content">
         <p class="title is-4"><?= $book->name ?></p>
         <p class="subtitle is-6">@ Jean Forteroche</p>
@@ -15,7 +15,6 @@
     <div class="content">
       <?= $book->excerpt ?>
       <br>
-      <?= $book->url(['slug'=> $book->slug]) ?>
     </div>
   </div>
 </div>

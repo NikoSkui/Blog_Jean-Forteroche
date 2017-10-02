@@ -29,6 +29,8 @@ class Book
 
   protected function getUrl($params = [])
   {
+    $renderer = $this->container->get(\System\Renderer\RendererInterface::class);
+
     $router = $this->container->get(\System\Router::class);
     $name = 'ouvrir';
     foreach ($params as $param) {
@@ -36,8 +38,9 @@ class Book
         $slug = $param['slug'];
       }
     }
+    $button = $renderer->render('@component/btn_open');
     $uri = $router->generateUri('Front#Chapters#List', ['slugBook' => $this->slug]);
-    $html = "<a href=$uri>$name</a>";
+    $html = "<a  href='$uri' style='position:absolute;right:20px;margin-top:-24px;' class='open'>$button</a>";
     echo $html;
   }
   

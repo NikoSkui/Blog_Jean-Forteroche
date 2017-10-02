@@ -55,10 +55,10 @@ class ChapterModel extends Model
 
   protected function queryFindAll()
   {
-    return "SELECT b.name as book_name, c.id, c.name, c.slug, c.chapters_order
+    return "SELECT b.name as book_name, c.id, c.name, c.slug, c.chapters_order, c.books_id
             FROM chapters as c
             LEFT JOIN books as b ON c.books_id = b.id
-            ORDER BY c.chapters_order DESC";
+            ORDER BY b.id ASC, c.chapters_order DESC";
   }
 
   protected function buildField (array $datas, $join = ', ')

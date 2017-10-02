@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=UTF-8');
 
 /**
- * Etape 1: Require L'application utilise un autoloader Maison
+ * Step 1: Require L'application utilise un autoloader Maison a traduire
  */
 require dirname(__DIR__).'/src/Core/Autoload.php';
 
@@ -16,7 +16,7 @@ $app = (new \System\App(dirname(__DIR__) . '/config/config.php'))
         ->addModule(\App\Comment\CommentModule::class)
         ->addModule(\App\Blog\BlogModule::class); 
 /**
- * Step 3: Pipe Middlewares
+ * Step 3: Add Middlewares to sequence the application
  */
 $app->pipe(\System\Middlewares\WhoopsMiddleware::class)
     ->pipe(\System\Middlewares\TrailingSlashMiddleware::class)
@@ -32,6 +32,6 @@ $app->pipe(\System\Middlewares\WhoopsMiddleware::class)
 $response = $app->run(\System\Http\ServerRequest::fromGlobals());
 
  /**
- * Step 4: Send response
+ * Step 5: Send response
  */
 $app->send($response);

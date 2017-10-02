@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     
-    <?php if(isset($headerDatas->typePage) && in_array($headerDatas->typePage,['update','create'])): ?>
+    <?php if(isset($header->typePage) && in_array($header->typePage,['update','create'])): ?>
       <!--CSS CONTENT TOOLS EDITOR  --> 
       <link rel="stylesheet" href="<?= $urlHelper->baseUrl() ?>/libraries/contentTools/content-tools.min.css">
       <link rel="stylesheet" href="<?= $urlHelper->baseUrl() ?>/libraries/contentTools/content-editor.css">

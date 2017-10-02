@@ -97,8 +97,8 @@ class CrudBookController extends CrudController
 
     // Step 2: Definition of some value 
     if(isset($datas['name']) && !empty($datas['name'])){
-      $datas['name'] = strip_tags($datas['name']);
-      $datas['slug'] = $this->makeSlug(strip_tags($datas['name']));
+      $datas['name'] = trim(strip_tags($datas['name']));
+      $datas['slug'] = $this->makeSlug($datas['name']);
     }
 
     if(isset($datas['excerpt']) && !empty($datas['excerpt'])){

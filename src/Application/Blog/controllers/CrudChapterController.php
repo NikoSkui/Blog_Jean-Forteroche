@@ -86,7 +86,7 @@ class CrudChapterController extends CrudController
 
     // Step 2: Definition of some value 
     if(isset($datas['name']) && !empty($datas['name'])){
-      $datas['name'] = strip_tags($datas['name']);
+      $datas['name'] = trim(strip_tags($datas['name']));
       $datas['slug'] = $this->makeSlug(strip_tags($datas['name']));
     }
     if(isset($datas['created_at']) && !empty($datas['created_at'])){
@@ -114,8 +114,7 @@ class CrudChapterController extends CrudController
     $chapter = new Chapter();
     $chapter->created_at = date('Y-m-d H:i:s');
     $chapter->books_id = 1;
-    $chapter->chapters_order = 9;
-  
+    $chapter->chapters_order = count($this->model->findAllBy('books_id', $chapter->books_id))+1;
     return $chapter;
   }
 

@@ -50,6 +50,7 @@ class Model
       $statement->setFetchMode(\PDO::FETCH_CLASS, $this->entity,[$this->container]);
     }
 		$statement->execute();
+
     return $statement->fetchAll($this->fetchModeAll);
   }
 

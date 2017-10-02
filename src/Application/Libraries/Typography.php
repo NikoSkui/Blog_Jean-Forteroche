@@ -16,7 +16,7 @@ trait Typography
   public function makeSlug($string)
   {
     // Step 1 : remove all accent of the string
-    $str = $this->remove_accent($string);
+    $string = $this->remove_accent($string);
 
     // Step 2 : replace all accent of the string
     $pattern = ['/[^a-zA-Z0-9 \'-]/', '/[ -\']+/', '/^-|-$/'];

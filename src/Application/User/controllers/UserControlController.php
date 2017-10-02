@@ -92,6 +92,10 @@ class UserControlController
       }
 
     }
+
+    // fuction for encrypt new password
+    // $this->encrypt('password');die();
+
     $header = $this->getHeaderEntity('login');
     $username = '';
     return $this->renderer->render($this->viewPath . '/login', compact('header', 'username'));
@@ -105,8 +109,6 @@ class UserControlController
     $this->session->delete('user');
     return $this->redirect('Front#Base#Index'); //doit retourner 200 CODE   
   }
-
-
 
   /**
   * Filter to recover only of the desired keys.
@@ -145,7 +147,7 @@ class UserControlController
   }
 
   /**
-  * Redirect to secure space
+  * Set session user and rediret to secure space
   */
   private function openGate($user)
   {
@@ -155,7 +157,7 @@ class UserControlController
   }
 
   /**
-  * Create Hash new users
+  * Create Hash for new user
   */
   private function encrypt($value)
   {
