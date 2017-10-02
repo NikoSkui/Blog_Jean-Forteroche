@@ -25,12 +25,17 @@
               <div class="media-right">
                 <span class="icon">
                   <a class="is-info" href="<?= $router->generateUri($prefixName.'#Update', ['id' => $chapter->id]) ?>">
-                    <i class="fa fa-edit"></i>
+                    <i class="fa fa-lg fa-edit"></i>
                   </a>
                 </span>
               </div>
-              <div class="media-right">
-                <form action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $chapter->id]) ?>" method="post" onsubmit="return confirm('êtes vous sûr de vouloir supprimer ce chapitre ?')">
+              <div class="media-right" >
+                <form 
+                  action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $chapter->id]) ?>" 
+                  method="post" 
+                  onsubmit="return confirm('êtes vous sûr de vouloir supprimer ce chapitre ?')"
+                  style="padding-top:2px;"
+                >
                   <input type="hidden" name="_method" value ="DELETE">
                   <button class="delete " type="submit"></button>
                 </form>

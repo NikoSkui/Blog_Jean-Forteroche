@@ -7,3 +7,6 @@
       </div>
   </div>
 </section>
+<a class="return fadeIn animated " href="<?= $router->generateUri($prefixName.'#Read')?>" >
+  <?= $renderer->render('@component/btn_return')?>
+</a>

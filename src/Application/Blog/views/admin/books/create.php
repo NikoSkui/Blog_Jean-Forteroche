@@ -14,3 +14,6 @@
     </form>
   </div>
 </section>
+<a class="return admin fadeIn animated " href="<?= $router->generateUri($prefixName.'#Read')?>" >
+  <?= $renderer->render('@component/btn_return')?>
+</a>

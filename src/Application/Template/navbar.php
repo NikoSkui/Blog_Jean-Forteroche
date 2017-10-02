@@ -1,22 +1,19 @@
-<nav class="navbar">
+<nav class="navbar is-transparent">
   <div class="navbar-brand">
-    <?php if ($this->hasView('@admin/')): ?> 
-      <?php if ($session->get('user')): ?> 
-        <a class="navbar-item is-hidden-desktop-only is-warning" href="<?= $router->generateUri('Admin#Chapters#Read') ?>" >
-          <span class="icon" style="color: #333;">
-            <i class="fa fa-tachometer"></i>
-          </span>
-        </a> 
-      <?php endif ?>
-    <?php endif ?>
-    <a class="navbar-item" href="<?= $router->generateUri('Front#Base#Index') ?>">
-       <img src="<?= $urlHelper->baseUrl() ?>/favicon/favicon-96x96.png" alt="Bulma: a modern CSS framework based on Flexbox" width="28" height="28">  
-       <span class="sitename"> Jean Forteroche</span>
+    <a class="navbar-item logo " href="<?= $router->generateUri('Front#Base#Index') ?>">
+       <img src="<?= $urlHelper->baseUrl() ?>/favicon/favicon-96x96.png" alt="My book par Jean Forteroche : Un livre en ligne">  
     </a>
+      <?php if ($this->hasView('@admin/')): ?> 
+        <?php if ($session->get('user')): ?> 
+          <a class="navbar-item is-hidden-desktop-only admin-access" href="<?= $router->generateUri('Admin#Chapters#Read') ?>" >
+            <?= $renderer->render('@component/btn_admin')?>
+          </a>
+        <?php endif ?>
+      <?php endif ?>
 
     <a class="navbar-item is-hidden-desktop" href="https://github.com/NikoSkui/Blog_Jean-Forteroche" target="_blank">
-      <span class="icon" style="color: #333;">
-        <i class="fa fa-github"></i>
+      <span class="icon has-text-white" >
+        <i class="fa fa-github "></i>
       </span>
     </a>
 
@@ -30,8 +27,8 @@
   <div id="navMenubd-example" class="navbar-menu">
     <div class="navbar-end">
       <a class="navbar-item is-hidden-desktop-only" href="https://github.com/NikoSkui/Blog_Jean-Forteroche" target="_blank">
-        <span class="icon" style="color: #333;">
-          <i class="fa fa-github"></i>
+        <span class="icon has-text-light">
+          <i class="fa fa-lg fa-github"></i>
         </span>
       </a> 
       <?php if ($this->hasView('@admin/')): ?> 
@@ -46,7 +43,7 @@
         <?php else : ?>
           <div class="navbar-item">      
             <p class="control">
-              <a class="button is-primary" href="<?= $router->generateUri('Admin#Chapters#Read') ?>">
+              <a class="button is-primary is-outlined" href="<?= $router->generateUri('Admin#Chapters#Read') ?>">
                 <span>Connexion</span>
               </a>
             </p>

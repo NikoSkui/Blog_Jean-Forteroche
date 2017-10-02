@@ -9,26 +9,26 @@
             <?php foreach ($additionnals as $comment):?>
             <div class="animated zoomIn notification is-warning">
 
-              <span class="icon" style="position: absolute;right: 3.3em;top: .43em">
-                <a class="is-info" href="<?= $router->generateUri($prefixName.'#Update', ['id' => $comment['id']]) ?>">
-                  <i class="fa fa-eye"></i>
+              <span class="icon" style="position: absolute;right: 3.3em;top: .3em">
+                <a class="is-info" href="<?= $router->generateUri($prefixName.'#Update', ['id' => $comment->id]) ?>">
+                  <i class="fa fa-lg fa-eye"></i>
                 </a>
               </span>
 
-              <form style="position: absolute;right: 1.8em;top: 0em" 
-                    action="<?= $router->generateUri('Admin#Reports#Delete', ['id' => $comment['id']]) ?>" 
+              <form style="position: absolute;right: 1.8em;top: 0.2em" 
+                    action="<?= $router->generateUri('Admin#Reports#Delete', ['id' => $comment->id]) ?>" 
                     onsubmit="return confirm('êtes vous sûr de vouloir restaurer ce commentaire ?')"
                     method="post">
                 <input type="hidden" name="_method" value ="DELETE">
                 <button class="icon" style="background:transparent;border:0px;" >
                   <a class="is-info" >
-                    <i class="fa fa-check"></i>
+                    <i class="fa fa-lg fa-check"></i>
                   </a>
                 </button>
               </form>
               
               <form style="position: absolute;right: .5em;top: .5em" 
-                    action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $comment['id']]) ?>" 
+                    action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $comment->id]) ?>" 
                     onsubmit="return confirm('êtes vous sûr de vouloir supprimer ce commentaire ?')"
                     method="post">
                 <input type="hidden" name="_method" value ="DELETE">
@@ -38,20 +38,18 @@
               <article class="media" style="border-top:0px;padding-top:10px;">
                 <!-- <div class="box"> -->
                 <figure class="media-left">
-                  <p class="image is-24x24">
-                    <img src="http://bulma.io/images/placeholders/96x96.png">
-                  </p>
+                  <?= $comment->gravatar('24') ?>
                 </figure>
                 <div class="media-content">
                   <div class="content" style="padding-right:50px;">
                     <p>
-                      <strong><?= $comment['book_name'] ?>: </strong>
-                      <strong>Chapitre <?= $comment['chapter_name'] ?> </strong><br>
-                      <strong>@ <?= $comment['pseudo'] ?> </strong><br>
-                      <?= $comment['content'] ?>
+                      <strong><?= $comment->book_name ?>: </strong>
+                      <strong>Chapitre <?= $comment->chapter_name ?> </strong><br>
+                      <strong>@ <?= $comment->pseudo ?> </strong><br>
+                      <?= $comment->content ?>
                     </p>
                   </div>
-                  <?php foreach ($comment['reports'] as $reports):?>  
+                  <?php foreach ($comment->reports as $reports):?>  
                   <?php foreach ($reports as $count => $report):?>  
                     <article class=" ">
                       <div class="media-content">

@@ -2,7 +2,7 @@
 
 namespace App\Comment;
 
-use App\comment\controllers\CrudReportController;
+use App\Comment\controllers\CrudReportController;
 use App\Comment\controllers\CrudCommentController;
 
 use System\Router;
@@ -28,7 +28,6 @@ class CommentModule extends Module
     // Routes for Admin Module 
     if ($container->has(\App\Admin\AdminModule::class)) {
       $prefix_admin = $container->get('prefix.admin');  
-
       $router->crud($prefix_admin.'/commentaires',CrudCommentController::class, 'Admin#Comments');
       $router->delete($prefix_admin.'/signalements/{id}',CrudReportController::class, 'Admin#Reports#Delete');
 

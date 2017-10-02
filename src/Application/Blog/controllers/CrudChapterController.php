@@ -119,9 +119,9 @@ class CrudChapterController extends CrudController
     return $chapter;
   }
 
-  protected function getHeaderDatas ($action, $element = null)
+  protected function getHeaderEntity ($action, $element = null)
   {
-    $header = parent::getHeaderDatas($action,$element);
+    $header = parent::getHeaderEntity($action,$element);
 
     $header->linkName = 'Chapitres'; 
     $header->prefixName = $this->prefixName;

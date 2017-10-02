@@ -124,9 +124,9 @@ class CrudBookController extends CrudController
   /**
   * Create entity Header when you insert new item in bdd and add some inital values
   */
-  protected function getHeaderDatas ($action, $element = null)
+  protected function getHeaderEntity ($action, $element = null)
   {
-    $header = parent::getHeaderDatas($action,$element);
+    $header = parent::getHeaderEntity($action,$element);
 
     $header->linkName = 'Livres'; 
     $header->prefixName = $this->prefixName;

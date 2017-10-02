@@ -6,7 +6,7 @@ use System\Container\DIContainer;
 
 class Comment
 {
-  private $container;
+  // private $container;
   
   public $id;
   public $pseudo;
@@ -22,22 +22,22 @@ class Comment
   public $indexEndChapter = 0;
   public $indexComment = 0;
 
-  public function __construct(DIContainer $container)
+  public function __construct()
   {
-    $this->container = $container;
+    
 
       $this->content = htmlentities($this->content);
       $this->pseudo = htmlentities($this->pseudo);
       $this->created_at = new \Datetime($this->created_at);
   }
 
-  public function getGravatar()
+  public function getGravatar($params)
   {
     $rating = 'pg'; // Set self-rate images : g, pg, r, x
     $default ="http://mybook.3desquisse.fr/img/avatar.png"; // Set a Default Avatar
     $email = md5(strtolower(trim($this->email)));
     $gravurl = "http://www.gravatar.com/avatar/$email?d=$default&s=120&r=$rating";
-    return '<p class="image is-64x64"><img src="'.$gravurl.'" alt="Avatar"></p>';
+    return '<p class="image is-'.$params.'x'.$params.'"><img src="'.$gravurl.'" alt="Avatar"></p>';
   }
 
   public function setIndexes($elements,$key)
@@ -86,10 +86,13 @@ class Comment
   /**
    * Method magique __get
    */
-  public function __GET($key)
+  public function __CALL($key, $params)
   {
+    if (count($params === 1)){
+      $params = $params[0];
+    }
     $method = 'get'.ucfirst($key);
-    $this->$key = $this->$method();
+    $this->$key = $this->$method($params);
     return $this->$key;
   }
 

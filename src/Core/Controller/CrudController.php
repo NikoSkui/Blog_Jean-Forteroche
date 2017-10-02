@@ -5,6 +5,8 @@ namespace System\Controller;
 use App\Libraries\RouterAware;
 use App\Libraries\Typography;
 
+use App\Admin\entities\Header;
+
 use System\Router;
 Use System\Http\Request;
 use System\Renderer\RendererInterface;
@@ -77,7 +79,7 @@ class CrudController
   */
   public function create (Request $request)
   {
-    $headerDatas = $this->getHeaderDatas('create');
+    $header = $this->getHeaderEntity('create');
     
     $element = $this->getNewEntity();
 
@@ -98,7 +100,7 @@ class CrudController
       return $this->redirect($this->prefixName . '#Read');
     }
 
-    return $this->renderer->render($this->viewPath . '/create', compact('headerDatas', 'element'));
+    return $this->renderer->render($this->viewPath . '/create', compact('header', 'element'));
   }
 
   /**
@@ -106,12 +108,12 @@ class CrudController
   */
   public function read (Request $request)
   {
-    $headerDatas = $this->getHeaderDatas('read');
+    $header = $this->getHeaderEntity('read');
 
     $elements =  $this->model->findAll();
     $additionnals =  $this->getAdditionnals();
 
-    return $this->renderer->render($this->viewPath . '/read', compact('headerDatas', 'elements','additionnals'));
+    return $this->renderer->render($this->viewPath . '/read', compact('header', 'elements','additionnals'));
   }
   /**
   * UPDATE one Element
@@ -121,7 +123,7 @@ class CrudController
     
     $element =  $this->model->findOne($request->getAttribute('id'));
 
-    $headerDatas = $this->getHeaderDatas('update', $element);
+    $header = $this->getHeaderEntity('update', $element);
 
     if ($request->getMethod() === 'PUT') {
       
@@ -141,7 +143,7 @@ class CrudController
       return $this->redirect($this->prefixName . '#Read');
     }
 
-    return $this->renderer->render($this->viewPath . '/update', compact('headerDatas', 'element'));
+    return $this->renderer->render($this->viewPath . '/update', compact('header', 'element'));
   }
 
   /**
@@ -184,26 +186,10 @@ class CrudController
     return [];
   }
 
-  protected function getHeaderDatas ($action, $element = null)
+  protected function getHeaderEntity ($action, $element = null)
   {
-    $header = new \StdClass();
-    $header->adminNavbar = [
-      'Book' => [
-        'name' => 'Livres',
-        'prefixName' => 'Admin#Books'
-      ],
-      'Chapters' => [
-        'name' => 'Chapitres',
-        'prefixName' => 'Admin#Chapters'
-      ]
-    ];
-
-    if ($this->renderer->hasView('@comment/')) {
-      $header->adminNavbar['Comments'] = [
-        'name' => 'Commentaires',
-        'prefixName' => 'Admin#Comments'
-      ];
-    }
+    $header = new Header($this->renderer);
+    
     return $header;
   }
 }

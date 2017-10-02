@@ -1,3 +1,68 @@
-.sitename{
+.sitename {
   margin-left: 5px; 
+}
+
+.return {
+  position: fixed;
+  left:16px;
+  bottom:14px;
+  width:48px;
+}
+.admin-access {
+  position: fixed;
+  padding:0 !important;
+  left:16px;
+  top:80px;
+  width:48px;
+}
+.return .has-text-primary:hover {
+  color: #00c4a7 !important; 
+}
+.return.admin {
+  bottom:70px;
+}
+.return .fa-stack-2x,
+.admin-access .fa-stack-2x
+{
+  font-size: 1.7em;
+}
+.return .fa-chevron-left {
+  font-size: .75em;
+  bottom:5px;
+}
+.admin-access .fa-tachometer {
+  bottom:7px;
+}
+
+/* COLOR PRIMARY  */
+a, 
+.button.is-primary.is-outlined,
+.tabs li.is-active a
+{
+  color: #ef8233 ;
+  border-color: #ef8233;
+}
+.button.is-primary
+{
+  background-color: #ef8233;
+  border-color: #ef8233; 
+}
+.button.is-primary:hover,
+.button.is-primary.is-outlined:focus, 
+.button.is-primary.is-outlined:hover
+{
+  background-color: #fa8735;
+  border-color: #fa8735;
+}
+.navbar.is-transparent {
+  background-color: transparent; 
+}
+.navbar-item.logo,
+.navbar-item.logo img {
+  position: fixed;
+  min-height: 48px;
+  min-width: 48px;
+  top: 20px;
+  border-radius: 24px;
+  z-index: 999
 }

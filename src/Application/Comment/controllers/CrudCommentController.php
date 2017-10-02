@@ -5,6 +5,7 @@ namespace App\Comment\controllers;
 
 use App\Comment\models\CommentModel;
 use App\Comment\models\ReportModel;
+use App\Comment\entities\Comment;
 
 use System\Router;
 use System\Http\Request;
@@ -85,7 +86,7 @@ class CrudCommentController extends CrudController
       foreach ($commentChildReports as $commentChildReport) {
         $this->reportModel->delete($commentChildReport);
       }
-      $this->commentModel->delete($commentChild);
+      $this->model->delete($commentChild);
     }
     // Step 2 : Find all reports of comment and delete them
     $commentReports = $this->reportModel->findAllBy('comments_id',$comment);
@@ -124,36 +125,52 @@ class CrudCommentController extends CrudController
   protected function getAdditionnals ()
   {
     $datas =  $this->reportModel->findAll();
-    $comments = [];
     foreach ($datas as $id => $reports) {
-      $comments[$id] = [
-          'id' => $id,
-          'pseudo' => htmlentities($reports[0]->pseudo),
-          'content' => htmlentities($reports[0]->content),
-          'chapter_name' => $reports[0]->chapter_name,
-          'book_name' => $reports[0]->book_name
-      ];
+      $comments[$id] = $this->getNewEntity();
+      $comments[$id]->id = $id;
+      $comments[$id]->pseudo = htmlentities($reports[0]->pseudo);
+      $comments[$id]->content = htmlentities($reports[0]->content);
+      $comments[$id]->chapter_name = $reports[0]->chapter_name;
+      $comments[$id]->book_name = $reports[0]->book_name;
+      // $comments[$id] = [
+      //     'id' => $id,
+      //     'pseudo' => htmlentities($reports[0]->pseudo),
+      //     'content' => htmlentities($reports[0]->content),
+      //     'chapter_name' => $reports[0]->chapter_name,
+      //     'book_name' => $reports[0]->book_name
+      // ];
       // organized datas by report_lvl
       foreach ($reports as $i => $report) {
-        $comments[$id]['reports'][$report->report_lvl][] = $report;
+        $comments[$id]->reports[$report->report_lvl][] = $report;
       }
     }
 
 
     foreach ($comments as $id => $comment) {
     // reduce datas array, keep the last entry
-      foreach ($comment['reports'] as $i => $report) {
-        $comments[$id]['reports'][$i] = array_slice($report, -1,1, true);
+      foreach ($comment->reports as $i => $report) {
+        $comments[$id]->reports[$i] = array_slice($report, -1,1, true);
       }
     }
+
     return $comments;
 
 
   }
 
-  protected function getHeaderDatas ($action, $element = null)
+  /**
+  * Create entity when you insert new item in bdd and add some inital values
+  */
+  protected function getNewEntity ()
   {
-    $header = parent::getHeaderDatas($action,$element);
+    $comment = new Comment();
+      
+    return $comment;
+  }
+
+  protected function getHeaderEntity ($action, $element = null)
+  {
+    $header = parent::getHeaderEntity($action,$element);
 
     $header->linkName = 'Livres'; 
     $header->prefixName = $this->prefixName;

@@ -1,6 +1,6 @@
 <article class="media" id="media-<?= $comment->id ?>">
   <figure class="media-left">
-    <?= $comment->gravatar ?>
+    <?= $comment->gravatar('64') ?>
   </figure>
   <div class="media-content">
     <div class="content" id="comment-<?= $comment->id ?>">
