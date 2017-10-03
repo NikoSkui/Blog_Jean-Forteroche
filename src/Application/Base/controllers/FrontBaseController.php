@@ -56,9 +56,13 @@ class FrontBaseController
   public function __invoke (Request $request, $next)
   {
     // return $next($request);
-    $header = $this->getHeaderEntity();    
+    $header = $this->getHeaderEntity(); 
 
-    return $this->renderer->render($this->viewPath . '/index', compact('header'));    
+    if($this->renderer->hasView('@blog/')) {
+      $book = $this->model->findForHomePage();
+    }   
+
+    return $this->renderer->render($this->viewPath . '/index', compact('header','book'));    
   }
 
   /**

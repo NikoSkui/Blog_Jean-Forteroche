@@ -21,7 +21,7 @@ class CommentModule extends Module
     $container->get(RendererInterface::class)->addPath(__DIR__ . '/views','comment');
 
     // Routes for Comments Module 
-    if ($container->has(\App\Admin\CommentModule::class)) {
+    if ($container->has(\App\Blog\BlogModule::class)) {
       $prefix_blog = $container->get('prefix.blog'); 
       $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}/signalements/new', CrudReportController::class, 'Front#Report#Create');
       $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}/comments/new', CrudCommentController::class, 'Front#Comment#Create');

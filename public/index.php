@@ -13,8 +13,8 @@ $app = (new \System\App(dirname(__DIR__) . '/config/config.php'))
         ->addModule(\App\Base\BaseModule::class)
         ->addModule(\App\Admin\AdminModule::class)
         ->addModule(\App\User\UserModule::class)
-        ->addModule(\App\Comment\CommentModule::class)
-        ->addModule(\App\Blog\BlogModule::class); 
+        ->addModule(\App\Blog\BlogModule::class) 
+        ->addModule(\App\Comment\CommentModule::class);
 /**
  * Step 3: Add Middlewares to sequence the application
  */
