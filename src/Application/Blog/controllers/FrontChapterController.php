@@ -140,6 +140,7 @@ class FrontChapterController
         $header->title = $element->name; 
         $header->subtitle = 'Sommaire';
         $header->typePage = 'readList';
+        $header->imgName = $element->slug;
         break;
       case 'readOne':
         $header->title = 'Chapitre ' . $element->chapters_order; 

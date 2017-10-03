@@ -1,4 +1,4 @@
-<header class="hero <?= $header->typePage === 'home' ? 'is-medium' : 'is-medium' ?>" style="background:url(<?= $urlHelper->baseUrl() ?>/img/bgheader.jpg);background-size:cover;height:100%;">
+<header class="hero is-medium " style="background:url(<?= $urlHelper->baseUrl() ?>/img/<?= isset($header->imgName) ? 'header_'.$header->imgName : 'bgheader' ?>.jpg);background-size:cover;height:100%;">
   <div class="hero-header">
       <?= $renderer->render('navbar') ?>
   </div>
