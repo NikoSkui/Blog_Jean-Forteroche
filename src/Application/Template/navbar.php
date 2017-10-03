@@ -43,7 +43,7 @@
         <?php else : ?>
           <div class="navbar-item">      
             <p class="control">
-              <a class="button is-primary is-outlined" href="<?= $router->generateUri('Admin#Chapters#Read') ?>">
+              <a class="button is-primary is-outlined" href="<?= $router->generateUri('Admin#Base#Index') ?>">
                 <span>Connexion</span>
               </a>
             </p>
