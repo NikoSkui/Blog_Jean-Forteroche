@@ -50,8 +50,8 @@
     </div>
   </div>
 </section>
-  <?php if($header->typePage === 'read'): ?>
-  <?= $renderer->render('@admin/template/navbar', ['navbar'=>$header->navbar]) ?>
+  <?php if(in_array($header->typePage,['read','dashboard'])): ?>
+  <?= $renderer->render('@admin/template/navbar', compact('header')) ?>
   <?php endif ?>
 
   <?php if(in_array($header->typePage,['create','update'])): ?>

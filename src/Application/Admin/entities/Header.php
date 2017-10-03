@@ -17,17 +17,17 @@ class Header
   public function __construct (RendererInterface $renderer) {
 
     $this->renderer = $renderer;
-    
-    $this->navbar = [
-      'Book' => [
+        
+    if ($this->renderer->hasView('@blog/')) {
+      $this->navbar['Book'] = [
         'name' => 'Livres',
         'prefixName' => 'Admin#Books'
-      ],
-      'Chapters' => [
+      ];
+      $this->navbar['Chapter'] = [
         'name' => 'Chapitres',
         'prefixName' => 'Admin#Chapters'
-      ]
-    ];
+      ];
+    }
 
     if ($this->renderer->hasView('@comment/')) {
       $this->navbar['Comments'] = [

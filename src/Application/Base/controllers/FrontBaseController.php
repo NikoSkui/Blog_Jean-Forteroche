@@ -53,14 +53,12 @@ class FrontBaseController
     $this->renderer->addGlobal('prefixNameChapters', $this->prefixNameChapters);
   }
    
-  public function __invoke (Request $request)
+  public function __invoke (Request $request, $next)
   {
-    if($this->renderer->hasView('@blog/')) {
-      $book = $this->model->findForHomePage();
-    }
+    // return $next($request);
     $header = $this->getHeaderEntity();    
-    return $this->renderer->render($this->viewPath . '/index', compact('header', 'book'));    
 
+    return $this->renderer->render($this->viewPath . '/index', compact('header'));    
   }
 
   /**

@@ -5,7 +5,7 @@
     </a>
       <?php if ($this->hasView('@admin/')): ?> 
         <?php if ($session->get('user')): ?> 
-          <a class="navbar-item is-hidden-desktop-only admin-access" href="<?= $router->generateUri('Admin#Chapters#Read') ?>" >
+          <a class="navbar-item is-hidden-desktop-only admin-access" href="<?= $router->generateUri('Admin#Base#Index') ?>" >
             <?= $renderer->render('@component/btn_admin')?>
           </a>
         <?php endif ?>

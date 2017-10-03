@@ -17,14 +17,16 @@ class CommentModule extends Module
   public function __construct (DIContainer $container)
   {
     $router = $container->get(Router::class);
-    $prefix_blog = $container->get('prefix.blog'); 
 
     $container->get(RendererInterface::class)->addPath(__DIR__ . '/views','comment');
 
     // Routes for Comments Module 
-    $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}/signalements/new', CrudReportController::class, 'Front#Report#Create');
-    $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}/comments/new', CrudCommentController::class, 'Front#Comment#Create');
-    
+    if ($container->has(\App\Admin\CommentModule::class)) {
+      $prefix_blog = $container->get('prefix.blog'); 
+      $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}/signalements/new', CrudReportController::class, 'Front#Report#Create');
+      $router->post($prefix_blog.'/{slugBook}/chapitre-{chapters_order}/{slugChapter}-{id}/comments/new', CrudCommentController::class, 'Front#Comment#Create');
+    }
+
     // Routes for Admin Module 
     if ($container->has(\App\Admin\AdminModule::class)) {
       $prefix_admin = $container->get('prefix.admin');  

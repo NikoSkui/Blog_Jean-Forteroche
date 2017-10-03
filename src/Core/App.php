@@ -88,22 +88,22 @@ class App
 
   public function send($response)
   {
-      $http_line = sprintf('HTTP/%s %s %s',
-          $response->getProtocolVersion(),
-          $response->getStatusCode(),
-          $response->getReasonPhrase()
-      );
-      if ($this->container->get('env') === 'prod') {
-        header($http_line, true, $response->getStatusCode());
-      }
-      foreach ($response->getHeaders() as $name => $values) {
-          foreach ($values as $value) {
-              header("$name: $value", false);
-          }
-      }
+    $http_line = sprintf('HTTP/%s %s %s',
+        $response->getProtocolVersion(),
+        $response->getStatusCode(),
+        $response->getReasonPhrase()
+    );
+    if ($this->container->get('env') === 'prod') {
+      header($http_line, true, $response->getStatusCode());
+    }
+    foreach ($response->getHeaders() as $name => $values) {
+        foreach ($values as $value) {
+            header("$name: $value", false);
+        }
+    }
 
 
-      echo $response->getBody();
+    echo $response->getBody();
 
   }
 

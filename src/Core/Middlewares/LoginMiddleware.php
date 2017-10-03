@@ -36,12 +36,12 @@ class LoginMiddleware
     $prefix = strtolower(strstr($path,'#',true));
     switch ($prefix) {
       case 'admin':
-      if (is_null($session->get('user'))){
-        $redirectUri = $router->generateUri("User#Control#Login",$params);
-        return (new Response())
-          ->withStatus(301)
-          ->withHeader('Location', $redirectUri);
-      }
+        if (is_null($session->get('user'))){
+          $redirectUri = $router->generateUri("User#Control#Login",$params);
+          return (new Response())
+            ->withStatus(301)
+            ->withHeader('Location', $redirectUri);
+        }
         return $next($request);
         break;
       

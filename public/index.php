@@ -18,13 +18,13 @@ $app = (new \System\App(dirname(__DIR__) . '/config/config.php'))
 /**
  * Step 3: Add Middlewares to sequence the application
  */
-$app->pipe(\System\Middlewares\WhoopsMiddleware::class)
-    ->pipe(\System\Middlewares\TrailingSlashMiddleware::class)
-    ->pipe(\System\Middlewares\MethodMiddleware::class)
-    ->pipe(\System\Middlewares\RouterMiddleware::class)
-    ->pipe(\System\Middlewares\LoginMiddleware::class)
-    ->pipe(\System\Middlewares\DispatcherMiddleware::class)
-    ->pipe(\System\Middlewares\NotFoundMiddleware::class);
+$app->pipe(\System\Middlewares\WhoopsMiddleware::class)         // For debug
+    ->pipe(\System\Middlewares\TrailingSlashMiddleware::class)  // For delete slash at the end of uri
+    ->pipe(\System\Middlewares\MethodMiddleware::class)         // For add method PUT and DELETE
+    ->pipe(\System\Middlewares\RouterMiddleware::class)         // For see if match  in routes store 
+    ->pipe(\System\Middlewares\LoginMiddleware::class)          // For see if is secure space
+    ->pipe(\System\Middlewares\DispatcherMiddleware::class)         // For add method PUT and DELETE
+    ->pipe(\System\Middlewares\NotFoundMiddleware::class);      // For 404 Error if not return before
 
  /**
  * Step 4: Run application

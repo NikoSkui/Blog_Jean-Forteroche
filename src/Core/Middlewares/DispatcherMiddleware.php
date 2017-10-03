@@ -31,7 +31,7 @@ class DispatcherMiddleware
     if (is_string($callback)) {
         $callback = $this->container->get($callback);
     }
-    $response = call_user_func_array($callback, [$request]);
+    $response = call_user_func_array($callback, [$request,$next]);
 
     // According to the response, return a result
     switch ($response) {
