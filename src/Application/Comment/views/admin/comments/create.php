@@ -1,5 +1,5 @@
 <!--Form -->
-<form class="media" action="<?= $router->generateUri('Front#Comment#Create', [
+<form class="media animated fadeIn" action="<?= $router->generateUri('Front#Comment#Create', [
                                 'slugBook' => $commentsFormAction['slugBook'],
                                 'chapters_order' => $commentsFormAction['chapters_order'],
                                 'slugChapter' => $commentsFormAction['slugChapter'],
