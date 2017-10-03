@@ -29,7 +29,7 @@
                 </span>
               </div>
               <div class="media-right">
-                <form 
+                <!-- <form 
                   action="<?= $router->generateUri($prefixName.'#Delete', ['id' => $book->id]) ?>" 
                   method="post" 
                   onsubmit="return confirm('êtes vous sûr de vouloir supprimer ce chapitre ?')"
@@ -37,7 +37,7 @@
                   >
                   <input type="hidden" name="_method" value ="DELETE">
                   <button class="delete " type="submit"></button>
-                </form>
+                </form> -->
               </div>
             </article>
           <?php endforeach?>
