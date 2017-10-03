@@ -3,6 +3,8 @@ window.addEventListener('load', function() {
 });
 editor = ContentTools.EditorApp.get();
 editor.init('*[data-editable]', 'data-name');
+ContentTools.CANCEL_MESSAGE = 'Vos changements n\'ont pas été sauvegardés, voulez vous vraiment les perdre ?'.trim()
+
 
 editor.addEventListener('saved', function (ev) {
     var name, onStateChange, passive, payload, regions, xhr;
