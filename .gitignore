@@ -2,3 +2,5 @@
 /.vscode
 # ignore config files  perso
 config.php
+# ignore sass bulma
+librariesExternals/bulma-0.5-2.3
