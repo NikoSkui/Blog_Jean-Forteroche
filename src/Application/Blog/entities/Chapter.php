@@ -14,6 +14,7 @@ class Chapter
   private $modified_at;
   private $chapters_order;
   private $books_id;
+  private $statut;
   private $slugBook;
 
   public function __construct()
@@ -84,6 +85,14 @@ class Chapter
   private function getChapters_order()
   {
     return $this->chapters_order;
+  }
+
+  /**
+   * Method to get private attribute
+   **/
+  private function getStatut()
+  {
+    return $this->statut;
   }
 
   /**
@@ -169,11 +178,19 @@ class Chapter
   /**
    * Method to set private attribute
    **/
+  private function setStatut($value)
+  {
+    $this->statut = $value;
+    return $this->statut;  
+  }
+
+  /**
+   * Method to set private attribute
+   **/
   private function setBooks_id($value)
   {
     $this->books_id = $value;
-    return $this->books_id;
-    
+    return $this->books_id;  
   }
 
   /**

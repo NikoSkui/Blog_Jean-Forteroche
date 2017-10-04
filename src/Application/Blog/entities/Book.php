@@ -14,7 +14,7 @@ class Book
   public $excerpt;
   public $created_at;
   public $modified_at;
-  public $status;
+  public $statut;
 
   public function __construct(DIContainer $container)
   {

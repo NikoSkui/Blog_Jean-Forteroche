@@ -55,7 +55,7 @@ class ChapterModel extends Model
 
   protected function queryFindAll()
   {
-    return "SELECT b.name as book_name, c.id, c.name, c.slug, c.chapters_order, c.books_id
+    return "SELECT b.name as book_name, c.id, c.name, c.slug, c.chapters_order, c.books_id, c.statut
             FROM chapters as c
             LEFT JOIN books as b ON c.books_id = b.id
             ORDER BY b.id ASC, c.chapters_order DESC";

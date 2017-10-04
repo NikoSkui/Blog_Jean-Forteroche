@@ -9,9 +9,9 @@
             <article class="media  container">
               <!-- <div class="box"> -->
               <figure class="media-left">
-                <p class="image is-24x24">
-                  <img src="http://bulma.io/images/placeholders/96x96.png">
-                </p>
+               <span class="icon <?= $book->statut === 'publish' ? 'has-text-success': 'has-text-danger'  ?>">
+                  <i class="fa fa-circle"></i>
+                </span>
               </figure>
               <div class="media-content">
                 <div class="content">
