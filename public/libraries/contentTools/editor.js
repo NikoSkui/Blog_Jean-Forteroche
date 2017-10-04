@@ -27,7 +27,11 @@ editor.addEventListener('saved', function (ev) {
     for (name in regions) {
         payload.append(name, regions[name]);
     }
+
+    // Add variable '_method' with value PUT for captation by MethodMidlleware
     payload.append('_method', 'PUT');
+
+    // Add variable if is a create request
     if(window.location.pathname.substr(-3) == 'new'){
         var created_at = document.getElementById("created_at").value; 
         var books_id = document.getElementById("books_id").value; 

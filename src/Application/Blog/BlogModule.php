@@ -30,17 +30,12 @@ class BlogModule extends Module
     $router->get($prefix_blog . '/{slugBook}/chapitres', FrontChapterController::class, 'Front#Chapters#List');
     $router->get($prefix_blog . '/{slugBook}/chapitre-{chapters_order}/{slugChapter}', FrontChapterController::class, 'Front#Chapters#One');
     
-    // Routes for Comments Module 
-    if ($container->has(\App\Comment\CommentModule::class)) {
-    }
-
-    // Routes for Admin Module 
+    // Routes for Admin Module if Admin Module exist 
     if ($container->has(\App\Admin\AdminModule::class)) {
-      $prefix_admin = $container->get('prefix.admin');  
-      
+      $prefix_admin = $container->get('prefix.admin');
       $router->crud($prefix_admin.'/livres',CrudBookController::class, 'Admin#Books');      
       $router->crud($prefix_admin.'/chapitres',CrudChapterController::class, 'Admin#Chapters');
-    }  
+    }
     
   }
   

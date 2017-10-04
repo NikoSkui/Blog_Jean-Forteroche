@@ -33,7 +33,9 @@ class CrudChapterController extends CrudController
   private $commentModel;
   private $reportModel;
 
-
+  /**
+  * CONSTRUCTOR
+  */
   public function __construct(
     Router $router,
     RendererInterface $renderer,
@@ -98,9 +100,7 @@ class CrudChapterController extends CrudController
     if(isset($datas['chapters_order']) && !empty($datas['chapters_order'])){
       $datas['chapters_order'] = strip_tags($datas['chapters_order']);
     }
-    // if(isset($datas['content']) && !empty($datas['content'])){
-    //   $datas['content'] = substr($datas['content'],3,-4);
-    // }
+    
     return array_merge($datas,[
       'modified_at' => date('Y-m-d H:i:s') 
     ]);
@@ -118,11 +118,13 @@ class CrudChapterController extends CrudController
     return $chapter;
   }
 
+  /**
+  * Create entity Header 
+  */
   protected function getHeaderEntity ($action, $element = null)
   {
     $header = parent::getHeaderEntity($action,$element);
 
-    $header->linkName = 'Chapitres'; 
     $header->prefixName = $this->prefixName;
 
     switch ($action) {
@@ -132,7 +134,7 @@ class CrudChapterController extends CrudController
         break;
       case 'read':
         $header->subtitle = 'Gestion des chapitres du livres';
-        $header->btnTxt = 'Ajouter un nouveau chapitre';
+        $header->callToAction = 'Ajouter un nouveau chapitre';
         $header->typePage = 'read';
         break;
       case 'update':

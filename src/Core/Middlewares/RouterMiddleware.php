@@ -42,6 +42,7 @@ class RouterMiddleware
     }, $request);
 
     $request = $request->withAttribute(get_class($route), $route);
+    
     return $next($request);
   }
   

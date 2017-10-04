@@ -85,6 +85,11 @@ trait MessageTrait
     return $this->headers;
   }
 
+  // public function setHeaders($header, $value)
+  // {
+  //   $this->headers[$header]=$value;
+  // }
+
   /**
     * Checks if a header exists by the given case-insensitive name.
     *

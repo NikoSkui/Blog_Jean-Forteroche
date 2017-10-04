@@ -18,7 +18,7 @@ class App
   private $modules = [];
 
   /**
-  * List of modules.
+  * List of middlewares.
   * @var array
   */
   private $middlewares = [];
@@ -45,19 +45,27 @@ class App
 
   /**
   * App constructor.
-  * @param array $modules List of modules charged
+  * @param string $config Path to default config
   */
   public function __construct($config)
   {
     $this->defaultConfig = $config;
   }
 
+  /**
+  * Adding a module to load
+  * @param instance $module Name of instance to load
+  */
   public function addModule($module)
   {
     $this->modules[] = $module;
     return $this;
   }
 
+  /**
+  * Adding a middleware to load
+  * @param instance $middleware Name of instance to load
+  */
   public function pipe($middleware)
   {
     $this->middlewares[] = $middleware;
@@ -78,6 +86,10 @@ class App
 
   }
 
+  /**
+  * Instantiates all modules and processes middleware
+  * @param object $request 
+  */
   public function run($request)
   { 
     foreach ($this->modules as $module) {
@@ -86,6 +98,10 @@ class App
     return $this->handle($request);
   }
 
+  /**
+  * Return the response to the brower with good header
+  * @param object $response 
+  */
   public function send($response)
   {
     $http_line = sprintf('HTTP/%s %s %s',
@@ -101,7 +117,6 @@ class App
             header("$name: $value", false);
         }
     }
-
 
     echo $response->getBody();
 

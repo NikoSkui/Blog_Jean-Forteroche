@@ -24,8 +24,6 @@ class Comment
 
   public function __construct()
   {
-    
-
       $this->content = htmlentities($this->content);
       $this->pseudo = htmlentities($this->pseudo);
       $this->created_at = new \Datetime($this->created_at);
@@ -49,6 +47,7 @@ class Comment
         $this->indexEndChapter ++;
         $this->indexComment ++;
       } 
+
       if (
         (isset($elements[0][$key+1]->chapters_order) && 
         $elements[0][$key+1]->chapters_order !== $this->chapters_order) ||
@@ -84,7 +83,7 @@ class Comment
   }
 
   /**
-   * Method magique __get
+   * Method magique __Call
    */
   public function __CALL($key, $params)
   {

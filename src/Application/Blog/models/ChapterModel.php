@@ -17,7 +17,7 @@ class ChapterModel extends Model
 
   public function findAllWithBook($id)
   {
-    $query = "SELECT b.name, c.chapters_order, c.slug as slugChapter, c.chapters_order, b.slug as slugBook
+    $query = "SELECT b.name, c.chapters_order, c.slug as slug, c.chapters_order, b.slug as slugBook
               FROM chapters as c
               LEFT JOIN books as b ON c.books_id = b.id
               WHERE b.id = ?

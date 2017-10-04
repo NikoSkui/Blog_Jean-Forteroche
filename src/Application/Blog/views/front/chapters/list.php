@@ -6,7 +6,7 @@
           href="<?= $router->generateUri($prefixNameChapters . '#One', [
                     'slugBook' => $chapter->slugBook,
                     'chapters_order' => $chapter->chapters_order,
-                    'slugChapter' => $chapter->slugChapter]) 
+                    'slugChapter' => $chapter->slug]) 
                 ?>">
         <div>
           <p class="heading">Chapitre</p>

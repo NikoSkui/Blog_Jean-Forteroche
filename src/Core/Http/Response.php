@@ -103,7 +103,10 @@ class Response
       $this->body = new Stream($stream, $options);
     }
 
-    // $this->setHeaders($headers);
+    // foreach ($headers as $header => $value) {
+    //   $this->setHeaders[$header] = $value;
+    // }
+
     if ($reason == '' && isset(self::$phrases[$this->statusCode])) {
         $this->reasonPhrase = self::$phrases[$this->statusCode];
     } else {

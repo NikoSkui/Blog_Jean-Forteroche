@@ -42,6 +42,9 @@ class CrudController
   use RouterAware;
   use Typography;
 
+  /**
+  * CONSTRUCTOR
+  */
   public function __construct(
     RendererInterface $renderer, 
     Router $router, 
@@ -56,7 +59,7 @@ class CrudController
   }
 
   /**
-  * method called when a route that matches call the child class
+  * INVOKE method called when a route that matches call the child class
   */ 
   public function __invoke (Request $request)
   {
@@ -79,9 +82,9 @@ class CrudController
   */
   public function create (Request $request)
   {
-    $header = $this->getHeaderEntity('create');
-    
     $element = $this->getNewEntity();
+    
+    $header = $this->getHeaderEntity('create');
 
     if ($request->getMethod() === 'POST') {
       /**
@@ -108,9 +111,10 @@ class CrudController
   */
   public function read (Request $request)
   {
-    $header = $this->getHeaderEntity('read');
-
     $elements =  $this->model->findAll();
+
+    $header = $this->getHeaderEntity('read');
+    
     $additionnals =  $this->getAdditionnals();
 
     return $this->renderer->render($this->viewPath . '/read', compact('header', 'elements','additionnals'));
@@ -120,7 +124,6 @@ class CrudController
   */
   public function update (Request $request)
   {
-    
     $element =  $this->model->findOne($request->getAttribute('id'));
 
     $header = $this->getHeaderEntity('update', $element);
@@ -137,10 +140,6 @@ class CrudController
       */
       $this->model->update($element->id, $datas);
 
-      /**
-      * Step 3: Redirection to the original page.
-      */
-      return $this->redirect($this->prefixName . '#Read');
     }
 
     return $this->renderer->render($this->viewPath . '/update', compact('header', 'element'));
@@ -181,6 +180,7 @@ class CrudController
   {
     return [];
   }
+  
   protected function getAdditionnals ()
   {
     return [];

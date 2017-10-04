@@ -15,10 +15,10 @@
           </h1>
           <?php endif ?>       
         </div>
-        <?php if(isset($header->btnTxt)): ?>
+        <?php if(isset($header->callToAction)): ?>
           <div class="column is-narrow">
               <a class="button is-info is-medium" href="<?= $router->generateUri($prefixName.'#Create') ?>" style="box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);">
-                <?= $header->btnTxt ?>
+                <?= $header->callToAction ?>
               </a>
           </div>
         <?php endif ?> 
