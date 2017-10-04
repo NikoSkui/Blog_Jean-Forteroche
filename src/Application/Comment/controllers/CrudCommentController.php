@@ -129,6 +129,7 @@ class CrudCommentController extends CrudController
       $comments[$id] = $this->getNewEntity();
       $comments[$id]->id = $id;
       $comments[$id]->pseudo = htmlentities($reports[0]->pseudo);
+      $comments[$id]->email = htmlentities($reports[0]->email);
       $comments[$id]->content = htmlentities($reports[0]->content);
       $comments[$id]->chapter_name = $reports[0]->chapter_name;
       $comments[$id]->book_name = $reports[0]->book_name;
@@ -166,7 +167,6 @@ class CrudCommentController extends CrudController
   {
     $header = parent::getHeaderEntity($action,$element);
 
-    $header->linkName = 'Livres'; 
     $header->prefixName = $this->prefixName;
 
     switch ($action) {

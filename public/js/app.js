@@ -23,16 +23,19 @@ jQuery(document).ready(function($){
   $('.report').click(function(e){
     e.preventDefault()
     var $content = $('#comment-content-modal')
+    var $avatar_modal = $('#comment-content-avatar')
     var $modal = $('#modal')
     var $modalCard = $('.modal-card')
     var $form = $('#form-modal')
     var $this = $(this)
     var $comments_id = $this.data('id')
     var $comment = $('#comment-' + $comments_id).clone()
+    var $avatar = $('#avatar-' + $comments_id).clone()
 
     $comment.find('#action').remove()
     $form.find("#comments_id").val($comments_id)
     $content.append($comment);
+    $avatar_modal.append($avatar);
     $modal.addClass('is-active')
     $modal.removeClass('fadeOut')
     $modalCard.addClass('fadeInDown')
@@ -40,12 +43,14 @@ jQuery(document).ready(function($){
   // Delete la fenetre modal quand l'utilisateur clique en dehors de la card
   $('#modal').click(function(e) { 
     var $content = $('#comment-content-modal').children()
+    var $avatar_modal = $('#comment-content-avatar').children()
     var $modal = $(this)
     var $modalCard = $('.modal-card')
     if(!$(e.target).closest($modalCard).length){
       $modal.addClass('fadeOut').delay(800).queue(function(){
         $modal.removeClass('is-active')
         $content.remove()
+        $avatar_modal.remove()
         $(this).dequeue();
       })
     }

@@ -1,5 +1,5 @@
 <article class="media" id="media-<?= $comment->id ?>">
-  <figure class="media-left">
+  <figure class="media-left" id="avatar-<?= $comment->id ?>">
     <?= $comment->gravatar('64') ?>
   </figure>
   <div class="media-content">

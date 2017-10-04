@@ -20,11 +20,7 @@
           <!-- <div class=""> -->
             <!-- <div class=""> -->
               <article class="media" style="padding: 1.25rem;">
-                <figure class="media-left">
-                  <p class="image is-64x64">
-                    <img src="http://bulma.io/images/placeholders/128x128.png">
-                  </p>
-                </figure>
+                <div id="comment-content-avatar"></div>
                 <div class="media-content">
                   <div class="content" id="comment-content-modal">
                   </div>
