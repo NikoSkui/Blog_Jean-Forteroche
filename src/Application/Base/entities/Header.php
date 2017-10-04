@@ -8,5 +8,4 @@ class Header
   public $title = 'Jean Forteroche';
   public $subtitle = 'A livre ouvert';
   public $callToAction;
-
 }

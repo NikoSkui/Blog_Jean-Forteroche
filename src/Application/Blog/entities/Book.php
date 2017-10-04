@@ -32,7 +32,7 @@ class Book
     $renderer = $this->container->get(\System\Renderer\RendererInterface::class);
 
     $router = $this->container->get(\System\Router::class);
-    $name = 'ouvrir';
+
     foreach ($params as $param) {
       if(is_array($param) && array_key_exists('slug',$param)) {
         $slug = $param['slug'];

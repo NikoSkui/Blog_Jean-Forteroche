@@ -84,7 +84,6 @@ class CrudBookController extends CrudController
 
   }
 
-
   /**
   * Filter to recover only of the desired keys.
   */
@@ -122,13 +121,12 @@ class CrudBookController extends CrudController
   }
 
   /**
-  * Create entity Header when you insert new item in bdd and add some inital values
+  * Create entity Header
   */
   protected function getHeaderEntity ($action, $element = null)
   {
     $header = parent::getHeaderEntity($action,$element);
 
-    $header->linkName = 'Livres'; 
     $header->prefixName = $this->prefixName;
 
     switch ($action) {
