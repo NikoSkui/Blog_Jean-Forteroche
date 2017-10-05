@@ -10,15 +10,12 @@
   bottom: 10px !important;
   color: white;
 }
-.ct-widget .ct-ignition__button--return:before{
-
-}
 
 .ct-widget .ct-ignition__button--edit{
-  background-color: #3273dc;
+  background-color: #33a0ef;
 }
 .ct-widget .ct-ignition__button--edit:hover{
-  background-color: #276cda;
+  background-color: #45a8f0;
 }
 .ct-widget .ct-ignition__button--confirm{
   background-color: #23d160;
