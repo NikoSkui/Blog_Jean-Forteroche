@@ -6,7 +6,7 @@ $params = [
 
 <?= $renderer->render('head', compact('params')) ?>
 
-<?php if(!in_array($header->typePage,['login'])): ?>
+<?php if(!in_array($header->typePage,['login','erreur'])): ?>
 <?= $renderer->render('header', compact('header')) ?>
 <?php endif ?>
 

@@ -73,22 +73,23 @@ class FrontChapterController
     $this->renderer->addGlobal('prefixNameChapters', $this->prefixNameChapters);
   }
    
-  public function __invoke (Request $request)
+  public function __invoke (Request $request, $next)
   {
     if ($request->getAttribute('slugChapter') ) {
-      return $this->oneChapter($request);
+      return $this->oneChapter($request, $next);
     }
-     return $this->listChapters($request);
+     return $this->listChapters($request, $next);
   }
     
   /**
   * READ list of Element 
   */
-  public function listChapters (Request $request)
+  public function listChapters (Request $request, $next)
   {
     $book = $this->bookModel->findBy('slug',$request->getAttribute('slugBook'));
     if($book === false) {
-      return new Response(404, [], '<h1>Erreur 404 : book not Found for chapters<h1>');
+      $request = $request->withAttribute('message', 'le livre est introuvable');
+      return $next($request);
     }
     $header = $this->getHeaderEntity('readList',$book);
     $elements =  $this->model->findAllWithBook($book->id); 
@@ -101,15 +102,17 @@ class FrontChapterController
   /**
   * READ one of Element 
   */
-  public function oneChapter (Request $request)
+  public function oneChapter (Request $request, $next)
   {
     $book = $this->bookModel->findBy('slug',$request->getAttribute('slugBook'));
     if($book === false) {
-      return new Response(404, [], '<h1>Erreur 404 : book not Found for the chapter<h1>');
+      $request = $request->withAttribute('message', 'le livre est introuvable pour ce chapitre');
+      return $next($request);
     }
     $chapter = $this->model->findOneWithBook($request->getAttribute('slugChapter'),$book->id);
     if($chapter === false) {
-      return new Response(404, [], '<h1>Erreur 404 : chapter not Found<h1>');
+      $request = $request->withAttribute('message', 'le chapitre est introuvable');
+      return $next($request);
     }
     $header = $this->getHeaderEntity('readOne',$chapter);
     if($chapter->chapters_order !== $request->getAttribute('chapters_order')) {

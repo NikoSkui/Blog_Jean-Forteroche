@@ -133,7 +133,7 @@ class CrudChapterController extends CrudController
         $header->typePage = 'create';
         break;
       case 'read':
-        $header->subtitle = 'Gestion des chapitres du livres';
+        $header->subtitle = 'Gestion des chapitres du livre';
         $header->callToAction = 'Ajouter un nouveau chapitre';
         $header->typePage = 'read';
         break;

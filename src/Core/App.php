@@ -109,9 +109,8 @@ class App
         $response->getStatusCode(),
         $response->getReasonPhrase()
     );
-    if ($this->container->get('env') === 'prod') {
-      header($http_line, true, $response->getStatusCode());
-    }
+    header($http_line, true, $response->getStatusCode());
+    
     foreach ($response->getHeaders() as $name => $values) {
         foreach ($values as $value) {
             header("$name: $value", false);

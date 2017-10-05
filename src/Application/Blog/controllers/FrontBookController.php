@@ -53,11 +53,10 @@ class FrontBookController
     $this->renderer->addGlobal('prefixNameChapters', $this->prefixNameChapters);
   }
    
-  public function __invoke (Request $request)
+  public function __invoke (Request $request, $next)
   {
-
     if ($request->getAttribute('slugBook') ) {
-      return $this->oneBook($request);
+      return $this->oneBook($request, $next);
     }
      return $this->listBooks($request);
   }
@@ -76,11 +75,12 @@ class FrontBookController
   /**
   * READ one of Element 
   */
-  public function oneBook (Request $request)
+  public function oneBook (Request $request, $next)
   {
     $book = $this->model->findBy('slug',$request->getAttribute('slugBook'));
     if($book === false) {
-      return new Response(404, [], '<h1>Erreur 404 : book not Found<h1>');
+      $request = $request->withAttribute('message', 'le livre est introuvable');
+      return $next($request);
     }
     $header = $this->getHeaderEntity('readOne',$book);
 

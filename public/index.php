@@ -11,6 +11,7 @@ require dirname(__DIR__).'/src/Core/Autoload.php';
  */
 $app = (new \System\App(dirname(__DIR__) . '/config/config.php'))
         ->addModule(\App\Base\BaseModule::class)                // For the home page
+        ->addModule(\App\Error\ErrorModule::class)              // For the error page
         ->addModule(\App\Admin\AdminModule::class)              // For the administration area
         ->addModule(\App\User\UserModule::class)                // To control access to private areas
         ->addModule(\App\Blog\BlogModule::class)                // For blog pages
