@@ -11,6 +11,7 @@ class Header
   private $prefixName;
   private $typePage = 'dashboard';
   private $name;
+  private $email;
   private $title = 'Administration';
   private $subtitle = 'Gestion du site';
   private $callToAction;
@@ -53,6 +54,14 @@ class Header
   private function getName()
   {
     return $this->name;
+  }
+
+  /**
+   * Method to get private attribute
+   **/
+  private function getEmail()
+  {
+    return $this->email;
   }
 
   /**
@@ -104,6 +113,14 @@ class Header
   {
     $this->name = $value;
     return $this->name;
+  }
+  /**
+   * Method to set private attribute
+   **/
+  private function setEmail($value)
+  {
+    $this->email = $value;
+    return $this->email;
   }
   
   /**

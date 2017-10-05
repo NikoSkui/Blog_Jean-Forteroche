@@ -124,7 +124,7 @@ class CrudController
   */
   public function update (Request $request)
   {
-    $element =  $this->model->findOne($request->getAttribute('id'));
+    $element = $this->model->findOne($request->getAttribute('id'));
 
     $header = $this->getHeaderEntity('update', $element);
 
